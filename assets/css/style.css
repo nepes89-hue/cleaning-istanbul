@@ -1,6 +1,4 @@
 /* ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ ВЕРСИЙ САЙТА */
-
-/* 1. Сброс стандартных отступов */
 * {
     margin: 0;
     padding: 0;
@@ -8,14 +6,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 2. Тело сайта */
 body {
     line-height: 1.6;
     color: #333;
     background-color: #f9f9f9;
 }
 
-/* 3. Контейнер для центрирования контента */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -23,7 +19,7 @@ body {
     padding: 0 15px;
 }
 
-/* 4. ШАПКА САЙТА (header) */
+/* ШАПКА САЙТА */
 .site-header {
     background-color: #2c3e50;
     color: white;
@@ -41,7 +37,6 @@ body {
     align-items: center;
 }
 
-/* Логотип */
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
@@ -64,7 +59,6 @@ body {
     margin-left: 10px;
 }
 
-/* Главное меню */
 .main-nav {
     display: flex;
     gap: 25px;
@@ -97,7 +91,6 @@ body {
     background: #1abc9c;
 }
 
-/* Переключатель языков */
 .lang-switcher {
     display: flex;
     gap: 8px;
@@ -124,7 +117,6 @@ body {
     font-weight: bold;
 }
 
-/* Контакты в шапке */
 .header-contacts {
     display: flex;
     align-items: center;
@@ -156,12 +148,10 @@ body {
     white-space: nowrap;
 }
 
-/* 5. ОСНОВНОЙ КОНТЕНТ */
 .main-content {
-    margin-top: 80px; /* Чтобы контент не скрывался под фиксированной шапкой */
+    margin-top: 80px;
 }
 
-/* Герой-секция (первый блок) */
 .hero-section {
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/hero-bg.jpg');
     background-size: cover;
@@ -208,7 +198,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* 6. СЕКЦИИ */
 .section {
     padding: 60px 0;
 }
@@ -230,7 +219,6 @@ body {
     margin: 15px auto;
 }
 
-/* 7. КАРТОЧКИ УСЛУГ */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -301,7 +289,6 @@ body {
     background: #2980b9;
 }
 
-/* 8. ТАБЛИЦА ЦЕН */
 .prices-section {
     background: #f5f7fa;
 }
@@ -336,7 +323,41 @@ body {
     background: #eef7ff;
 }
 
-/* 9. КОНТАКТЫ */
+.calculator {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.calc-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.calc-result {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+.price-protection {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .contacts-section {
     background: #34495e;
     color: white;
@@ -358,12 +379,6 @@ body {
     margin-bottom: 15px;
 }
 
-.contact-item h3 {
-    margin-bottom: 10px;
-    font-size: 1.3rem;
-}
-
-/* 10. ФОРМА ЗАКАЗА */
 .order-form {
     max-width: 600px;
     margin: 0 auto;
@@ -421,7 +436,6 @@ textarea.form-input {
     background: #c0392b;
 }
 
-/* 11. ПОДВАЛ (footer) */
 .site-footer {
     background: #2c3e50;
     color: #bdc3c7;
@@ -443,7 +457,6 @@ textarea.form-input {
     text-decoration: underline;
 }
 
-/* 12. АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ */
 @media (max-width: 992px) {
     .header-content {
         flex-direction: column;
