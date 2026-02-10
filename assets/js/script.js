@@ -1,5 +1,5 @@
 // =============================================
-// ОСНОВНЫЕ ФУНКЦИИ ДЛЯ WHATSAPP УВЕДОМЛЕНИЙ
+// ОСНОВНЫЕ НАСТРОЙКИ
 // =============================================
 
 // ВАШ НОМЕР WHATSAPP (ИЗМЕНИТЕ НА СВОЙ!)
@@ -19,65 +19,119 @@ function getCurrentLanguage() {
     return activeBtn ? activeBtn.textContent : 'ru';
 }
 
-function showDiscountNotification(discount) {
+// =============================================
+// КРАСИВЫЕ УВЕДОМЛЕНИЯ ДЛЯ КЛИЕНТА
+// =============================================
+
+function showSuccessNotification(title, message, discount = 0) {
     const notification = `
-        <div class="discount-notification" style="
+        <div class="success-notification" style="
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 9999;
-            max-width: 300px;
-            animation: slideIn 0.5s ease;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 99999;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
         ">
-            <h4 style="margin: 0 0 10px 0;">🎉 Вам предоставлена скидка!</h4>
-            <p style="margin: 0; font-size: 1.5rem; font-weight: bold;">${discount}% на все услуги</p>
-            <p style="margin: 10px 0 0 0; font-size: 0.9rem;">Скидка автоматически применяется при заказе</p>
-            <button onclick="this.parentElement.remove()" style="
+            <div style="font-size: 3rem; margin-bottom: 15px; color: #2ecc71;">
+                ✅
+            </div>
+            <h3 style="margin: 0 0 10px 0; color: #2c3e50;">${title}</h3>
+            <p style="margin: 0 0 15px 0; color: #666; line-height: 1.5;">${message}</p>
+            
+            ${discount > 0 ? `
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <h4 style="margin: 0 0 5px 0; color: #e74c3c;">🎉 Ваша скидка!</h4>
+                    <p style="margin: 0; font-size: 1.8rem; font-weight: bold; color: #e74c3c;">
+                        ${discount}% на все услуги
+                    </p>
+                </div>
+            ` : ''}
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="closeNotification()" style="
+                    flex: 1;
+                    padding: 12px;
+                    background: #3498db;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">
+                    Продолжить
+                </button>
+                <button onclick="saveToContacts()" style="
+                    flex: 1;
+                    padding: 12px;
+                    background: #2ecc71;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    cursor: pointer;
+                ">
+                    📞 Сохранить контакт
+                </button>
+            </div>
+            
+            <button onclick="closeNotification()" style="
                 position: absolute;
-                top: 5px;
-                right: 5px;
+                top: 10px;
+                right: 10px;
                 background: none;
                 border: none;
-                color: white;
+                font-size: 1.5rem;
                 cursor: pointer;
-                font-size: 1.2rem;
+                color: #999;
             ">×</button>
         </div>
+        <div style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 99998;
+            animation: fadeIn 0.3s ease;
+        "></div>
     `;
     
     document.body.insertAdjacentHTML('beforeend', notification);
-    setTimeout(() => {
-        const el = document.querySelector('.discount-notification');
-        if (el) el.remove();
-    }, 10000);
 }
 
-// Локальная база данных
-function saveToLocalDatabase(data) {
-    const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
-    
-    if (data.type === 'registration') {
-        db.registrations.push(data);
-    } else if (data.type === 'order') {
-        db.orders.push(data);
-    }
-    
-    localStorage.setItem('cleaningDatabase', JSON.stringify(db));
-    
-    // Статистика в консоль
-    console.log('📊 База обновлена:', {
-        регистраций: db.registrations.length,
-        заявок: db.orders.length
-    });
+function closeNotification() {
+    const notifications = document.querySelectorAll('.success-notification, .success-notification + div');
+    notifications.forEach(el => el.remove());
 }
+
+function saveToContacts() {
+    const phone = '+90 555 064 40 89';
+    const message = encodeURIComponent('Здравствуйте! Хочу получить консультацию по услугам химчистки.');
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    closeNotification();
+}
+
+// Стили для анимаций
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+`;
+document.head.appendChild(style);
 
 // =============================================
-// РЕГИСТРАЦИЯ С УВЕДОМЛЕНИЕМ В WHATSAPP
+// РЕГИСТРАЦИЯ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP)
 // =============================================
 
 async function registerForPrices() {
@@ -92,74 +146,98 @@ async function registerForPrices() {
     
     const turkishPhone = normalizePhone(phone);
     const discount = Math.floor(Math.random() * 11);
+    const language = getCurrentLanguage();
     
-    // Сообщение для вас (администратора)
+    // =============================================
+    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP)
+    // =============================================
     const messageToYou = `📝 НОВАЯ РЕГИСТРАЦИЯ:
 
 👤 Имя: ${name}
 📱 Телефон: ${turkishPhone}
 📧 Email: ${email || 'не указан'}
-🌐 Язык: ${getCurrentLanguage()}
+🌐 Язык: ${language}
+🎉 Скидка: ${discount}%
 ⏰ Время: ${new Date().toLocaleString()}
 🔗 Источник: сайт CleanPro Istanbul`;
     
-    // Сообщение для клиента
-    const messageToClient = `Добрый день, ${name}! Спасибо за регистрацию на сайте CleanPro Istanbul.
-
-✅ Вы успешно зарегистрированы!
-🎉 Ваша персональная скидка: ${discount}% на все услуги
-
-📞 Наш телефон: +90 555 064 40 89
-📍 Обслуживаем весь Стамбул
-
-С уважением,
-CleanPro Istanbul Team`;
+    // Отправляем вам в WhatsApp (тихо, без открытия у клиента)
+    const encodedMessage = encodeURIComponent(messageToYou);
+    window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
     
-    // 1. Сохраняем данные клиента
+    // =============================================
+    // 2. СОХРАНЯЕМ ДАННЫЕ КЛИЕНТА
+    // =============================================
     localStorage.setItem('cleaningUser', JSON.stringify({
         name: name,
         phone: turkishPhone,
         email: email,
         registeredAt: new Date().toISOString(),
         discount: discount,
-        language: getCurrentLanguage()
+        language: language
     }));
     
     localStorage.setItem('hasPriceAccess', 'true');
     localStorage.setItem('userDiscount', discount);
     
-    // 2. Отправляем вам уведомление в WhatsApp
-    const encodedMessage = encodeURIComponent(messageToYou);
-    window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    // =============================================
+    // 3. ПОКАЗЫВАЕМ КРАСИВОЕ УВЕДОМЛЕНИЕ КЛИЕНТУ
+    // =============================================
     
-    // 3. Показываем цены клиенту
-    document.getElementById('priceRegistration').style.display = 'none';
-    document.getElementById('actualPrices').style.display = 'block';
-    showDiscountNotification(discount);
-    
-    // 4. Предлагаем клиенту сохранить ваш номер
-    setTimeout(() => {
-        if (confirm(`✅ Регистрация успешна! Ваша скидка: ${discount}%
-
-Хотите сохранить наш номер WhatsApp для быстрой связи?`)) {
-            const clientMessage = encodeURIComponent(messageToClient);
-            window.open(`https://wa.me/905550644089?text=${clientMessage}`, '_blank');
+    // Тексты на разных языках
+    const messages = {
+        'ru': {
+            title: 'Регистрация успешна!',
+            message: `Спасибо, ${name}! Вы успешно зарегистрированы в системе CleanPro Istanbul. Теперь вам доступны все цены и специальные предложения.`,
+            discount: discount
+        },
+        'en': {
+            title: 'Registration Successful!',
+            message: `Thank you, ${name}! You have successfully registered with CleanPro Istanbul. You now have access to all prices and special offers.`,
+            discount: discount
+        },
+        'tr': {
+            title: 'Kayıt Başarılı!',
+            message: `Teşekkürler, ${name}! CleanPro Istanbul sistemine başarıyla kayıt oldunuz. Artık tüm fiyatlar ve özel teklifler size açık.`,
+            discount: discount
         }
-    }, 1000);
+    };
     
-    // 5. Сохраняем в базу
+    const lang = language.toLowerCase().includes('ru') ? 'ru' : 
+                language.toLowerCase().includes('en') ? 'en' : 'tr';
+    
+    const msg = messages[lang];
+    
+    // Показываем уведомление клиенту
+    showSuccessNotification(msg.title, msg.message, msg.discount);
+    
+    // Скрываем форму регистрации
+    setTimeout(() => {
+        const priceReg = document.getElementById('priceRegistration');
+        const actualPrices = document.getElementById('actualPrices');
+        
+        if (priceReg) priceReg.style.display = 'none';
+        if (actualPrices) actualPrices.style.display = 'block';
+    }, 500);
+    
+    // =============================================
+    // 4. СОХРАНЯЕМ В БАЗУ ДАННЫХ
+    // =============================================
     saveToLocalDatabase({
         type: 'registration',
         name: name,
         phone: turkishPhone,
         email: email,
         discount: discount,
+        language: language,
         timestamp: new Date().toISOString()
     });
+    
+    return false; // Предотвращаем перезагрузку страницы
 }
 
 // =============================================
-// ОТПРАВКА ЗАЯВКИ С УВЕДОМЛЕНИЕМ В WHATSAPP
+// ОТПРАВКА ЗАЯВКИ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP)
 // =============================================
 
 async function submitOrderForm(e) {
@@ -170,8 +248,11 @@ async function submitOrderForm(e) {
     const district = document.getElementById('district').value;
     const service = document.getElementById('service').value;
     const message = document.getElementById('message').value;
+    const language = getCurrentLanguage();
     
-    // Сообщение для вас (администратора)
+    // =============================================
+    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP)
+    // =============================================
     const messageToYou = `🚀 НОВАЯ ЗАЯВКА:
 
 👤 Имя: ${name}
@@ -179,45 +260,47 @@ async function submitOrderForm(e) {
 📍 Район: ${district}
 🛠 Услуга: ${service}
 📝 Комментарий: ${message || 'нет'}
-🌐 Язык: ${getCurrentLanguage()}
+🌐 Язык: ${language}
 ⏰ Время: ${new Date().toLocaleString()}
 🔗 Источник: сайт CleanPro Istanbul
 
 💡 НЕЗАМЕДЛИТЕЛЬНО СВЯЗАТЬСЯ!`;
     
-    // Сообщение для клиента
-    const userData = JSON.parse(localStorage.getItem('cleaningUser') || '{}');
-    const discount = userData.discount || 0;
-    
-    const messageToClient = `Добрый день, ${name}! Спасибо за заявку на сайте CleanPro Istanbul.
-
-✅ Ваша заявка получена:
-• Услуга: ${service}
-• Район: ${district}
-• Комментарий: ${message || 'не указано'}
-
-${discount > 0 ? `🎉 Ваша скидка: ${discount}% (уже учтена в стоимости)` : ''}
-
-📞 Мы свяжемся с вами в течение 30 минут по номеру: ${phone}
-
-С уважением,
-CleanPro Istanbul Team
-+90 555 064 40 89`;
-    
-    // 1. Отправляем вам уведомление
+    // Отправляем вам в WhatsApp (тихо)
     const encodedMessage = encodeURIComponent(messageToYou);
     window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
     
-    // 2. Показываем сообщение клиенту
-    alert('✅ Заявка отправлена! Открывается WhatsApp для подтверждения.');
+    // =============================================
+    // 2. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ
+    // =============================================
     
-    // 3. Отправляем подтверждение клиенту
-    setTimeout(() => {
-        const clientMessage = encodeURIComponent(messageToClient);
-        window.open(`https://wa.me/905550644089?text=${clientMessage}`, '_blank');
-    }, 2000);
+    // Тексты на разных языках
+    const orderMessages = {
+        'ru': {
+            title: 'Заявка отправлена!',
+            message: `Спасибо, ${name}! Ваша заявка на услугу "${service}" успешно отправлена. Наш менеджер свяжется с вами в течение 30 минут.`
+        },
+        'en': {
+            title: 'Request Sent!',
+            message: `Thank you, ${name}! Your request for "${service}" has been successfully sent. Our manager will contact you within 30 minutes.`
+        },
+        'tr': {
+            title: 'Talep Gönderildi!',
+            message: `Teşekkürler, ${name}! "${service}" hizmeti için talebiniz başarıyla gönderildi. Yöneticimiz 30 dakika içinde sizinle iletişime geçecek.`
+        }
+    };
     
-    // 4. Сохраняем заявку
+    const lang = language.toLowerCase().includes('ru') ? 'ru' : 
+                language.toLowerCase().includes('en') ? 'en' : 'tr';
+    
+    const msg = orderMessages[lang];
+    
+    // Показываем уведомление
+    showSuccessNotification(msg.title, msg.message);
+    
+    // =============================================
+    // 3. СОХРАНЯЕМ ЗАЯВКУ
+    // =============================================
     saveToLocalDatabase({
         type: 'order',
         name: name,
@@ -225,13 +308,39 @@ CleanPro Istanbul Team
         district: district,
         service: service,
         message: message,
+        language: language,
         timestamp: new Date().toISOString()
     });
     
-    // 5. Сбрасываем форму
-    e.target.reset();
+    // =============================================
+    // 4. СБРАСЫВАЕМ ФОРМУ
+    // =============================================
+    setTimeout(() => {
+        e.target.reset();
+    }, 1000);
     
     return false;
+}
+
+// =============================================
+// ЛОКАЛЬНАЯ БАЗА ДАННЫХ
+// =============================================
+
+function saveToLocalDatabase(data) {
+    const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
+    
+    if (data.type === 'registration') {
+        db.registrations.push(data);
+    } else if (data.type === 'order') {
+        db.orders.push(data);
+    }
+    
+    localStorage.setItem('cleaningDatabase', JSON.stringify(db));
+    
+    console.log('📊 База обновлена:', {
+        регистраций: db.registrations.length,
+        заявок: db.orders.length
+    });
 }
 
 // =============================================
@@ -287,7 +396,6 @@ function calculatePrice() {
             price = 0;
     }
     
-    // Применяем скидку
     const discount = parseInt(localStorage.getItem('userDiscount')) || 0;
     const discountAmount = price * discount / 100;
     const finalPrice = price - discountAmount;
@@ -412,7 +520,7 @@ function exportDatabase() {
 }
 
 // =============================================
-// АДМИН-ПАНЕЛЬ (скрытая, активируется тройным кликом)
+// АДМИН-ПАНЕЛЬ (скрытая)
 // =============================================
 
 let clickCount = 0;
