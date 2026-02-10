@@ -8,18 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- ШАПКА САЙТА -->
+    <!-- ШАПКА -->
     <header class="site-header">
         <div class="container">
             <div class="header-content">
-                <!-- Логотип и город -->
                 <div class="logo">
                     <span class="logo-icon">✨</span>
                     CleanPro
                     <span class="city-tag">Стамбул</span>
                 </div>
                 
-                <!-- Главное меню -->
                 <nav class="main-nav">
                     <a href="#services" class="nav-link">Услуги</a>
                     <a href="#prices" class="nav-link">Цены</a>
@@ -27,19 +25,17 @@
                     <a href="#contacts" class="nav-link">Контакты</a>
                 </nav>
                 
-                <!-- Переключатель языков -->
                 <div class="lang-switcher">
                     <a href="../ru/" class="lang-btn active">RU</a>
                     <a href="../en/" class="lang-btn">EN</a>
                     <a href="../tr/" class="lang-btn">TR</a>
                 </div>
                 
-                <!-- Контакты -->
                 <div class="header-contacts">
-                    <a href="tel:+905551234567" class="phone-link">
-                        <i class="fas fa-phone"></i> +90 555 123 45 67
+                    <a href="tel:+905550644089" class="phone-link">
+                        <i class="fas fa-phone"></i> +90 555 064 40 89
                     </a>
-                    <a href="https://wa.me/905551234567" class="whatsapp-link" target="_blank">
+                    <a href="https://wa.me/905550644089" class="whatsapp-link" target="_blank">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                 </div>
@@ -49,7 +45,7 @@
 
     <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main class="main-content">
-        <!-- ГЕРОЙ-СЕКЦИЯ -->
+        <!-- ГЕРОЙ -->
         <section class="hero-section">
             <div class="container">
                 <h1 class="hero-title">Профессиональная химчистка в Стамбуле</h1>
@@ -68,7 +64,6 @@
             <div class="container">
                 <h2 class="section-title">Наши услуги</h2>
                 <div class="services-grid">
-                    <!-- Услуга 1 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #3498db;">
                             <i class="fas fa-couch"></i>
@@ -78,12 +73,11 @@
                             <p class="service-description">
                                 Диваны, кресла, матрасы, стулья. Удаляем любые пятна: от кофе, вина, крови, следы животных. Восстанавливаем первоначальный цвет.
                             </p>
-                            <div class="service-price">от 500 TL</div>
+                            <div class="service-price">от 600 TL</div>
                             <a href="#order" class="order-button">Заказать</a>
                         </div>
                     </div>
                     
-                    <!-- Услуга 2 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #9b59b6;">
                             <i class="fas fa-rug"></i>
@@ -93,12 +87,11 @@
                             <p class="service-description">
                                 Ковры, паласы, ковролин. Выездная чистка или с вывозом в цех. Удаление запахов, дезинфекция, защита от пылевых клещей.
                             </p>
-                            <div class="service-price">от 150 TL/м²</div>
+                            <div class="service-price">от 180 TL/м²</div>
                             <a href="#order" class="order-button">Заказать</a>
                         </div>
                     </div>
                     
-                    <!-- Услуга 3 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #e74c3c;">
                             <i class="fas fa-car"></i>
@@ -108,7 +101,7 @@
                             <p class="service-description">
                                 Полная очистка салона автомобиля: сиденья, коврики, потолок, багажник. Удаление запахов табака, животных, пищи.
                             </p>
-                            <div class="service-price">от 1000 TL</div>
+                            <div class="service-price">от 1200 TL</div>
                             <a href="#order" class="order-button">Заказать</a>
                         </div>
                     </div>
@@ -120,51 +113,116 @@
         <section id="prices" class="section prices-section">
             <div class="container">
                 <h2 class="section-title">Цены на услуги</h2>
-                <table class="prices-table">
-                    <thead>
-                        <tr>
-                            <th>Услуга</th>
-                            <th>Описание</th>
-                            <th>Цена (TL)</th>
-                            <th>Время работы</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Диван (2-местный)</strong></td>
-                            <td>Полная химчистка</td>
-                            <td>500 - 800 TL</td>
-                            <td>2-3 часа</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ковёр (за м²)</strong></td>
-                            <td>В зависимости от загрязнения</td>
-                            <td>150 - 300 TL/м²</td>
-                            <td>1-2 часа</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Авто (легковое)</strong></td>
-                            <td>Комплексная чистка салона</td>
-                            <td>1000 - 2000 TL</td>
-                            <td>3-4 часа</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Матрас</strong></td>
-                            <td>Двусторонняя чистка</td>
-                            <td>400 - 600 TL</td>
-                            <td>1.5-2 часа</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Кресло</strong></td>
-                            <td>Обивка любого типа</td>
-                            <td>300 - 500 TL</td>
-                            <td>1-1.5 часа</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="text-align: center; margin-top: 20px; color: #666; font-style: italic;">
-                    *Точная цена определяется после осмотра мастером. Выезд и осмотр — бесплатно!
-                </p>
+                
+                <!-- Регистрация для доступа к ценам -->
+                <div id="priceRegistration" class="price-protection">
+                    <h3><i class="fas fa-lock"></i> Доступ к ценам</h3>
+                    <p>Для просмотра актуальных цен необходимо зарегистрироваться</p>
+                    
+                    <div style="max-width: 400px; margin: 20px auto;">
+                        <input type="text" id="regName" class="form-input" placeholder="Ваше имя" style="margin-bottom: 10px;">
+                        <input type="tel" id="regPhone" class="form-input" placeholder="Телефон" style="margin-bottom: 10px;">
+                        <input type="email" id="regEmail" class="form-input" placeholder="Email (необязательно)" style="margin-bottom: 15px;">
+                        
+                        <button onclick="registerForPrices()" class="submit-button" style="background: #2ecc71;">
+                            <i class="fas fa-user-plus"></i> Зарегистрироваться и увидеть цены
+                        </button>
+                    </div>
+                    
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+                        Или введите пароль если уже регистрировались:
+                        <input type="password" id="pricePassword" placeholder="Пароль" style="padding: 8px; margin: 0 10px;">
+                        <button onclick="showPrices()" style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px;">
+                            Показать цены
+                        </button>
+                    </p>
+                </div>
+                
+                <!-- Скрытый контент с ценами -->
+                <div id="actualPrices" style="display: none;">
+                    <table class="prices-table">
+                        <thead>
+                            <tr>
+                                <th>Услуга</th>
+                                <th>Описание</th>
+                                <th>Цена (TL)</th>
+                                <th>Время</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Диван (2-местный)</strong></td>
+                                <td>Полная химчистка</td>
+                                <td>600 - 900 TL</td>
+                                <td>2-3 часа</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ковёр (за м²)</strong></td>
+                                <td>В зависимости от загрязнения</td>
+                                <td>180 - 350 TL/м²</td>
+                                <td>1-2 часа</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Авто (легковое)</strong></td>
+                                <td>Комплексная чистка салона</td>
+                                <td>1200 - 2500 TL</td>
+                                <td>3-4 часа</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Матрас</strong></td>
+                                <td>Двусторонняя чистка</td>
+                                <td>450 - 700 TL</td>
+                                <td>1.5-2 часа</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Кресло</strong></td>
+                                <td>Обивка любого типа</td>
+                                <td>350 - 600 TL</td>
+                                <td>1-1.5 часа</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Калькулятор стоимости -->
+                    <div class="calculator">
+                        <h3 style="text-align: center; margin-bottom: 25px;">
+                            <i class="fas fa-calculator"></i> Онлайн-калькулятор стоимости
+                        </h3>
+                        
+                        <div style="max-width: 500px; margin: 0 auto;">
+                            <div style="margin-bottom: 20px;">
+                                <label><strong>Выберите услугу:</strong></label>
+                                <select id="calcService" class="calc-input">
+                                    <option value="">-- Выберите услугу --</option>
+                                    <option value="sofa">Диван (2-местный)</option>
+                                    <option value="armchair">Кресло</option>
+                                    <option value="mattress">Матрас</option>
+                                    <option value="carpet">Ковёр</option>
+                                    <option value="car">Автомобиль (легковой)</option>
+                                    <option value="curtain">Шторы</option>
+                                    <option value="chair">Стул</option>
+                                </select>
+                            </div>
+                            
+                            <div id="sizeContainer" style="margin-bottom: 20px; display: none;">
+                                <label><strong>Площадь ковра (м²):</strong></label>
+                                <input type="number" id="calcSize" class="calc-input" min="1" max="100" step="0.5" placeholder="Например: 4.5">
+                            </div>
+                            
+                            <div id="calcResult" class="calc-result">
+                                Выберите услугу для расчёта стоимости
+                            </div>
+                            
+                            <a href="#order" id="calcOrderBtn" class="primary-button" style="display: none; text-align: center;">
+                                <i class="fas fa-shopping-cart"></i> Заказать эту услугу
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                        *Точная цена определяется после осмотра мастером. Выезд и осмотр — бесплатно!
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -173,7 +231,6 @@
             <div class="container">
                 <h2 class="section-title">Как мы работаем</h2>
                 <div class="services-grid">
-                    <!-- Шаг 1 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #3498db;">
                             <i class="fas fa-phone-volume"></i>
@@ -186,7 +243,6 @@
                         </div>
                     </div>
                     
-                    <!-- Шаг 2 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #9b59b6;">
                             <i class="fas fa-user-check"></i>
@@ -199,7 +255,6 @@
                         </div>
                     </div>
                     
-                    <!-- Шаг 3 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #e67e22;">
                             <i class="fas fa-spray-can"></i>
@@ -212,7 +267,6 @@
                         </div>
                     </div>
                     
-                    <!-- Шаг 4 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #2ecc71;">
                             <i class="fas fa-check-circle"></i>
@@ -233,7 +287,6 @@
             <div class="container">
                 <h2 class="section-title" style="color: white;">Контакты</h2>
                 <div class="contacts-grid">
-                    <!-- Контакт 1 -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
@@ -244,24 +297,21 @@
                         Фатих, Бакыркёй, Ускюдар</p>
                     </div>
                     
-                    <!-- Контакт 2 -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
                         </div>
                         <h3>Телефон</h3>
-                        <p>+90 555 123 45 67</p>
-                        <p>+90 212 345 67 89</p>
+                        <p>+90 555 064 40 89</p>
                         <p>Круглосуточно</p>
                     </div>
                     
-                    <!-- Контакт 3 -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <h3>WhatsApp / Telegram</h3>
-                        <p>+90 555 123 45 67</p>
+                        <p>+90 555 064 40 89</p>
                         <p>Быстрая связь, фото для оценки</p>
                     </div>
                 </div>
@@ -280,7 +330,7 @@
                     
                     <div class="form-group">
                         <label for="phone">Телефон (WhatsApp) *</label>
-                        <input type="tel" id="phone" class="form-input" placeholder="+90 555 123 45 67" required>
+                        <input type="tel" id="phone" class="form-input" placeholder="+90 555 064 40 89" required>
                     </div>
                     
                     <div class="form-group">
@@ -316,40 +366,32 @@
     <!-- ПОДВАЛ -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2023 CleanPro Istanbul. Профессиональная химчистка в Стамбуле.</p>
+            <p>© 2024 CleanPro Istanbul. Профессиональная химчистка в Стамбуле.</p>
             <div class="footer-links">
                 <a href="../ru/" class="footer-link">Русский</a>
                 <a href="../en/" class="footer-link">English</a>
                 <a href="../tr/" class="footer-link">Türkçe</a>
             </div>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Телефон: +90 555 064 40 89 • WhatsApp: +90 555 064 40 89
+            </p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="../assets/js/script.js"></script>
     <script>
-        // Простая обработка формы
-        document.querySelector('.order-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в течение 30 минут.');
-            this.reset();
+        // Автоматическое управление полем размера ковра
+        document.getElementById('calcService')?.addEventListener('change', function() {
+            const sizeContainer = document.getElementById('sizeContainer');
+            if (this.value === 'carpet') {
+                sizeContainer.style.display = 'block';
+            } else {
+                sizeContainer.style.display = 'none';
+            }
+            calculatePrice();
         });
         
-        // Плавная прокрутка к якорям
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if(target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
-        });
+        document.getElementById('calcSize')?.addEventListener('input', calculatePrice);
     </script>
 </body>
 </html>
