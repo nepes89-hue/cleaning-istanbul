@@ -12,14 +12,12 @@
     <header class="site-header">
         <div class="container">
             <div class="header-content">
-                <!-- Logo and City -->
                 <div class="logo">
                     <span class="logo-icon">✨</span>
                     CleanPro
                     <span class="city-tag">Istanbul</span>
                 </div>
                 
-                <!-- Main Navigation -->
                 <nav class="main-nav">
                     <a href="#services" class="nav-link">Services</a>
                     <a href="#prices" class="nav-link">Prices</a>
@@ -27,19 +25,17 @@
                     <a href="#contacts" class="nav-link">Contacts</a>
                 </nav>
                 
-                <!-- Language Switcher -->
                 <div class="lang-switcher">
                     <a href="../ru/" class="lang-btn">RU</a>
                     <a href="../en/" class="lang-btn active">EN</a>
                     <a href="../tr/" class="lang-btn">TR</a>
                 </div>
                 
-                <!-- Contacts -->
                 <div class="header-contacts">
-                    <a href="tel:+905551234567" class="phone-link">
-                        <i class="fas fa-phone"></i> +90 555 123 45 67
+                    <a href="tel:+905550644089" class="phone-link">
+                        <i class="fas fa-phone"></i> +90 555 064 40 89
                     </a>
-                    <a href="https://wa.me/905551234567" class="whatsapp-link" target="_blank">
+                    <a href="https://wa.me/905550644089" class="whatsapp-link" target="_blank">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                 </div>
@@ -49,7 +45,7 @@
 
     <!-- MAIN CONTENT -->
     <main class="main-content">
-        <!-- HERO SECTION -->
+        <!-- HERO -->
         <section class="hero-section">
             <div class="container">
                 <h1 class="hero-title">Professional Cleaning Services in Istanbul</h1>
@@ -68,7 +64,6 @@
             <div class="container">
                 <h2 class="section-title">Our Services</h2>
                 <div class="services-grid">
-                    <!-- Service 1 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #3498db;">
                             <i class="fas fa-couch"></i>
@@ -78,12 +73,11 @@
                             <p class="service-description">
                                 Sofas, armchairs, mattresses, chairs. We remove any stains: coffee, wine, blood, pet traces. Restore original color.
                             </p>
-                            <div class="service-price">from 500 TL</div>
+                            <div class="service-price">from 600 TL</div>
                             <a href="#order" class="order-button">Order</a>
                         </div>
                     </div>
                     
-                    <!-- Service 2 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #9b59b6;">
                             <i class="fas fa-rug"></i>
@@ -93,12 +87,11 @@
                             <p class="service-description">
                                 Carpets, rugs, carpeting. On-site cleaning or pickup service. Odor removal, disinfection, dust mite protection.
                             </p>
-                            <div class="service-price">from 150 TL/m²</div>
+                            <div class="service-price">from 180 TL/m²</div>
                             <a href="#order" class="order-button">Order</a>
                         </div>
                     </div>
                     
-                    <!-- Service 3 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #e74c3c;">
                             <i class="fas fa-car"></i>
@@ -108,7 +101,7 @@
                             <p class="service-description">
                                 Complete car interior cleaning: seats, mats, ceiling, trunk. Removal of tobacco, pet, and food odors.
                             </p>
-                            <div class="service-price">from 1000 TL</div>
+                            <div class="service-price">from 1200 TL</div>
                             <a href="#order" class="order-button">Order</a>
                         </div>
                     </div>
@@ -120,51 +113,116 @@
         <section id="prices" class="section prices-section">
             <div class="container">
                 <h2 class="section-title">Service Prices</h2>
-                <table class="prices-table">
-                    <thead>
-                        <tr>
-                            <th>Service</th>
-                            <th>Description</th>
-                            <th>Price (TL)</th>
-                            <th>Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Sofa (2-seater)</strong></td>
-                            <td>Complete dry cleaning</td>
-                            <td>500 - 800 TL</td>
-                            <td>2-3 hours</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Carpet (per m²)</strong></td>
-                            <td>Depending on soiling</td>
-                            <td>150 - 300 TL/m²</td>
-                            <td>1-2 hours</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Car (sedan)</strong></td>
-                            <td>Complete interior cleaning</td>
-                            <td>1000 - 2000 TL</td>
-                            <td>3-4 hours</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mattress</strong></td>
-                            <td>Two-sided cleaning</td>
-                            <td>400 - 600 TL</td>
-                            <td>1.5-2 hours</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Armchair</strong></td>
-                            <td>Any upholstery type</td>
-                            <td>300 - 500 TL</td>
-                            <td>1-1.5 hours</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="text-align: center; margin-top: 20px; color: #666; font-style: italic;">
-                    *Exact price determined after master's inspection. Visit and inspection — free!
-                </p>
+                
+                <!-- Registration for price access -->
+                <div id="priceRegistration" class="price-protection">
+                    <h3><i class="fas fa-lock"></i> Price Access</h3>
+                    <p>To view current prices you need to register</p>
+                    
+                    <div style="max-width: 400px; margin: 20px auto;">
+                        <input type="text" id="regName" class="form-input" placeholder="Your name" style="margin-bottom: 10px;">
+                        <input type="tel" id="regPhone" class="form-input" placeholder="Phone" style="margin-bottom: 10px;">
+                        <input type="email" id="regEmail" class="form-input" placeholder="Email (optional)" style="margin-bottom: 15px;">
+                        
+                        <button onclick="registerForPrices()" class="submit-button" style="background: #2ecc71;">
+                            <i class="fas fa-user-plus"></i> Register and see prices
+                        </button>
+                    </div>
+                    
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+                        Or enter password if already registered:
+                        <input type="password" id="pricePassword" placeholder="Password" style="padding: 8px; margin: 0 10px;">
+                        <button onclick="showPrices()" style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px;">
+                            Show prices
+                        </button>
+                    </p>
+                </div>
+                
+                <!-- Hidden price content -->
+                <div id="actualPrices" style="display: none;">
+                    <table class="prices-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Price (TL)</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sofa (2-seater)</strong></td>
+                                <td>Complete dry cleaning</td>
+                                <td>600 - 900 TL</td>
+                                <td>2-3 hours</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Carpet (per m²)</strong></td>
+                                <td>Depending on soiling</td>
+                                <td>180 - 350 TL/m²</td>
+                                <td>1-2 hours</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Car (sedan)</strong></td>
+                                <td>Complete interior cleaning</td>
+                                <td>1200 - 2500 TL</td>
+                                <td>3-4 hours</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mattress</strong></td>
+                                <td>Two-sided cleaning</td>
+                                <td>450 - 700 TL</td>
+                                <td>1.5-2 hours</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Armchair</strong></td>
+                                <td>Any upholstery type</td>
+                                <td>350 - 600 TL</td>
+                                <td>1-1.5 hours</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Cost calculator -->
+                    <div class="calculator">
+                        <h3 style="text-align: center; margin-bottom: 25px;">
+                            <i class="fas fa-calculator"></i> Online Cost Calculator
+                        </h3>
+                        
+                        <div style="max-width: 500px; margin: 0 auto;">
+                            <div style="margin-bottom: 20px;">
+                                <label><strong>Select service:</strong></label>
+                                <select id="calcService" class="calc-input">
+                                    <option value="">-- Select service --</option>
+                                    <option value="sofa">Sofa (2-seater)</option>
+                                    <option value="armchair">Armchair</option>
+                                    <option value="mattress">Mattress</option>
+                                    <option value="carpet">Carpet</option>
+                                    <option value="car">Car (sedan)</option>
+                                    <option value="curtain">Curtains</option>
+                                    <option value="chair">Chair</option>
+                                </select>
+                            </div>
+                            
+                            <div id="sizeContainer" style="margin-bottom: 20px; display: none;">
+                                <label><strong>Carpet area (m²):</strong></label>
+                                <input type="number" id="calcSize" class="calc-input" min="1" max="100" step="0.5" placeholder="Example: 4.5">
+                            </div>
+                            
+                            <div id="calcResult" class="calc-result">
+                                Select service to calculate cost
+                            </div>
+                            
+                            <a href="#order" id="calcOrderBtn" class="primary-button" style="display: none; text-align: center;">
+                                <i class="fas fa-shopping-cart"></i> Order this service
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                        *Exact price determined after master's inspection. Visit and inspection — free!
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -173,7 +231,6 @@
             <div class="container">
                 <h2 class="section-title">How We Work</h2>
                 <div class="services-grid">
-                    <!-- Step 1 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #3498db;">
                             <i class="fas fa-phone-volume"></i>
@@ -186,7 +243,6 @@
                         </div>
                     </div>
                     
-                    <!-- Step 2 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #9b59b6;">
                             <i class="fas fa-user-check"></i>
@@ -199,7 +255,6 @@
                         </div>
                     </div>
                     
-                    <!-- Step 3 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #e67e22;">
                             <i class="fas fa-spray-can"></i>
@@ -212,7 +267,6 @@
                         </div>
                     </div>
                     
-                    <!-- Step 4 -->
                     <div class="service-card">
                         <div class="service-image" style="background: #2ecc71;">
                             <i class="fas fa-check-circle"></i>
@@ -233,7 +287,6 @@
             <div class="container">
                 <h2 class="section-title" style="color: white;">Contacts</h2>
                 <div class="contacts-grid">
-                    <!-- Contact 1 -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
@@ -244,24 +297,21 @@
                         Fatih, Bakırköy, Üsküdar</p>
                     </div>
                     
-                    <!-- Contact 2 -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
                         </div>
                         <h3>Phone</h3>
-                        <p>+90 555 123 45 67</p>
-                        <p>+90 212 345 67 89</p>
+                        <p>+90 555 064 40 89</p>
                         <p>24/7</p>
                     </div>
                     
-                    <!-- Contact 3 -->
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
                         <h3>WhatsApp / Telegram</h3>
-                        <p>+90 555 123 45 67</p>
+                        <p>+90 555 064 40 89</p>
                         <p>Quick contact, photos for assessment</p>
                     </div>
                 </div>
@@ -280,7 +330,7 @@
                     
                     <div class="form-group">
                         <label for="phone">Phone (WhatsApp) *</label>
-                        <input type="tel" id="phone" class="form-input" placeholder="+90 555 123 45 67" required>
+                        <input type="tel" id="phone" class="form-input" placeholder="+90 555 064 40 89" required>
                     </div>
                     
                     <div class="form-group">
@@ -316,40 +366,31 @@
     <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2023 CleanPro Istanbul. Professional Cleaning Services in Istanbul.</p>
+            <p>© 2024 CleanPro Istanbul. Professional Cleaning Services in Istanbul.</p>
             <div class="footer-links">
                 <a href="../ru/" class="footer-link">Русский</a>
                 <a href="../en/" class="footer-link">English</a>
                 <a href="../tr/" class="footer-link">Türkçe</a>
             </div>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                Phone: +90 555 064 40 89 • WhatsApp: +90 555 064 40 89
+            </p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script src="../assets/js/script.js"></script>
     <script>
-        // Simple form handling
-        document.querySelector('.order-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you! Your request has been sent. We will contact you within 30 minutes.');
-            this.reset();
+        document.getElementById('calcService')?.addEventListener('change', function() {
+            const sizeContainer = document.getElementById('sizeContainer');
+            if (this.value === 'carpet') {
+                sizeContainer.style.display = 'block';
+            } else {
+                sizeContainer.style.display = 'none';
+            }
+            calculatePrice();
         });
         
-        // Smooth scrolling to anchors
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if(this.getAttribute('href') !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if(target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                }
-            });
-        });
+        document.getElementById('calcSize')?.addEventListener('input', calculatePrice);
     </script>
 </body>
 </html>
