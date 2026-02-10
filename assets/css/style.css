@@ -1,0 +1,503 @@
+/* ОБЩИЕ СТИЛИ ДЛЯ ВСЕХ ВЕРСИЙ САЙТА */
+
+/* 1. Сброс стандартных отступов */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 2. Тело сайта */
+body {
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* 3. Контейнер для центрирования контента */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* 4. ШАПКА САЙТА (header) */
+.site-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Логотип */
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1abc9c;
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.city-tag {
+    background: #e74c3c;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+/* Главное меню */
+.main-nav {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 0;
+    position: relative;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #1abc9c;
+}
+
+.nav-link.active {
+    color: #1abc9c;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #1abc9c;
+}
+
+/* Переключатель языков */
+.lang-switcher {
+    display: flex;
+    gap: 8px;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.lang-btn.active {
+    background: #1abc9c;
+    font-weight: bold;
+}
+
+/* Контакты в шапке */
+.header-contacts {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.phone-link {
+    background: #1abc9c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.whatsapp-link {
+    background: #25D366;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+/* 5. ОСНОВНОЙ КОНТЕНТ */
+.main-content {
+    margin-top: 80px; /* Чтобы контент не скрывался под фиксированной шапкой */
+}
+
+/* Герой-секция (первый блок) */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../img/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 80px 0;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 40px;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: #1abc9c;
+    margin-bottom: 20px;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    opacity: 0.9;
+}
+
+.primary-button {
+    display: inline-block;
+    background: #e74c3c;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.primary-button:hover {
+    background: #c0392b;
+    transform: translateY(-3px);
+}
+
+/* 6. СЕКЦИИ */
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #1abc9c;
+    margin: 15px auto;
+}
+
+/* 7. КАРТОЧКИ УСЛУГ */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.service-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+    border: 1px solid #eee;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.service-image {
+    height: 200px;
+    width: 100%;
+    background: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.service-content {
+    padding: 25px;
+}
+
+.service-name {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.service-description {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.service-price {
+    color: #e74c3c;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.order-button {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.order-button:hover {
+    background: #2980b9;
+}
+
+/* 8. ТАБЛИЦА ЦЕН */
+.prices-section {
+    background: #f5f7fa;
+}
+
+.prices-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.prices-table th {
+    background: #2c3e50;
+    color: white;
+    padding: 18px 15px;
+    text-align: left;
+}
+
+.prices-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.prices-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.prices-table tr:hover {
+    background: #eef7ff;
+}
+
+/* 9. КОНТАКТЫ */
+.contacts-section {
+    background: #34495e;
+    color: white;
+}
+
+.contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.contact-item {
+    text-align: center;
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    color: #1abc9c;
+    margin-bottom: 15px;
+}
+
+.contact-item h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+/* 10. ФОРМА ЗАКАЗА */
+.order-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #1abc9c;
+    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+}
+
+textarea.form-input {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.submit-button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.submit-button:hover {
+    background: #c0392b;
+}
+
+/* 11. ПОДВАЛ (footer) */
+.site-footer {
+    background: #2c3e50;
+    color: #bdc3c7;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer-links {
+    margin-top: 20px;
+}
+
+.footer-link {
+    color: #1abc9c;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+/* 12. АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ */
+@media (max-width: 992px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .main-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-nav {
+        gap: 15px;
+    }
+    
+    .header-contacts {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .phone-link, .whatsapp-link {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .section {
+        padding: 40px 0;
+    }
+    
+    .service-card {
+        margin-bottom: 20px;
+    }
+    
+    .order-form {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.7rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+}
