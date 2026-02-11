@@ -2,7 +2,7 @@
 // ОСНОВНЫЕ НАСТРОЙКИ
 // =============================================
 
-// ВАШ НОМЕР WHATSAPP (ИЗМЕНИТЕ НА СВОЙ!)
+// ВАШ НОМЕР WHATSAPP (ОСТАВЛЯЕМ, НО ПОКА НЕ ИСПОЛЬЗУЕМ)
 const YOUR_WHATSAPP_NUMBER = '905550644089';
 
 // Вспомогательные функции
@@ -20,30 +20,137 @@ function getCurrentLanguage() {
 }
 
 // =============================================
-// ОТПРАВКА ВАМ УВЕДОМЛЕНИЯ В WHATSAPP (СКРЫТО)
+// УВЕДОМЛЕНИЯ ДЛЯ АДМИНИСТРАТОРА (НА САЙТЕ)
 // =============================================
 
-function sendWhatsAppNotification(message) {
-    // СОЗДАЁМ СКРЫТЫЙ IFRAME - НИЧЕГО НЕ ОТКРЫВАЕТСЯ У КЛИЕНТА!
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none'; // Скрываем
-    iframe.style.width = '0';
-    iframe.style.height = '0';
-    iframe.style.opacity = '0';
-    iframe.style.pointerEvents = 'none';
+function showAdminNotification(title, data) {
+    // Создаем уведомление для администратора
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        border-left: 5px solid #e74c3c;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        padding: 20px;
+        max-width: 350px;
+        width: 100%;
+        z-index: 999999;
+        animation: slideInRight 0.3s ease;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    `;
+
+    let content = '';
     
-    const encodedMessage = encodeURIComponent(message);
-    iframe.src = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`;
-    
-    document.body.appendChild(iframe);
-    
-    // Удаляем через 2 секунды
+    if (title === 'registration') {
+        content = `
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="background: #2ecc71; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 12px;">
+                    📝
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: #2c3e50; font-size: 16px;">НОВАЯ РЕГИСТРАЦИЯ!</h4>
+                    <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">${new Date().toLocaleString()}</p>
+                </div>
+            </div>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                <p style="margin: 5px 0;"><strong>👤 Имя:</strong> ${data.name}</p>
+                <p style="margin: 5px 0;"><strong>📱 Телефон:</strong> ${data.phone}</p>
+                <p style="margin: 5px 0;"><strong>📧 Email:</strong> ${data.email || 'не указан'}</p>
+                <p style="margin: 5px 0;"><strong>🎉 Скидка:</strong> <span style="color: #e74c3c; font-weight: bold;">${data.discount}%</span></p>
+                <p style="margin: 5px 0;"><strong>🌐 Язык:</strong> ${data.language}</p>
+            </div>
+        `;
+    } else if (title === 'order') {
+        content = `
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="background: #e74c3c; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-right: 12px;">
+                    🚀
+                </div>
+                <div>
+                    <h4 style="margin: 0; color: #2c3e50; font-size: 16px;">НОВАЯ ЗАЯВКА!</h4>
+                    <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 12px;">${new Date().toLocaleString()}</p>
+                </div>
+            </div>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                <p style="margin: 5px 0;"><strong>👤 Имя:</strong> ${data.name}</p>
+                <p style="margin: 5px 0;"><strong>📱 Телефон:</strong> ${data.phone}</p>
+                <p style="margin: 5px 0;"><strong>📍 Район:</strong> ${data.district}</p>
+                <p style="margin: 5px 0;"><strong>🛠 Услуга:</strong> ${data.service}</p>
+                <p style="margin: 5px 0;"><strong>📝 Комментарий:</strong> ${data.message || 'нет'}</p>
+                <p style="margin: 5px 0;"><strong>🌐 Язык:</strong> ${data.language}</p>
+            </div>
+        `;
+    }
+
+    content += `
+        <div style="display: flex; gap: 10px;">
+            <button onclick="copyPhoneToClipboard('${data.phone}')" style="
+                flex: 1;
+                padding: 10px;
+                background: #3498db;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            ">
+                📋 Копировать телефон
+            </button>
+            <button onclick="this.closest('div[style*=\'position: fixed\']').remove()" style="
+                padding: 10px 15px;
+                background: #95a5a6;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            ">
+                ✕
+            </button>
+        </div>
+    `;
+
+    notification.innerHTML = content;
+    document.body.appendChild(notification);
+
+    // Автоматически скрыть через 30 секунд
     setTimeout(() => {
-        if (document.body.contains(iframe)) {
-            document.body.removeChild(iframe);
+        if (document.body.contains(notification)) {
+            notification.remove();
         }
-    }, 2000);
+    }, 30000);
 }
+
+// Копирование телефона в буфер обмена
+window.copyPhoneToClipboard = function(phone) {
+    navigator.clipboard.writeText(phone).then(() => {
+        alert('✅ Номер телефона скопирован: ' + phone);
+    }).catch(() => {
+        prompt('📋 Скопируйте номер вручную:', phone);
+    });
+};
+
+// Стили для анимации
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
 
 // =============================================
 // КРАСИВЫЕ УВЕДОМЛЕНИЯ ДЛЯ КЛИЕНТА (НА САЙТЕ)
@@ -142,24 +249,12 @@ function closeNotification() {
 function saveToContacts() {
     const phone = '+90 555 064 40 89';
     const message = encodeURIComponent('Здравствуйте! Хочу получить консультацию по услугам химчистки.');
-    
-    // Открываем WhatsApp ТОЛЬКО если клиент сам нажал кнопку
     window.open(`https://wa.me/905550644089?text=${message}`, '_blank');
     closeNotification();
 }
 
-// Стили для анимаций
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-`;
-document.head.appendChild(style);
-
 // =============================================
-// РЕГИСТРАЦИЯ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP В ФОНЕ)
+// РЕГИСТРАЦИЯ
 // =============================================
 
 async function registerForPrices() {
@@ -177,22 +272,15 @@ async function registerForPrices() {
     const language = getCurrentLanguage();
     
     // =============================================
-    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP В ФОНЕ - НИЧЕГО НЕ ОТКРЫВАЕТСЯ!)
+    // 1. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ АДМИНУ (ВАМ!)
     // =============================================
-    const messageToYou = `📝 НОВАЯ РЕГИСТРАЦИЯ:
-
-👤 Имя: ${name}
-📱 Телефон: ${turkishPhone}
-📧 Email: ${email || 'не указан'}
-🌐 Язык: ${language}
-🎉 Скидка: ${discount}%
-⏰ Время: ${new Date().toLocaleString()}
-🔗 Источник: сайт CleanPro Istanbul
-
-💡 КЛИЕНТ ЗАРЕГИСТРИРОВАЛСЯ!`;
-    
-    // ОТПРАВЛЯЕМ В ФОНЕ - У КЛИЕНТА НИЧЕГО НЕ ОТКРЫВАЕТСЯ!
-    sendWhatsAppNotification(messageToYou);
+    showAdminNotification('registration', {
+        name: name,
+        phone: turkishPhone,
+        email: email,
+        discount: discount,
+        language: language
+    });
     
     // =============================================
     // 2. СОХРАНЯЕМ ДАННЫЕ КЛИЕНТА
@@ -210,10 +298,9 @@ async function registerForPrices() {
     localStorage.setItem('userDiscount', discount);
     
     // =============================================
-    // 3. ПОКАЗЫВАЕМ КРАСИВОЕ УВЕДОМЛЕНИЕ КЛИЕНТУ (ТОЛЬКО НА САЙТЕ!)
+    // 3. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ
     // =============================================
     
-    // Тексты на разных языках
     const messages = {
         'ru': {
             title: 'Регистрация успешна!',
@@ -237,7 +324,6 @@ async function registerForPrices() {
     
     const msg = messages[lang];
     
-    // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ (НЕ ОТКРЫВАЕМ WHATSAPP!)
     showSuccessNotification(msg.title, msg.message, msg.discount);
     
     // Показываем цены
@@ -250,7 +336,7 @@ async function registerForPrices() {
     }, 500);
     
     // =============================================
-    // 4. СОХРАНЯЕМ В БАЗУ ДАННЫХ
+    // 4. СОХРАНЯЕМ В БАЗУ
     // =============================================
     saveToLocalDatabase({
         type: 'registration',
@@ -262,11 +348,11 @@ async function registerForPrices() {
         timestamp: new Date().toISOString()
     });
     
-    return false; // Предотвращаем перезагрузку страницы
+    return false;
 }
 
 // =============================================
-// ОТПРАВКА ЗАЯВКИ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP В ФОНЕ)
+// ОТПРАВКА ЗАЯВКИ
 // =============================================
 
 async function submitOrderForm(e) {
@@ -280,29 +366,21 @@ async function submitOrderForm(e) {
     const language = getCurrentLanguage();
     
     // =============================================
-    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP В ФОНЕ - НИЧЕГО НЕ ОТКРЫВАЕТСЯ!)
+    // 1. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ АДМИНУ (ВАМ!)
     // =============================================
-    const messageToYou = `🚀 НОВАЯ ЗАЯВКА:
-
-👤 Имя: ${name}
-📱 Телефон: ${phone}
-📍 Район: ${district}
-🛠 Услуга: ${service}
-📝 Комментарий: ${message || 'нет'}
-🌐 Язык: ${language}
-⏰ Время: ${new Date().toLocaleString()}
-🔗 Источник: сайт CleanPro Istanbul
-
-💡 НЕЗАМЕДЛИТЕЛЬНО СВЯЗАТЬСЯ!`;
-    
-    // ОТПРАВЛЯЕМ В ФОНЕ - У КЛИЕНТА НИЧЕГО НЕ ОТКРЫВАЕТСЯ!
-    sendWhatsAppNotification(messageToYou);
+    showAdminNotification('order', {
+        name: name,
+        phone: phone,
+        district: district,
+        service: service,
+        message: message,
+        language: language
+    });
     
     // =============================================
-    // 2. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ (ТОЛЬКО НА САЙТЕ!)
+    // 2. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ
     // =============================================
     
-    // Тексты на разных языках
     const orderMessages = {
         'ru': {
             title: 'Заявка отправлена!',
@@ -323,7 +401,6 @@ async function submitOrderForm(e) {
     
     const msg = orderMessages[lang];
     
-    // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ (НЕ ОТКРЫВАЕМ WHATSAPP!)
     showSuccessNotification(msg.title, msg.message);
     
     // =============================================
@@ -364,15 +441,11 @@ function saveToLocalDatabase(data) {
     }
     
     localStorage.setItem('cleaningDatabase', JSON.stringify(db));
-    
-    console.log('📊 База обновлена:', {
-        регистраций: db.registrations.length,
-        заявок: db.orders.length
-    });
+    console.log('📊 База обновлена:', db);
 }
 
 // =============================================
-// КАЛЬКУЛЯТОР С УЧЁТОМ СКИДКИ
+// КАЛЬКУЛЯТОР
 // =============================================
 
 function calculatePrice() {
@@ -459,24 +532,9 @@ function calculatePrice() {
 }
 
 // =============================================
-// ОБРАБОТКА ФОРМ И СКРЫТЫЕ ФУНКЦИИ
+// ПЛАВНАЯ ПРОКРУТКА
 // =============================================
 
-// Показать цены по паролю
-function showPrices() {
-    const password = document.getElementById('pricePassword').value;
-    const correctPassword = 'clean123';
-    
-    if (password === correctPassword) {
-        document.getElementById('priceProtection').style.display = 'none';
-        document.getElementById('priceContent').style.display = 'block';
-        localStorage.setItem('hasPriceAccess', 'true');
-    } else {
-        alert('Неверный пароль! Для получения пароля зарегистрируйтесь или свяжитесь с нами.');
-    }
-}
-
-// Плавная прокрутка
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -493,7 +551,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Автоматическое управление полем размера ковра
     const calcService = document.getElementById('calcService');
     const sizeContainer = document.getElementById('sizeContainer');
     
@@ -513,21 +570,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Проверяем регистрацию при загрузке
     if (localStorage.getItem('hasPriceAccess') === 'true') {
-        const priceProtection = document.getElementById('priceProtection');
-        const priceContent = document.getElementById('priceContent');
-        const priceRegistration = document.getElementById('priceRegistration');
+        const priceReg = document.getElementById('priceRegistration');
         const actualPrices = document.getElementById('actualPrices');
         
-        if (priceProtection) priceProtection.style.display = 'none';
-        if (priceContent) priceContent.style.display = 'block';
-        if (priceRegistration) priceRegistration.style.display = 'none';
+        if (priceReg) priceReg.style.display = 'none';
         if (actualPrices) actualPrices.style.display = 'block';
     }
 });
 
-// Экспорт базы данных
+// =============================================
+// ЭКСПОРТ БАЗЫ
+// =============================================
+
 function exportDatabase() {
     const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
     const dataStr = JSON.stringify(db, null, 2);
@@ -542,13 +597,11 @@ function exportDatabase() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    alert(`База данных экспортирована!
-Регистраций: ${db.registrations.length}
-Заявок: ${db.orders.length}`);
+    alert(`✅ База данных экспортирована!\n📊 Регистраций: ${db.registrations.length}\n📊 Заявок: ${db.orders.length}`);
 }
 
 // =============================================
-// АДМИН-ПАНЕЛЬ (скрытая)
+// АДМИН-ПАНЕЛЬ
 // =============================================
 
 let clickCount = 0;
@@ -581,19 +634,25 @@ function updateStats() {
 }
 
 function clearDatabase() {
-    if (confirm('Очистить всю базу данных?')) {
+    if (confirm('⚠️ Очистить всю базу данных?')) {
         localStorage.removeItem('cleaningDatabase');
         localStorage.removeItem('cleaningUser');
         localStorage.removeItem('hasPriceAccess');
         localStorage.removeItem('userDiscount');
         updateStats();
-        alert('База данных очищена');
+        alert('🗑️ База данных очищена');
     }
 }
 
-function testWhatsApp() {
-    // Только для теста - отправляет вам сообщение в фоне
-    const testMessage = '✅ Тестовое сообщение от сайта CleanPro Istanbul\n\nВремя: ' + new Date().toLocaleString();
-    sendWhatsAppNotification(testMessage);
-    alert('✅ Тестовое сообщение отправлено вам в WhatsApp (в фоновом режиме)');
+function testNotification() {
+    showAdminNotification('registration', {
+        name: 'Тестовый Клиент',
+        phone: '905550644089',
+        email: 'test@test.com',
+        discount: 10,
+        language: 'ru'
+    });
 }
+
+// Обновлять статистику каждые 10 секунд
+setInterval(updateStats, 10000);
