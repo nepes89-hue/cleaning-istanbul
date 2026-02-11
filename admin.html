@@ -1,106 +1,116 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
+    <title>CleanPro Admin Panel</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanPro Istanbul - Админ-панель</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            background: #f5f7fa;
             padding: 20px;
         }
-
-        .admin-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .admin-header {
+        
+        .header {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-
-        .admin-header h1 {
+        
+        .header h1 {
             color: #2c3e50;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
-        .admin-header h1 i {
-            color: #e74c3c;
-        }
-
-        .admin-grid {
+        
+        .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .admin-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
-
-        .admin-card h2 {
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .card h2 {
             color: #2c3e50;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #f0f0f0;
         }
-
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
         .form-group {
             margin-bottom: 15px;
         }
-
+        
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #2c3e50;
             font-weight: 500;
         }
-
+        
         .form-control {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 15px;
             transition: 0.3s;
         }
-
+        
         .form-control:focus {
-            outline: none;
             border-color: #667eea;
+            outline: none;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
-
+        
         .btn {
             padding: 12px 24px;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
@@ -108,189 +118,122 @@
             align-items: center;
             gap: 8px;
         }
-
+        
         .btn-primary {
             background: #667eea;
             color: white;
         }
-
+        
         .btn-primary:hover {
             background: #5a67d8;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
-
+        
         .btn-success {
             background: #2ecc71;
             color: white;
         }
-
-        .btn-success:hover {
-            background: #27ae60;
-            transform: translateY(-2px);
-        }
-
+        
         .btn-danger {
             background: #e74c3c;
             color: white;
         }
-
-        .btn-danger:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
-
+        
         .btn-warning {
             background: #f39c12;
             color: white;
         }
-
-        .btn-warning:hover {
-            background: #e67e22;
-            transform: translateY(-2px);
-        }
-
-        .services-list {
-            margin-top: 20px;
-        }
-
-        .service-item {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s;
-            border-left: 4px solid #667eea;
-        }
-
-        .service-item:hover {
-            background: #f1f3f5;
-            transform: translateX(5px);
-        }
-
-        .service-info h4 {
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .service-info p {
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .service-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-
-        .service-actions {
-            display: flex;
-            gap: 10px;
-        }
-
+        
         .btn-sm {
             padding: 8px 16px;
-            font-size: 0.9rem;
+            font-size: 13px;
         }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .stat-card h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .stat-card p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .login-form {
-            max-width: 400px;
-            margin: 100px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .login-form h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .language-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .lang-tab {
-            padding: 10px 20px;
-            background: #f8f9fa;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .lang-tab.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .price-table {
+        
+        table {
             width: 100%;
             border-collapse: collapse;
         }
-
-        .price-table th {
+        
+        th {
             background: #2c3e50;
             color: white;
             padding: 12px;
             text-align: left;
         }
-
-        .price-table td {
+        
+        td {
             padding: 12px;
             border-bottom: 1px solid #eee;
         }
-
-        .price-table tr:hover {
+        
+        tr:hover {
             background: #f8f9fa;
         }
-
-        .category-badge {
+        
+        .service-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .price-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 5px solid #2ecc71;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 5px solid #17a2b8;
+        }
+        
+        .language-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+        
+        .lang-tab {
+            padding: 10px 20px;
+            border: none;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .lang-tab.active {
             background: #667eea;
             color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
         }
-
+        
         @media (max-width: 768px) {
-            .admin-grid {
+            .form-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -298,493 +241,336 @@
                 grid-template-columns: 1fr;
             }
             
-            .service-item {
+            .service-row {
                 flex-direction: column;
                 text-align: center;
                 gap: 15px;
-            }
-            
-            .service-actions {
-                width: 100%;
-                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <div id="loginForm" class="login-form">
-        <h2><i class="fas fa-lock"></i> Вход в админ-панель</h2>
-        <div class="form-group">
-            <label>Пароль</label>
-            <input type="password" id="adminPassword" class="form-control" placeholder="Введите пароль">
-        </div>
-        <button onclick="loginAdmin()" class="btn btn-primary" style="width: 100%;">
-            <i class="fas fa-sign-in-alt"></i> Войти
-        </button>
-        <p style="text-align: center; margin-top: 20px; color: #666;">
-            Подсказка: ваш пароль - <strong>admin123</strong>
-        </p>
-    </div>
-
-    <div id="adminPanel" class="admin-container hidden">
-        <div class="admin-header">
-            <h1>
-                <i class="fas fa-crown"></i>
-                CleanPro Istanbul - Админ-панель
-            </h1>
-            <button onclick="logoutAdmin()" class="btn btn-danger">
-                <i class="fas fa-sign-out-alt"></i> Выйти
+    <div class="header">
+        <h1>
+            🛠 CleanPro Istanbul
+            <span style="font-size: 14px; background: #667eea; color: white; padding: 5px 10px; border-radius: 20px;">Админ-панель</span>
+        </h1>
+        <div>
+            <button onclick="syncToSite()" class="btn btn-warning" style="margin-right: 10px;">
+                🔄 Синхронизировать с сайтом
+            </button>
+            <button onclick="logout()" class="btn btn-danger">
+                🚪 Выйти
             </button>
         </div>
+    </div>
 
-        <!-- Статистика -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3 id="totalRegistrations">0</h3>
-                <p>Регистраций</p>
+    <div id="syncAlert" class="alert alert-info" style="display: none;">
+        ⚡ Изменения применены к сайту!
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3 id="statReg">0</h3>
+            <p>Всего регистраций</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="statOrders">0</h3>
+            <p>Всего заявок</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="statServices">0</h3>
+            <p>Активных услуг</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>➕ Добавить новую услугу</h2>
+        <div class="language-tabs">
+            <button onclick="setLanguage('ru')" id="langRu" class="lang-tab active">🇷🇺 Русский</button>
+            <button onclick="setLanguage('en')" id="langEn" class="lang-tab">🇺🇸 English</button>
+            <button onclick="setLanguage('tr')" id="langTr" class="lang-tab">🇹🇷 Türkçe</button>
+        </div>
+        
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Название услуги</label>
+                <input type="text" id="serviceName" class="form-control" placeholder="Например: Химчистка дивана">
             </div>
-            <div class="stat-card">
-                <h3 id="totalOrders">0</h3>
-                <p>Заявок</p>
+            <div class="form-group">
+                <label>Описание</label>
+                <input type="text" id="serviceDesc" class="form-control" placeholder="Краткое описание">
             </div>
-            <div class="stat-card">
-                <h3 id="totalServices">0</h3>
-                <p>Услуг</p>
+            <div class="form-group">
+                <label>Цена от (TL)</label>
+                <input type="number" id="servicePrice" class="form-control" placeholder="600">
+            </div>
+            <div class="form-group">
+                <label>Цена до (TL)</label>
+                <input type="number" id="servicePriceMax" class="form-control" placeholder="900">
             </div>
         </div>
+        <button onclick="addService()" class="btn btn-success">
+            ✅ Добавить услугу
+        </button>
+    </div>
 
-        <div class="admin-grid">
-            <!-- Левая колонка: Управление услугами -->
-            <div class="admin-card">
-                <h2>
-                    <i class="fas fa-plus-circle"></i>
-                    Добавить новую услугу
-                </h2>
-                
-                <div class="language-tabs">
-                    <button onclick="setLanguage('ru')" id="langRu" class="lang-tab active">Русский</button>
-                    <button onclick="setLanguage('en')" id="langEn" class="lang-tab">English</button>
-                    <button onclick="setLanguage('tr')" id="langTr" class="lang-tab">Türkçe</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Название услуги</label>
-                    <input type="text" id="serviceName" class="form-control" placeholder="Например: Химчистка дивана">
-                </div>
-
-                <div class="form-group">
-                    <label>Описание</label>
-                    <textarea id="serviceDesc" class="form-control" rows="3" placeholder="Описание услуги..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Цена от (TL)</label>
-                    <input type="number" id="servicePrice" class="form-control" placeholder="600">
-                </div>
-
-                <div class="form-group">
-                    <label>Категория</label>
-                    <select id="serviceCategory" class="form-control">
-                        <option value="furniture">Мягкая мебель</option>
-                        <option value="carpet">Ковры</option>
-                        <option value="car">Автомобили</option>
-                        <option value="other">Другое</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Иконка</label>
-                    <select id="serviceIcon" class="form-control">
-                        <option value="couch">Диван (fa-couch)</option>
-                        <option value="rug">Ковер (fa-rug)</option>
-                        <option value="car">Авто (fa-car)</option>
-                        <option value="bed">Матрас (fa-bed)</option>
-                        <option value="chair">Кресло (fa-chair)</option>
-                        <option value="curtain">Шторы (fa-curtains)</option>
-                    </select>
-                </div>
-
-                <button onclick="addService()" class="btn btn-success" style="width: 100%;">
-                    <i class="fas fa-plus"></i> Добавить услугу
-                </button>
-            </div>
-
-            <!-- Правая колонка: Управление ценами -->
-            <div class="admin-card">
-                <h2>
-                    <i class="fas fa-tags"></i>
-                    Управление ценами
-                </h2>
-
-                <div style="margin-bottom: 20px;">
-                    <select id="priceServiceSelect" class="form-control">
-                        <option value="">Выберите услугу для редактирования</option>
-                    </select>
-                </div>
-
-                <div id="priceEditor" style="display: none;">
-                    <div class="form-group">
-                        <label>Новая цена от (TL)</label>
-                        <input type="number" id="editPrice" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Новая цена до (TL)</label>
-                        <input type="number" id="editPriceMax" class="form-control">
-                    </div>
-
-                    <button onclick="updatePrice()" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">
-                        <i class="fas fa-save"></i> Обновить цену
-                    </button>
-                </div>
-
-                <hr style="margin: 20px 0;">
-
-                <h3>Текущие услуги и цены</h3>
-                <div id="servicesList" class="services-list">
-                    <!-- Список услуг будет загружен сюда -->
-                </div>
-            </div>
+    <div class="card">
+        <h2>📋 Управление услугами и ценами</h2>
+        <div style="margin-bottom: 20px;">
+            <select id="languageFilter" onchange="filterServices()" class="form-control" style="width: 200px;">
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+                <option value="tr">Türkçe</option>
+            </select>
         </div>
-
-        <!-- Полная таблица цен -->
-        <div class="admin-card">
-            <h2>
-                <i class="fas fa-table"></i>
-                Таблица цен (все языки)
-            </h2>
-
-            <div style="margin-bottom: 20px;">
-                <button onclick="exportPrices()" class="btn btn-success btn-sm">
-                    <i class="fas fa-download"></i> Экспорт цен
-                </button>
-                <button onclick="importPrices()" class="btn btn-warning btn-sm">
-                    <i class="fas fa-upload"></i> Импорт цен
-                </button>
-                <button onclick="resetToDefault()" class="btn btn-danger btn-sm">
-                    <i class="fas fa-undo"></i> Сброс к стандартным
-                </button>
-            </div>
-
-            <table class="price-table">
-                <thead>
-                    <tr>
-                        <th>Услуга</th>
-                        <th>Цена (TL)</th>
-                        <th>Категория</th>
-                        <th>Действия</th>
-                    </tr>
-                </thead>
-                <tbody id="priceTableBody">
-                    <!-- Данные будут загружены сюда -->
-                </tbody>
-            </table>
+        <div id="servicesContainer">
+            <!-- JavaScript загрузит сюда -->
         </div>
+    </div>
 
-        <!-- База данных клиентов -->
-        <div class="admin-card">
-            <h2>
-                <i class="fas fa-users"></i>
-                База клиентов
-            </h2>
-
-            <div style="margin-bottom: 20px;">
-                <button onclick="exportDatabase()" class="btn btn-success">
-                    <i class="fas fa-download"></i> Экспорт базы клиентов
-                </button>
-                <button onclick="sendNewsletter()" class="btn btn-primary">
-                    <i class="fas fa-bullhorn"></i> Рассылка
-                </button>
-            </div>
-
-            <div id="clientsList">
-                <!-- Список клиентов -->
-            </div>
-        </div>
+    <div class="card">
+        <h2>📊 Последние регистрации</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Имя</th>
+                    <th>Телефон</th>
+                    <th>Скидка</th>
+                </tr>
+            </thead>
+            <tbody id="clientsTable">
+                <!-- JavaScript загрузит сюда -->
+            </tbody>
+        </table>
     </div>
 
     <script>
-        // =============================================
-        // НАСТРОЙКИ АДМИН-ПАНЕЛИ
-        // =============================================
-        
-        const ADMIN_PASSWORD = 'admin123';
-        
-        // Стандартные цены
-        const DEFAULT_PRICES = {
-            'ru': {
-                'Диван (2-местный)': { price: 600, priceMax: 900, category: 'furniture', icon: 'couch' },
-                'Кресло': { price: 350, priceMax: 600, category: 'furniture', icon: 'chair' },
-                'Матрас': { price: 450, priceMax: 700, category: 'furniture', icon: 'bed' },
-                'Ковёр': { price: 180, priceMax: 350, category: 'carpet', icon: 'rug' },
-                'Автомобиль (легковой)': { price: 1200, priceMax: 2500, category: 'car', icon: 'car' },
-                'Шторы': { price: 250, priceMax: 500, category: 'other', icon: 'curtain' },
-                'Стул': { price: 150, priceMax: 300, category: 'furniture', icon: 'chair' }
-            },
-            'en': {
-                'Sofa (2-seater)': { price: 600, priceMax: 900, category: 'furniture', icon: 'couch' },
-                'Armchair': { price: 350, priceMax: 600, category: 'furniture', icon: 'chair' },
-                'Mattress': { price: 450, priceMax: 700, category: 'furniture', icon: 'bed' },
-                'Carpet': { price: 180, priceMax: 350, category: 'carpet', icon: 'rug' },
-                'Car (sedan)': { price: 1200, priceMax: 2500, category: 'car', icon: 'car' },
-                'Curtains': { price: 250, priceMax: 500, category: 'other', icon: 'curtain' },
-                'Chair': { price: 150, priceMax: 300, category: 'furniture', icon: 'chair' }
-            },
-            'tr': {
-                'Kanepe (2 kişilik)': { price: 600, priceMax: 900, category: 'furniture', icon: 'couch' },
-                'Koltuk': { price: 350, priceMax: 600, category: 'furniture', icon: 'chair' },
-                'Yatak': { price: 450, priceMax: 700, category: 'furniture', icon: 'bed' },
-                'Halı': { price: 180, priceMax: 350, category: 'carpet', icon: 'rug' },
-                'Araç (binek)': { price: 1200, priceMax: 2500, category: 'car', icon: 'car' },
-                'Perde': { price: 250, priceMax: 500, category: 'other', icon: 'curtain' },
-                'Sandalye': { price: 150, priceMax: 300, category: 'furniture', icon: 'chair' }
-            }
-        };
-
-        // Текущий язык
-        let currentLang = 'ru';
-
-        // =============================================
-        // АВТОРИЗАЦИЯ
-        // =============================================
-
-        function loginAdmin() {
-            const password = document.getElementById('adminPassword').value;
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('adminPanel').classList.remove('hidden');
-                loadAdminData();
-            } else {
-                alert('❌ Неверный пароль!');
-            }
+        // ПРОВЕРКА АВТОРИЗАЦИИ
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin.html';
         }
 
-        function logoutAdmin() {
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('adminPanel').classList.add('hidden');
-            document.getElementById('adminPassword').value = '';
+        let currentLang = 'ru';
+
+        // СТАНДАРТНЫЕ УСЛУГИ (все языки)
+        const DEFAULT_SERVICES = {
+            ru: [
+                { name: 'Диван (2-местный)', desc: 'Полная химчистка', price: 600, priceMax: 900 },
+                { name: 'Кресло', desc: 'Обивка любого типа', price: 350, priceMax: 600 },
+                { name: 'Матрас', desc: 'Двусторонняя чистка', price: 450, priceMax: 700 },
+                { name: 'Ковёр (м²)', desc: 'В зависимости от загрязнения', price: 180, priceMax: 350 },
+                { name: 'Автомобиль', desc: 'Комплексная чистка салона', price: 1200, priceMax: 2500 },
+                { name: 'Шторы', desc: 'Химчистка штор', price: 250, priceMax: 500 },
+                { name: 'Стул', desc: 'Чистка стульев', price: 150, priceMax: 300 }
+            ],
+            en: [
+                { name: 'Sofa (2-seater)', desc: 'Complete dry cleaning', price: 600, priceMax: 900 },
+                { name: 'Armchair', desc: 'Any upholstery type', price: 350, priceMax: 600 },
+                { name: 'Mattress', desc: 'Two-sided cleaning', price: 450, priceMax: 700 },
+                { name: 'Carpet (m²)', desc: 'Depending on soiling', price: 180, priceMax: 350 },
+                { name: 'Car', desc: 'Complete interior cleaning', price: 1200, priceMax: 2500 },
+                { name: 'Curtains', desc: 'Curtain cleaning', price: 250, priceMax: 500 },
+                { name: 'Chair', desc: 'Chair cleaning', price: 150, priceMax: 300 }
+            ],
+            tr: [
+                { name: 'Kanepe (2 kişilik)', desc: 'Tam kuru temizleme', price: 600, priceMax: 900 },
+                { name: 'Koltuk', desc: 'Her türlü döşeme', price: 350, priceMax: 600 },
+                { name: 'Yatak', desc: 'Çift taraflı temizlik', price: 450, priceMax: 700 },
+                { name: 'Halı (m²)', desc: 'Kirlilik durumuna göre', price: 180, priceMax: 350 },
+                { name: 'Araç', desc: 'Tam iç temizlik', price: 1200, priceMax: 2500 },
+                { name: 'Perde', desc: 'Perde temizliği', price: 250, priceMax: 500 },
+                { name: 'Sandalye', desc: 'Sandalye temizliği', price: 150, priceMax: 300 }
+            ]
+        };
+
+        // =============================================
+        // УПРАВЛЕНИЕ ЯЗЫКАМИ
+        // =============================================
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(`lang${lang.toUpperCase()}`).classList.add('active');
         }
 
         // =============================================
         // ЗАГРУЗКА ДАННЫХ
         // =============================================
-
-        function loadAdminData() {
-            loadServices();
-            loadPrices();
-            loadStats();
-            loadClients();
-        }
-
+        
         function loadServices() {
-            const servicesList = document.getElementById('servicesList');
-            const priceServiceSelect = document.getElementById('priceServiceSelect');
+            let allServices = JSON.parse(localStorage.getItem('adminServices'));
+            
+            if (!allServices) {
+                allServices = DEFAULT_SERVICES;
+                localStorage.setItem('adminServices', JSON.stringify(allServices));
+            }
+
+            const lang = document.getElementById('languageFilter').value;
+            const services = allServices[lang] || allServices.ru;
             
             let html = '';
-            let options = '<option value="">Выберите услугу для редактирования</option>';
-            
-            const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
-            
-            Object.entries(services).forEach(([name, data]) => {
+            services.forEach((service, index) => {
                 html += `
-                    <div class="service-item">
-                        <div class="service-info">
-                            <h4>${name}</h4>
-                            <p>${data.category || 'Другое'}</p>
+                    <div class="service-row">
+                        <div style="flex: 2;">
+                            <strong>${service.name}</strong><br>
+                            <span style="color: #666; font-size: 13px;">${service.desc || ''}</span>
                         </div>
-                        <div class="service-price">${data.price} TL</div>
-                        <div class="service-actions">
-                            <button onclick="editService('${name}')" class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button onclick="deleteService('${name}')" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                        <div style="flex: 1; text-align: center;">
+                            <span class="price-badge">${service.price} - ${service.priceMax || service.price + 300} TL</span>
+                        </div>
+                        <div style="flex: 1; text-align: right;">
+                            <button onclick="editPrice(${index})" class="btn btn-primary btn-sm">✏️ Цена</button>
+                            <button onclick="editName(${index})" class="btn btn-warning btn-sm">📝 Название</button>
+                            <button onclick="deleteService(${index})" class="btn btn-danger btn-sm">🗑️</button>
                         </div>
                     </div>
                 `;
-                
-                options += `<option value="${name}">${name} - ${data.price} TL</option>`;
             });
+
+            document.getElementById('servicesContainer').innerHTML = html;
             
-            servicesList.innerHTML = html;
-            priceServiceSelect.innerHTML = options;
+            // Подсчет всех услуг
+            let totalServices = 0;
+            Object.keys(allServices).forEach(key => {
+                totalServices += allServices[key].length;
+            });
+            document.getElementById('statServices').textContent = totalServices;
         }
 
-        function loadPrices() {
-            const tbody = document.getElementById('priceTableBody');
-            let html = '';
-            
-            const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
-            
-            Object.entries(services).forEach(([name, data]) => {
-                html += `
-                    <tr>
-                        <td>${name}</td>
-                        <td>${data.price} - ${data.priceMax || data.price + 300} TL</td>
-                        <td><span class="category-badge">${data.category || 'other'}</span></td>
-                        <td>
-                            <button onclick="editService('${name}')" class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button onclick="deleteService('${name}')" class="btn btn-danger btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = html;
-        }
-
-        function loadStats() {
-            const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
-            const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
-            
-            document.getElementById('totalRegistrations').textContent = db.registrations.length;
-            document.getElementById('totalOrders').textContent = db.orders.length;
-            document.getElementById('totalServices').textContent = Object.keys(services).length;
-        }
-
-        function loadClients() {
-            const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
-            const clientsList = document.getElementById('clientsList');
-            
-            let html = '<table class="price-table">';
-            html += '<thead><tr><th>Дата</th><th>Имя</th><th>Телефон</th><th>Email</th><th>Скидка</th></tr></thead><tbody>';
-            
-            db.registrations.slice(-10).reverse().forEach(client => {
-                html += `
-                    <tr>
-                        <td>${new Date(client.timestamp).toLocaleDateString()}</td>
-                        <td>${client.name}</td>
-                        <td>${client.phone}</td>
-                        <td>${client.email || '-'}</td>
-                        <td>${client.discount || 0}%</td>
-                    </tr>
-                `;
-            });
-            
-            html += '</tbody></table>';
-            clientsList.innerHTML = html;
+        function filterServices() {
+            loadServices();
         }
 
         // =============================================
-        // УПРАВЛЕНИЕ УСЛУГАМИ
+        // ДОБАВЛЕНИЕ УСЛУГИ
         // =============================================
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            
-            document.querySelectorAll('.lang-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(`lang${lang.charAt(0).toUpperCase() + lang.slice(1)}`).classList.add('active');
-        }
-
+        
         function addService() {
-            const name = document.getElementById('serviceName').value;
-            const desc = document.getElementById('serviceDesc').value;
-            const price = parseInt(document.getElementById('servicePrice').value);
-            const category = document.getElementById('serviceCategory').value;
-            const icon = document.getElementById('serviceIcon').value;
-            
+            const name = document.getElementById('serviceName').value.trim();
+            const desc = document.getElementById('serviceDesc').value.trim();
+            const price = document.getElementById('servicePrice').value.trim();
+            const priceMax = document.getElementById('servicePriceMax').value.trim();
+
             if (!name || !price) {
                 alert('❌ Заполните название и цену!');
                 return;
             }
+
+            let allServices = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
             
-            let services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
+            // Добавляем на ВСЕХ языках
+            allServices.ru.push({
+                name: name,
+                desc: desc,
+                price: parseInt(price),
+                priceMax: parseInt(priceMax) || parseInt(price) + 300
+            });
             
-            services[name] = {
-                price: price,
-                priceMax: price + 300,
-                category: category,
-                icon: icon,
-                description: desc
-            };
+            allServices.en.push({
+                name: name, // Здесь нужно будет перевести вручную
+                desc: desc,
+                price: parseInt(price),
+                priceMax: parseInt(priceMax) || parseInt(price) + 300
+            });
             
-            localStorage.setItem('adminServices', JSON.stringify(services));
+            allServices.tr.push({
+                name: name, // Здесь нужно будет перевести вручную
+                desc: desc,
+                price: parseInt(price),
+                priceMax: parseInt(priceMax) || parseInt(price) + 300
+            });
+
+            localStorage.setItem('adminServices', JSON.stringify(allServices));
             
-            // Очищаем форму
+            // Очищаем поля
             document.getElementById('serviceName').value = '';
             document.getElementById('serviceDesc').value = '';
             document.getElementById('servicePrice').value = '';
+            document.getElementById('servicePriceMax').value = '';
             
             loadServices();
-            loadPrices();
-            loadStats();
-            
-            alert('✅ Услуга успешно добавлена!');
+            alert('✅ Услуга добавлена! Не забудьте перевести названия на другие языки в админ-панели.');
         }
 
-        function editService(name) {
-            const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
-            const service = services[name];
+        // =============================================
+        // РЕДАКТИРОВАНИЕ
+        // =============================================
+        
+        function editPrice(index) {
+            const lang = document.getElementById('languageFilter').value;
+            let allServices = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
+            const service = allServices[lang][index];
             
-            if (service) {
-                document.getElementById('serviceName').value = name;
-                document.getElementById('serviceDesc').value = service.description || '';
-                document.getElementById('servicePrice').value = service.price;
-                document.getElementById('serviceCategory').value = service.category || 'other';
-                document.getElementById('serviceIcon').value = service.icon || 'couch';
+            const newPrice = prompt(`Введите новую цену для "${service.name}":`, service.price);
+            const newPriceMax = prompt(`Введите максимальную цену:`, service.priceMax || service.price + 300);
+            
+            if (newPrice && !isNaN(newPrice) && newPrice > 0) {
+                // Обновляем на ВСЕХ языках
+                Object.keys(allServices).forEach(key => {
+                    if (allServices[key][index] && allServices[key][index].name === service.name) {
+                        allServices[key][index].price = parseInt(newPrice);
+                        allServices[key][index].priceMax = parseInt(newPriceMax) || parseInt(newPrice) + 300;
+                    }
+                });
                 
-                document.getElementById('priceEditor').style.display = 'block';
-                document.getElementById('editPrice').value = service.price;
-                document.getElementById('editPriceMax').value = service.priceMax || service.price + 300;
-            }
-        }
-
-        function updatePrice() {
-            const select = document.getElementById('priceServiceSelect');
-            const name = select.value;
-            const newPrice = parseInt(document.getElementById('editPrice').value);
-            const newPriceMax = parseInt(document.getElementById('editPriceMax').value);
-            
-            if (!name || !newPrice) {
-                alert('❌ Выберите услугу и укажите цену!');
-                return;
-            }
-            
-            let services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
-            
-            if (services[name]) {
-                services[name].price = newPrice;
-                services[name].priceMax = newPriceMax || newPrice + 300;
-                localStorage.setItem('adminServices', JSON.stringify(services));
-                
+                localStorage.setItem('adminServices', JSON.stringify(allServices));
                 loadServices();
-                loadPrices();
-                
-                alert('✅ Цена обновлена!');
+                alert('✅ Цена обновлена на всех языках!');
             }
         }
 
-        function deleteService(name) {
-            if (confirm(`Удалить услугу "${name}"?`)) {
-                let services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES[currentLang];
-                delete services[name];
-                localStorage.setItem('adminServices', JSON.stringify(services));
-                
+        function editName(index) {
+            const lang = document.getElementById('languageFilter').value;
+            let allServices = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
+            const service = allServices[lang][index];
+            
+            const newName = prompt(`Введите новое название (${lang.toUpperCase()}):`, service.name);
+            
+            if (newName && newName.trim()) {
+                allServices[lang][index].name = newName.trim();
+                localStorage.setItem('adminServices', JSON.stringify(allServices));
                 loadServices();
-                loadPrices();
-                loadStats();
+                alert(`✅ Название обновлено для языка ${lang.toUpperCase()}`);
+            }
+        }
+
+        function deleteService(index) {
+            if (confirm('Удалить эту услугу?')) {
+                let allServices = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
                 
-                alert('✅ Услуга удалена');
+                // Удаляем на ВСЕХ языках
+                Object.keys(allServices).forEach(key => {
+                    if (allServices[key][index]) {
+                        allServices[key].splice(index, 1);
+                    }
+                });
+                
+                localStorage.setItem('adminServices', JSON.stringify(allServices));
+                loadServices();
             }
         }
 
         // =============================================
-        // ЭКСПОРТ/ИМПОРТ
+        // СИНХРОНИЗАЦИЯ С САЙТОМ (ГЛАВНОЕ!)
         // =============================================
-
-        function exportPrices() {
-            const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES;
-            const dataStr = JSON.stringify(services, null, 2);
+        
+        function syncToSite() {
+            const allServices = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
+            
+            // Сохраняем в localStorage для основного сайта
+            localStorage.setItem('sitePrices', JSON.stringify(allServices));
+            
+            // Создаем JSON файл для скачивания
+            const dataStr = JSON.stringify(allServices, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const url = URL.createObjectURL(dataBlob);
             
+            // Создаем ссылку для скачивания
             const a = document.createElement('a');
             a.href = url;
             a.download = `cleanpro-prices-${new Date().toISOString().split('T')[0]}.json`;
@@ -793,76 +579,62 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            alert('✅ Цены экспортированы');
-        }
-
-        function importPrices() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
+            // Показываем инструкцию
+            const alertBox = document.getElementById('syncAlert');
+            alertBox.style.display = 'block';
+            alertBox.innerHTML = `
+                <strong>✅ Цены сохранены!</strong><br>
+                1. Файл с ценами скачан на ваш компьютер<br>
+                2. Чтобы применить на сайте - загрузите файл в репозиторий как prices.json<br>
+                3. Или обновите HTML файлы вручную
+            `;
             
-            input.onchange = function(e) {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    try {
-                        const services = JSON.parse(e.target.result);
-                        localStorage.setItem('adminServices', JSON.stringify(services));
-                        loadServices();
-                        loadPrices();
-                        alert('✅ Цены импортированы');
-                    } catch (error) {
-                        alert('❌ Ошибка при загрузке файла');
-                    }
-                };
-                
-                reader.readAsText(file);
-            };
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 10000);
             
-            input.click();
+            console.log('✅ Цены синхронизированы:', allServices);
         }
 
-        function resetToDefault() {
-            if (confirm('Сбросить все цены к стандартным?')) {
-                localStorage.removeItem('adminServices');
-                loadServices();
-                loadPrices();
-                alert('✅ Цены сброшены к стандартным');
-            }
-        }
-
-        function exportDatabase() {
-            const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
-            const dataStr = JSON.stringify(db, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
+        // =============================================
+        // ЗАГРУЗКА КЛИЕНТОВ
+        // =============================================
+        
+        function loadClients() {
+            const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[]}');
             
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `cleanpro-clients-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            let html = '';
+            const registrations = db.registrations || [];
             
-            alert(`✅ База клиентов экспортирована\nРегистраций: ${db.registrations.length}\nЗаявок: ${db.orders.length}`);
+            registrations.slice(-10).reverse().forEach(client => {
+                html += `<tr>
+                    <td>${new Date(client.timestamp).toLocaleDateString()}</td>
+                    <td>${client.name || '—'}</td>
+                    <td>${client.phone || '—'}</td>
+                    <td><span style="background: #2ecc71; color: white; padding: 3px 8px; border-radius: 4px;">${client.discount || 0}%</span></td>
+                </tr>`;
+            });
+
+            document.getElementById('clientsTable').innerHTML = html;
+            document.getElementById('statReg').textContent = registrations.length;
+            document.getElementById('statOrders').textContent = db.orders?.length || 0;
         }
 
-        function sendNewsletter() {
-            const message = prompt('Введите сообщение для рассылки всем клиентам:');
-            if (message) {
-                const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
-                const phones = db.registrations.map(r => r.phone).filter((v,i,a) => a.indexOf(v) === i);
-                
-                alert(`📨 Рассылка будет отправлена ${phones.length} клиентам\n\nФункция в разработке. Скоро вы сможете отправлять сообщения через WhatsApp Business API!`);
-            }
+        // =============================================
+        // ВЫХОД
+        // =============================================
+        
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'admin.html';
         }
 
-        // Проверка авторизации при загрузке
-        if (localStorage.getItem('adminLoggedIn') === 'true') {
-            loginAdmin();
-        }
+        // =============================================
+        // ЗАГРУЗКА ПРИ СТАРТЕ
+        // =============================================
+        
+        loadServices();
+        loadClients();
     </script>
 </body>
 </html>
