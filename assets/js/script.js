@@ -20,7 +20,33 @@ function getCurrentLanguage() {
 }
 
 // =============================================
-// КРАСИВЫЕ УВЕДОМЛЕНИЯ ДЛЯ КЛИЕНТА
+// ОТПРАВКА ВАМ УВЕДОМЛЕНИЯ В WHATSAPP (СКРЫТО)
+// =============================================
+
+function sendWhatsAppNotification(message) {
+    // СОЗДАЁМ СКРЫТЫЙ IFRAME - НИЧЕГО НЕ ОТКРЫВАЕТСЯ У КЛИЕНТА!
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none'; // Скрываем
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.opacity = '0';
+    iframe.style.pointerEvents = 'none';
+    
+    const encodedMessage = encodeURIComponent(message);
+    iframe.src = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    
+    document.body.appendChild(iframe);
+    
+    // Удаляем через 2 секунды
+    setTimeout(() => {
+        if (document.body.contains(iframe)) {
+            document.body.removeChild(iframe);
+        }
+    }, 2000);
+}
+
+// =============================================
+// КРАСИВЫЕ УВЕДОМЛЕНИЯ ДЛЯ КЛИЕНТА (НА САЙТЕ)
 // =============================================
 
 function showSuccessNotification(title, message, discount = 0) {
@@ -93,7 +119,7 @@ function showSuccessNotification(title, message, discount = 0) {
                 color: #999;
             ">×</button>
         </div>
-        <div style="
+        <div class="notification-overlay" style="
             position: fixed;
             top: 0;
             left: 0;
@@ -109,14 +135,16 @@ function showSuccessNotification(title, message, discount = 0) {
 }
 
 function closeNotification() {
-    const notifications = document.querySelectorAll('.success-notification, .success-notification + div');
+    const notifications = document.querySelectorAll('.success-notification, .notification-overlay');
     notifications.forEach(el => el.remove());
 }
 
 function saveToContacts() {
     const phone = '+90 555 064 40 89';
     const message = encodeURIComponent('Здравствуйте! Хочу получить консультацию по услугам химчистки.');
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    
+    // Открываем WhatsApp ТОЛЬКО если клиент сам нажал кнопку
+    window.open(`https://wa.me/905550644089?text=${message}`, '_blank');
     closeNotification();
 }
 
@@ -131,7 +159,7 @@ style.textContent = `
 document.head.appendChild(style);
 
 // =============================================
-// РЕГИСТРАЦИЯ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP)
+// РЕГИСТРАЦИЯ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP В ФОНЕ)
 // =============================================
 
 async function registerForPrices() {
@@ -141,7 +169,7 @@ async function registerForPrices() {
     
     if (!name || !phone) {
         alert('Пожалуйста, заполните имя и телефон');
-        return;
+        return false;
     }
     
     const turkishPhone = normalizePhone(phone);
@@ -149,7 +177,7 @@ async function registerForPrices() {
     const language = getCurrentLanguage();
     
     // =============================================
-    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP)
+    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP В ФОНЕ - НИЧЕГО НЕ ОТКРЫВАЕТСЯ!)
     // =============================================
     const messageToYou = `📝 НОВАЯ РЕГИСТРАЦИЯ:
 
@@ -159,11 +187,12 @@ async function registerForPrices() {
 🌐 Язык: ${language}
 🎉 Скидка: ${discount}%
 ⏰ Время: ${new Date().toLocaleString()}
-🔗 Источник: сайт CleanPro Istanbul`;
+🔗 Источник: сайт CleanPro Istanbul
+
+💡 КЛИЕНТ ЗАРЕГИСТРИРОВАЛСЯ!`;
     
-    // Отправляем вам в WhatsApp (тихо, без открытия у клиента)
-    const encodedMessage = encodeURIComponent(messageToYou);
-    window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    // ОТПРАВЛЯЕМ В ФОНЕ - У КЛИЕНТА НИЧЕГО НЕ ОТКРЫВАЕТСЯ!
+    sendWhatsAppNotification(messageToYou);
     
     // =============================================
     // 2. СОХРАНЯЕМ ДАННЫЕ КЛИЕНТА
@@ -181,7 +210,7 @@ async function registerForPrices() {
     localStorage.setItem('userDiscount', discount);
     
     // =============================================
-    // 3. ПОКАЗЫВАЕМ КРАСИВОЕ УВЕДОМЛЕНИЕ КЛИЕНТУ
+    // 3. ПОКАЗЫВАЕМ КРАСИВОЕ УВЕДОМЛЕНИЕ КЛИЕНТУ (ТОЛЬКО НА САЙТЕ!)
     // =============================================
     
     // Тексты на разных языках
@@ -208,10 +237,10 @@ async function registerForPrices() {
     
     const msg = messages[lang];
     
-    // Показываем уведомление клиенту
+    // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ (НЕ ОТКРЫВАЕМ WHATSAPP!)
     showSuccessNotification(msg.title, msg.message, msg.discount);
     
-    // Скрываем форму регистрации
+    // Показываем цены
     setTimeout(() => {
         const priceReg = document.getElementById('priceRegistration');
         const actualPrices = document.getElementById('actualPrices');
@@ -237,7 +266,7 @@ async function registerForPrices() {
 }
 
 // =============================================
-// ОТПРАВКА ЗАЯВКИ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP)
+// ОТПРАВКА ЗАЯВКИ (КЛИЕНТУ - УВЕДОМЛЕНИЕ, ВАМ - WHATSAPP В ФОНЕ)
 // =============================================
 
 async function submitOrderForm(e) {
@@ -251,7 +280,7 @@ async function submitOrderForm(e) {
     const language = getCurrentLanguage();
     
     // =============================================
-    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP)
+    // 1. СООБЩЕНИЕ ДЛЯ ВАС (WHATSAPP В ФОНЕ - НИЧЕГО НЕ ОТКРЫВАЕТСЯ!)
     // =============================================
     const messageToYou = `🚀 НОВАЯ ЗАЯВКА:
 
@@ -266,12 +295,11 @@ async function submitOrderForm(e) {
 
 💡 НЕЗАМЕДЛИТЕЛЬНО СВЯЗАТЬСЯ!`;
     
-    // Отправляем вам в WhatsApp (тихо)
-    const encodedMessage = encodeURIComponent(messageToYou);
-    window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    // ОТПРАВЛЯЕМ В ФОНЕ - У КЛИЕНТА НИЧЕГО НЕ ОТКРЫВАЕТСЯ!
+    sendWhatsAppNotification(messageToYou);
     
     // =============================================
-    // 2. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ
+    // 2. ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ КЛИЕНТУ (ТОЛЬКО НА САЙТЕ!)
     // =============================================
     
     // Тексты на разных языках
@@ -295,7 +323,7 @@ async function submitOrderForm(e) {
     
     const msg = orderMessages[lang];
     
-    // Показываем уведомление
+    // ПОКАЗЫВАЕМ УВЕДОМЛЕНИЕ (НЕ ОТКРЫВАЕМ WHATSAPP!)
     showSuccessNotification(msg.title, msg.message);
     
     // =============================================
@@ -564,9 +592,8 @@ function clearDatabase() {
 }
 
 function testWhatsApp() {
-    const testMessage = encodeURIComponent('✅ Тестовое сообщение от сайта CleanPro Istanbul\n\nВремя: ' + new Date().toLocaleString());
-    window.open(`https://wa.me/905550644089?text=${testMessage}`, '_blank');
+    // Только для теста - отправляет вам сообщение в фоне
+    const testMessage = '✅ Тестовое сообщение от сайта CleanPro Istanbul\n\nВремя: ' + new Date().toLocaleString();
+    sendWhatsAppNotification(testMessage);
+    alert('✅ Тестовое сообщение отправлено вам в WhatsApp (в фоновом режиме)');
 }
-
-// Обновлять статистику каждые 10 секунд
-setInterval(updateStats, 10000);
