@@ -149,6 +149,16 @@
             transform: translateY(-2px);
         }
 
+        .btn-info {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
         .services-list {
             margin-top: 20px;
         }
@@ -289,6 +299,36 @@
             font-size: 0.8rem;
         }
 
+        .sync-alert {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .sync-instruction {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
         @media (max-width: 768px) {
             .admin-grid {
                 grid-template-columns: 1fr;
@@ -332,9 +372,23 @@
                 <i class="fas fa-crown"></i>
                 CleanPro Istanbul - Админ-панель
             </h1>
-            <button onclick="logoutAdmin()" class="btn btn-danger">
-                <i class="fas fa-sign-out-alt"></i> Выйти
-            </button>
+            <div>
+                <button onclick="syncToSite()" class="btn btn-info" style="margin-right: 10px;">
+                    <i class="fas fa-sync-alt"></i> Синхронизировать с сайтом
+                </button>
+                <button onclick="logoutAdmin()" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+        </div>
+
+        <!-- УВЕДОМЛЕНИЕ О СИНХРОНИЗАЦИИ -->
+        <div id="syncAlert" class="sync-alert" style="display: none;">
+            <i class="fas fa-check-circle" style="font-size: 24px;"></i>
+            <div>
+                <strong id="syncTitle">✅ Цены готовы к синхронизации!</strong><br>
+                <span id="syncMessage"></span>
+            </div>
         </div>
 
         <!-- Статистика -->
@@ -464,6 +518,9 @@
                 <button onclick="resetToDefault()" class="btn btn-danger btn-sm">
                     <i class="fas fa-undo"></i> Сброс к стандартным
                 </button>
+                <button onclick="syncToSite()" class="btn btn-info btn-sm">
+                    <i class="fas fa-sync-alt"></i> Синхронизация
+                </button>
             </div>
 
             <table class="price-table">
@@ -551,6 +608,7 @@
         function loginAdmin() {
             const password = document.getElementById('adminPassword').value;
             if (password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('adminPanel').classList.remove('hidden');
                 loadAdminData();
@@ -560,6 +618,7 @@
         }
 
         function logoutAdmin() {
+            localStorage.removeItem('adminLoggedIn');
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('adminPanel').classList.add('hidden');
             document.getElementById('adminPassword').value = '';
@@ -773,6 +832,64 @@
                 
                 alert('✅ Услуга удалена');
             }
+        }
+
+        // =============================================
+        // СИНХРОНИЗАЦИЯ С САЙТОМ (НОВАЯ ФУНКЦИЯ!)
+        // =============================================
+
+        function syncToSite() {
+            // Получаем все цены
+            const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_PRICES;
+            
+            // Сохраняем в localStorage для сайта
+            localStorage.setItem('sitePrices', JSON.stringify(services));
+            
+            // Создаем файл для скачивания
+            const dataStr = JSON.stringify(services, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const date = new Date().toISOString().split('T')[0];
+            const fileName = `prices-${date}.json`;
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Показываем уведомление с ИНСТРУКЦИЕЙ
+            const alertBox = document.getElementById('syncAlert');
+            const syncMessage = document.getElementById('syncMessage');
+            
+            alertBox.style.display = 'flex';
+            syncMessage.innerHTML = `
+                <div style="margin-top: 10px;">
+                    <strong>📁 ФАЙЛ СКАЧАН:</strong> ${fileName}<br><br>
+                    
+                    <strong>📋 ПОШАГОВАЯ ИНСТРУКЦИЯ:</strong><br>
+                    1. Файл сохранен в папку <strong>"Загрузки" (Downloads)</strong> на вашем MacBook<br>
+                    2. Откройте GitHub: <a href="https://github.com/nepes89-hue/cleaning-istanbul" target="_blank">https://github.com/nepes89-hue/cleaning-istanbul</a><br>
+                    3. Нажмите кнопку <strong>"Add file" → "Upload files"</strong><br>
+                    4. Перетащите файл <strong>${fileName}</strong> из папки Загрузки<br>
+                    5. Переименуйте его в <strong>prices.json</strong> (уберите дату)<br>
+                    6. Нажмите <strong>"Commit changes"</strong><br>
+                    7. Откройте сайт и обновите страницу (<strong>⌘+R</strong>)<br><br>
+                    
+                    <span style="color: #e74c3c; font-weight: bold;">
+                        <i class="fas fa-clock"></i> Изменения появятся на сайте через 1-2 минуты
+                    </span>
+                </div>
+            `;
+            
+            // Автоматически скрыть через 30 секунд
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 30000);
+            
+            console.log('✅ Цены синхронизированы, файл скачан:', fileName);
         }
 
         // =============================================
