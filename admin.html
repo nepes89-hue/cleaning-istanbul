@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CleanPro Admin Panel</title>
+    <title>CleanPro Admin - Управление ценами</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -9,67 +9,110 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: Arial, sans-serif;
         }
         
         body {
-            background: #f5f7fa;
+            background: #f0f2f5;
             padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .header {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
         .card {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
-        .btn {
-            padding: 12px 24px;
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 15px;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            margin-right: 10px;
         }
         
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
+        button:hover {
+            background: #2980b9;
         }
         
         .btn-success {
             background: #2ecc71;
-            color: white;
         }
         
-        .btn-primary {
-            background: #3498db;
-            color: white;
+        .btn-success:hover {
+            background: #27ae60;
         }
         
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 15px;
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-warning {
+            background: #f39c12;
+        }
+        
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+        
+        .services-list {
+            margin-top: 20px;
         }
         
         .service-item {
@@ -80,111 +123,286 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-left: 4px solid #3498db;
         }
         
-        .price-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .service-info {
+            flex: 2;
+        }
+        
+        .service-price {
+            font-size: 18px;
             font-weight: bold;
+            color: #e74c3c;
+            margin-right: 20px;
+        }
+        
+        .service-actions button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .language-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .lang-tab {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .lang-tab.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .alert {
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .small-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🛠 CleanPro Admin Panel</h1>
-        <button onclick="logout()" class="btn btn-danger">
-            🚪 Выйти
-        </button>
-    </div>
+    <div class="container">
+        <!-- ШАПКА -->
+        <div class="header">
+            <h1 style="color: #2c3e50;">🛠 CleanPro Istanbul</h1>
+            <div>
+                <button onclick="syncToSite()" class="btn-warning" style="margin-right: 10px;">
+                    🔄 СИНХРОНИЗИРОВАТЬ
+                </button>
+                <button onclick="logout()" class="btn-danger">
+                    🚪 ВЫЙТИ
+                </button>
+            </div>
+        </div>
 
-    <div class="card">
-        <h2>➕ Добавить услугу</h2>
-        <input type="text" id="serviceName" class="form-control" placeholder="Название услуги">
-        <input type="number" id="servicePrice" class="form-control" placeholder="Цена">
-        <button onclick="addService()" class="btn btn-success">
-            ✅ Добавить
-        </button>
-    </div>
+        <!-- УВЕДОМЛЕНИЕ -->
+        <div id="alertMessage" class="alert">
+            ✅ Цены успешно синхронизированы с сайтом!
+        </div>
 
-    <div class="card">
-        <h2>📋 Услуги и цены</h2>
-        <div id="servicesList"></div>
+        <!-- СТАТИСТИКА -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="regCount">0</h3>
+                <p>Регистраций</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="orderCount">0</h3>
+                <p>Заявок</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="serviceCount">0</h3>
+                <p>Услуг</p>
+            </div>
+        </div>
+
+        <!-- ДОБАВЛЕНИЕ УСЛУГИ -->
+        <div class="card">
+            <h2>➕ ДОБАВИТЬ НОВУЮ УСЛУГУ</h2>
+            
+            <div class="language-tabs">
+                <button id="langRu" class="lang-tab active" onclick="setLanguage('ru')">🇷🇺 РУССКИЙ</button>
+                <button id="langEn" class="lang-tab" onclick="setLanguage('en')">🇺🇸 ENGLISH</button>
+                <button id="langTr" class="lang-tab" onclick="setLanguage('tr')">🇹🇷 TÜRKÇE</button>
+            </div>
+
+            <div class="form-group">
+                <label>НАЗВАНИЕ УСЛУГИ</label>
+                <input type="text" id="serviceName" placeholder="Например: Химчистка дивана">
+            </div>
+
+            <div class="form-group">
+                <label>ОПИСАНИЕ (краткое)</label>
+                <input type="text" id="serviceDesc" placeholder="Например: Полная химчистка, удаление пятен">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label>ЦЕНА ОТ (TL)</label>
+                    <input type="number" id="servicePrice" placeholder="600">
+                </div>
+                <div class="form-group">
+                    <label>ЦЕНА ДО (TL)</label>
+                    <input type="number" id="servicePriceMax" placeholder="900">
+                </div>
+            </div>
+
+            <button onclick="addService()" class="btn-success" style="width: 100%;">
+                ✅ ДОБАВИТЬ УСЛУГУ
+            </button>
+        </div>
+
+        <!-- СПИСОК УСЛУГ -->
+        <div class="card">
+            <h2>📋 УПРАВЛЕНИЕ УСЛУГАМИ И ЦЕНАМИ</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <select id="langFilter" onchange="filterServices()" style="width: 200px; padding: 8px;">
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="en">🇺🇸 English</option>
+                    <option value="tr">🇹🇷 Türkçe</option>
+                </select>
+            </div>
+
+            <div id="servicesList" class="services-list">
+                <!-- Список загрузится сюда -->
+            </div>
+        </div>
     </div>
 
     <script>
         // =============================================
-        // ПРОВЕРКА АВТОРИЗАЦИИ - ИСПРАВЛЕНО!
+        // ПРОВЕРКА АВТОРИЗАЦИИ
         // =============================================
-        
-        // УБИРАЕМ АВТОМАТИЧЕСКИЙ РЕДИРЕКТ!
-        // Вместо этого просто проверяем и показываем сообщение
-        
-        const isLoggedIn = localStorage.getItem('adminLoggedIn');
-        if (!isLoggedIn) {
-            document.body.innerHTML = `
-                <div style="max-width: 400px; margin: 100px auto; text-align: center; padding: 40px; background: white; border-radius: 15px;">
-                    <h2 style="color: #e74c3c; margin-bottom: 20px;">❌ Доступ запрещен</h2>
-                    <p style="margin-bottom: 20px;">Пожалуйста, войдите через admin.html</p>
-                    <a href="admin.html" style="display: inline-block; padding: 12px 24px; background: #3498db; color: white; text-decoration: none; border-radius: 8px;">Войти</a>
-                </div>
-            `;
-            throw new Error('Not authorized');
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin.html';
         }
 
         // =============================================
-        // СТАНДАРТНЫЕ УСЛУГИ
+        // НАСТРОЙКИ
         // =============================================
-        
-        const DEFAULT_SERVICES = [
-            { name: 'Диван (2-местный)', price: 600 },
-            { name: 'Кресло', price: 350 },
-            { name: 'Матрас', price: 450 },
-            { name: 'Ковёр (м²)', price: 180 },
-            { name: 'Автомобиль', price: 1200 },
-            { name: 'Шторы', price: 250 },
-            { name: 'Стул', price: 150 }
-        ];
+        let currentLang = 'ru';
+
+        // Стандартные услуги на всех языках
+        const DEFAULT_SERVICES = {
+            ru: [
+                { name: 'Диван (2-местный)', desc: 'Полная химчистка', price: 600, priceMax: 900 },
+                { name: 'Кресло', desc: 'Обивка любого типа', price: 350, priceMax: 600 },
+                { name: 'Матрас', desc: 'Двусторонняя чистка', price: 450, priceMax: 700 },
+                { name: 'Ковёр (м²)', desc: 'В зависимости от загрязнения', price: 180, priceMax: 350 },
+                { name: 'Автомобиль', desc: 'Комплексная чистка салона', price: 1200, priceMax: 2500 },
+                { name: 'Шторы', desc: 'Химчистка штор', price: 250, priceMax: 500 },
+                { name: 'Стул', desc: 'Чистка стульев', price: 150, priceMax: 300 }
+            ],
+            en: [
+                { name: 'Sofa (2-seater)', desc: 'Complete dry cleaning', price: 600, priceMax: 900 },
+                { name: 'Armchair', desc: 'Any upholstery type', price: 350, priceMax: 600 },
+                { name: 'Mattress', desc: 'Two-sided cleaning', price: 450, priceMax: 700 },
+                { name: 'Carpet (m²)', desc: 'Depending on soiling', price: 180, priceMax: 350 },
+                { name: 'Car', desc: 'Complete interior cleaning', price: 1200, priceMax: 2500 },
+                { name: 'Curtains', desc: 'Curtain cleaning', price: 250, priceMax: 500 },
+                { name: 'Chair', desc: 'Chair cleaning', price: 150, priceMax: 300 }
+            ],
+            tr: [
+                { name: 'Kanepe (2 kişilik)', desc: 'Tam kuru temizleme', price: 600, priceMax: 900 },
+                { name: 'Koltuk', desc: 'Her türlü döşeme', price: 350, priceMax: 600 },
+                { name: 'Yatak', desc: 'Çift taraflı temizlik', price: 450, priceMax: 700 },
+                { name: 'Halı (m²)', desc: 'Kirlilik durumuna göre', price: 180, priceMax: 350 },
+                { name: 'Araç', desc: 'Tam iç temizlik', price: 1200, priceMax: 2500 },
+                { name: 'Perde', desc: 'Perde temizliği', price: 250, priceMax: 500 },
+                { name: 'Sandalye', desc: 'Sandalye temizliği', price: 150, priceMax: 300 }
+            ]
+        };
 
         // =============================================
-        // ЗАГРУЗКА УСЛУГ
+        // ЗАГРУЗКА ДАННЫХ
         // =============================================
-        
         function loadServices() {
-            let services = JSON.parse(localStorage.getItem('adminServices'));
+            let services = localStorage.getItem('adminServices');
             
-            if (!services || services.length === 0) {
+            if (!services) {
                 services = DEFAULT_SERVICES;
                 localStorage.setItem('adminServices', JSON.stringify(services));
+            } else {
+                services = JSON.parse(services);
             }
 
+            const filterLang = document.getElementById('langFilter').value;
+            const currentServices = services[filterLang] || services.ru;
+
             let html = '';
-            services.forEach((service, index) => {
+            currentServices.forEach((service, index) => {
                 html += `
                     <div class="service-item">
-                        <div>
-                            <strong>${service.name}</strong>
+                        <div class="service-info">
+                            <strong style="font-size: 16px;">${service.name}</strong>
+                            <div style="color: #666; font-size: 13px; margin-top: 5px;">${service.desc || ''}</div>
                         </div>
-                        <div>
-                            <span class="price-badge">${service.price} TL</span>
-                            <button onclick="editPrice(${index})" style="margin-left: 10px; padding: 5px 10px; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">✏️</button>
-                            <button onclick="deleteService(${index})" style="margin-left: 5px; padding: 5px 10px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer;">🗑️</button>
+                        <div style="display: flex; align-items: center;">
+                            <span class="service-price">${service.price} - ${service.priceMax || service.price + 300} TL</span>
+                            <div class="service-actions">
+                                <button onclick="editPrice(${index})" style="background: #3498db;">✏️</button>
+                                <button onclick="deleteService(${index})" style="background: #e74c3c;">🗑️</button>
+                            </div>
                         </div>
                     </div>
                 `;
             });
 
             document.getElementById('servicesList').innerHTML = html;
+
+            // Подсчет количества услуг
+            let totalServices = 0;
+            for (let lang in services) {
+                totalServices += services[lang].length;
+            }
+            document.getElementById('serviceCount').textContent = totalServices;
+            
+            // Загрузка статистики клиентов
+            loadStats();
+        }
+
+        function filterServices() {
+            loadServices();
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById('langRu').classList.remove('active');
+            document.getElementById('langEn').classList.remove('active');
+            document.getElementById('langTr').classList.remove('active');
+            document.getElementById(`lang${lang.toUpperCase()}`).classList.add('active');
         }
 
         // =============================================
         // ДОБАВЛЕНИЕ УСЛУГИ
         // =============================================
-        
         function addService() {
             const name = document.getElementById('serviceName').value.trim();
+            const desc = document.getElementById('serviceDesc').value.trim();
             const price = document.getElementById('servicePrice').value.trim();
+            const priceMax = document.getElementById('servicePriceMax').value.trim();
 
             if (!name || !price) {
                 alert('❌ Заполните название и цену!');
@@ -193,15 +411,21 @@
 
             let services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
             
-            services.push({
+            // Добавляем на текущем языке
+            services[currentLang].push({
                 name: name,
-                price: parseInt(price)
+                desc: desc,
+                price: parseInt(price),
+                priceMax: parseInt(priceMax) || parseInt(price) + 300
             });
 
             localStorage.setItem('adminServices', JSON.stringify(services));
             
+            // Очищаем поля
             document.getElementById('serviceName').value = '';
+            document.getElementById('serviceDesc').value = '';
             document.getElementById('servicePrice').value = '';
+            document.getElementById('servicePriceMax').value = '';
             
             loadServices();
             alert('✅ Услуга добавлена!');
@@ -210,15 +434,17 @@
         // =============================================
         // РЕДАКТИРОВАНИЕ ЦЕНЫ
         // =============================================
-        
         function editPrice(index) {
+            const lang = document.getElementById('langFilter').value;
             let services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
-            const service = services[index];
+            const service = services[lang][index];
             
-            const newPrice = prompt(`Новая цена для ${service.name}:`, service.price);
+            const newPrice = prompt(`Новая цена (от) для "${service.name}":`, service.price);
+            const newPriceMax = prompt(`Новая цена (до):`, service.priceMax || service.price + 300);
             
-            if (newPrice && !isNaN(newPrice) && newPrice > 0) {
+            if (newPrice && !isNaN(newPrice)) {
                 service.price = parseInt(newPrice);
+                service.priceMax = parseInt(newPriceMax) || parseInt(newPrice) + 300;
                 localStorage.setItem('adminServices', JSON.stringify(services));
                 loadServices();
                 alert('✅ Цена обновлена!');
@@ -228,56 +454,73 @@
         // =============================================
         // УДАЛЕНИЕ УСЛУГИ
         // =============================================
-        
         function deleteService(index) {
-            if (confirm('Удалить услугу?')) {
+            if (confirm('🗑️ Удалить эту услугу?')) {
+                const lang = document.getElementById('langFilter').value;
                 let services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
-                services.splice(index, 1);
+                services[lang].splice(index, 1);
                 localStorage.setItem('adminServices', JSON.stringify(services));
                 loadServices();
             }
         }
 
         // =============================================
-        // ПРИМЕНЕНИЕ К САЙТУ
+        // СИНХРОНИЗАЦИЯ С САЙТОМ
         // =============================================
-        
-        function applyToSite() {
+        function syncToSite() {
             const services = JSON.parse(localStorage.getItem('adminServices')) || DEFAULT_SERVICES;
             
-            // Сохраняем для сайта
+            // Сохраняем в localStorage для сайта
             localStorage.setItem('sitePrices', JSON.stringify(services));
             
-            alert(`✅ Цены сохранены!\n\nТеперь откройте основной сайт и обновите страницу (F5)`);
+            // Показываем уведомление
+            const alertBox = document.getElementById('alertMessage');
+            alertBox.style.display = 'block';
+            alertBox.innerHTML = '✅ Цены успешно синхронизированы! Откройте основной сайт и обновите страницу.';
             
-            // Открываем основной сайт
-            window.open('https://nepes89-hue.github.io/cleaning-istanbul/', '_blank');
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 5000);
+            
+            // Создаем файл для скачивания
+            const dataStr = JSON.stringify(services, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `prices-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            console.log('✅ Цены синхронизированы:', services);
+        }
+
+        // =============================================
+        // СТАТИСТИКА КЛИЕНТОВ
+        // =============================================
+        function loadStats() {
+            const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
+            document.getElementById('regCount').textContent = db.registrations.length;
+            document.getElementById('orderCount').textContent = db.orders.length;
         }
 
         // =============================================
         // ВЫХОД
         // =============================================
-        
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
-            window.location.href = 'admin.html';
+            if (confirm('Выйти из админ-панели?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'admin.html';
+            }
         }
 
         // =============================================
         // ЗАГРУЗКА ПРИ СТАРТЕ
         // =============================================
-        
         loadServices();
-        
-        // Добавляем кнопку применения в шапку
-        const header = document.querySelector('.header');
-        const applyButton = document.createElement('button');
-        applyButton.className = 'btn btn-primary';
-        applyButton.style.marginLeft = '10px';
-        applyButton.innerHTML = '✅ Применить к сайту';
-        applyButton.onclick = applyToSite;
-        header.appendChild(applyButton);
-        
+        loadStats();
     </script>
 </body>
 </html>
