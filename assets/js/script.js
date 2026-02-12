@@ -48,7 +48,7 @@ let SITE_PRICES = null;
 async function loadPrices() {
   try {
     // Добавляем параметр для обхода кэша!
-    const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
+    const response = await fetch('https://nepes89-hue.github.io/cleaning-istanbul/prices.json?t=' + Date.now());
     if (!response.ok) throw new Error('Файл не найден');
     const data = await response.json();
     SITE_PRICES = data;
@@ -637,6 +637,7 @@ style.textContent = `
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 `;
 document.head.appendChild(style);
+
 
 
 
