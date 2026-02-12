@@ -5,7 +5,7 @@ async function loadPrices() {
     try {
         // Добавляем случайный параметр, чтобы не было кэша
         const cacheBuster = '?v=' + new Date().getTime();
-        const response = await fetch('/cleaning-istanbul/prices2.json?t=' + Date.now());
+        const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -46,46 +46,19 @@ async function loadPrices() {
 let SITE_PRICES = null;
 
 async function loadPrices() {
-    try {
-        const response = await fetch('/cleaning-istanbul/prices.json');
-        if (!response.ok) throw new Error('Файл не найден');
-        const data = await response.json();
-        SITE_PRICES = data;
-        console.log('✅ Цены загружены из prices.json', data);
-        updatePricesOnPage();
-    } catch (error) {
-        console.warn('⚠️ Не удалось загрузить prices.json, использую стандартные цены');
-        SITE_PRICES = {
-            ru: {
-                "Диван (2-местный)": { price: 600, priceMax: 900, category: "furniture", icon: "couch" },
-                "Кресло": { price: 350, priceMax: 600, category: "furniture", icon: "chair" },
-                "Матрас": { price: 450, priceMax: 700, category: "furniture", icon: "bed" },
-                "Ковёр": { price: 180, priceMax: 350, category: "carpet", icon: "rug" },
-                "Автомобиль (легковой)": { price: 1200, priceMax: 2500, category: "car", icon: "car" },
-                "Шторы": { price: 250, priceMax: 500, category: "other", icon: "curtain" },
-                "Стул": { price: 150, priceMax: 300, category: "furniture", icon: "chair" }
-            },
-            en: {
-                "Sofa (2-seater)": { price: 600, priceMax: 900, category: "furniture", icon: "couch" },
-                "Armchair": { price: 350, priceMax: 600, category: "furniture", icon: "chair" },
-                "Mattress": { price: 450, priceMax: 700, category: "furniture", icon: "bed" },
-                "Carpet": { price: 180, priceMax: 350, category: "carpet", icon: "rug" },
-                "Car (sedan)": { price: 1200, priceMax: 2500, category: "car", icon: "car" },
-                "Curtains": { price: 250, priceMax: 500, category: "other", icon: "curtain" },
-                "Chair": { price: 150, priceMax: 300, category: "furniture", icon: "chair" }
-            },
-            tr: {
-                "Kanepe (2 kişilik)": { price: 600, priceMax: 900, category: "furniture", icon: "couch" },
-                "Koltuk": { price: 350, priceMax: 600, category: "furniture", icon: "chair" },
-                "Yatak": { price: 450, priceMax: 700, category: "furniture", icon: "bed" },
-                "Halı": { price: 180, priceMax: 350, category: "carpet", icon: "rug" },
-                "Araç (binek)": { price: 1200, priceMax: 2500, category: "car", icon: "car" },
-                "Perde": { price: 250, priceMax: 500, category: "other", icon: "curtain" },
-                "Sandalye": { price: 150, priceMax: 300, category: "furniture", icon: "chair" }
-            }
-        };
-        updatePricesOnPage();
-    }
+  try {
+    // Добавляем параметр для обхода кэша!
+    const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
+    if (!response.ok) throw new Error('Файл не найден');
+    const data = await response.json();
+    SITE_PRICES = data;
+    console.log('✅ Цены загружены из prices.json', data);
+    updatePricesOnPage();
+  } catch (error) {
+    console.warn('⚠️ Не удалось загрузить prices.json');
+    // НИЧЕГО НЕ СОЗДАЁМ! Просто показываем ошибку
+    alert('Ошибка загрузки цен. Проверьте файл prices.json');
+  }
 }
 
 // =============================================
@@ -664,6 +637,7 @@ style.textContent = `
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 `;
 document.head.appendChild(style);
+
 
 
 
