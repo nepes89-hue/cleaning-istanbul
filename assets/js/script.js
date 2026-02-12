@@ -5,7 +5,7 @@ async function loadPrices() {
     try {
         // Добавляем случайный параметр, чтобы не было кэша
         const cacheBuster = '?v=' + new Date().getTime();
-        const response = await fetch('/cleaning-istanbul/prices.json' + cacheBuster);
+        const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
@@ -664,4 +664,5 @@ style.textContent = `
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 `;
 document.head.appendChild(style);
+
 
