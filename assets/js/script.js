@@ -1,4 +1,46 @@
 // =============================================
+// ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ЦЕН (БЕЗ КЭША)
+// =============================================
+async function loadPrices() {
+    try {
+        // Добавляем случайный параметр, чтобы не было кэша
+        const cacheBuster = '?v=' + new Date().getTime();
+        const response = await fetch('/cleaning-istanbul/prices.json' + cacheBuster);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        SITE_PRICES = data;
+        
+        // Сохраняем в localStorage с меткой времени
+        localStorage.setItem('cachedPrices', JSON.stringify({
+            data: data,
+            timestamp: new Date().getTime()
+        }));
+        
+        console.log('✅ Цены загружены:', data);
+        updatePricesOnPage();
+        
+    } catch (error) {
+        console.warn('⚠️ Ошибка загрузки:', error);
+        
+        // Пробуем загрузить из кэша, если есть
+        const cached = localStorage.getItem('cachedPrices');
+        if (cached) {
+            const { data } = JSON.parse(cached);
+            SITE_PRICES = data;
+            console.log('📦 Использованы кэшированные цены');
+            updatePricesOnPage();
+        } else {
+            // Стандартные цены
+            SITE_PRICES = DEFAULT_PRICES;
+            updatePricesOnPage();
+        }
+    }
+}
+// =============================================
 // ЗАГРУЗКА ЦЕН ИЗ prices.json
 // =============================================
 let SITE_PRICES = null;
@@ -622,3 +664,4 @@ style.textContent = `
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 `;
 document.head.appendChild(style);
+
