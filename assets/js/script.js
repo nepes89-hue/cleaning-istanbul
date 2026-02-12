@@ -7,49 +7,38 @@ async function loadPrices() {
     try {
         const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
         if (!response.ok) throw new Error('Файл не найден');
-        
         const data = await response.json();
         SITE_PRICES = data;
-        
-        console.log('✅ Цены загружены из prices.json:', data);
-        
-        // Обновляем цены на странице
+        console.log('✅ Цены загружены из prices.json', data);
         updatePricesOnPage();
-        
     } catch (error) {
         console.error('❌ Ошибка загрузки цен:', error);
-        alert('Ошибка загрузки цен. Проверьте файл prices.json');
     }
 }
 
 function updatePricesOnPage() {
     if (!SITE_PRICES) return;
     
-    // Определяем текущий язык
     const lang = getCurrentLanguage().toLowerCase();
     const langCode = lang.includes('en') ? 'en' : lang.includes('tr') ? 'tr' : 'ru';
     const prices = SITE_PRICES[langCode] || SITE_PRICES.ru;
-    
     if (!prices) return;
-    
+
     // Обновляем карточки услуг
     document.querySelectorAll('.service-card').forEach(card => {
         const titleElem = card.querySelector('.service-name, h3');
         if (!titleElem) return;
-        
         const title = titleElem.textContent.trim();
         
         for (let [name, data] of Object.entries(prices)) {
             if (title.includes(name) || name.includes(title)) {
                 const priceElem = card.querySelector('.service-price');
-                if (priceElem) {
-                    priceElem.textContent = `от ${data.price} TL`;
-                }
+                if (priceElem) priceElem.textContent = `от ${data.price} TL`;
                 break;
             }
         }
     });
-    
+
     // Обновляем таблицу цен
     const table = document.querySelector('.prices-table');
     if (table) {
@@ -57,7 +46,6 @@ function updatePricesOnPage() {
         rows.forEach(row => {
             const serviceCell = row.cells[0];
             if (!serviceCell) return;
-            
             const serviceName = serviceCell.textContent.trim();
             
             for (let [name, data] of Object.entries(prices)) {
@@ -68,118 +56,6 @@ function updatePricesOnPage() {
                     }
                     break;
                 }
-            }
-        });
-    }
-}
-// =============================================
-// ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ЦЕН (БЕЗ КЭША)
-// =============================================
-async function loadPrices() {
-    try {
-        // Добавляем случайный параметр, чтобы не было кэша
-        const cacheBuster = '?v=' + new Date().getTime();
-        const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        
-        const data = await response.json();
-        SITE_PRICES = data;
-        
-        // Сохраняем в localStorage с меткой времени
-        localStorage.setItem('cachedPrices', JSON.stringify({
-            data: data,
-            timestamp: new Date().getTime()
-        }));
-        
-        console.log('✅ Цены загружены:', data);
-        updatePricesOnPage();
-        
-    } catch (error) {
-        console.warn('⚠️ Ошибка загрузки:', error);
-        
-        // Пробуем загрузить из кэша, если есть
-        const cached = localStorage.getItem('cachedPrices');
-        if (cached) {
-            const { data } = JSON.parse(cached);
-            SITE_PRICES = data;
-            console.log('📦 Использованы кэшированные цены');
-            updatePricesOnPage();
-        } else {
-            // Стандартные цены
-            SITE_PRICES = DEFAULT_PRICES;
-            updatePricesOnPage();
-        }
-    }
-}
-// =============================================
-// ЗАГРУЗКА ЦЕН ИЗ prices.json
-// =============================================
-let SITE_PRICES = null;
-
-async function loadPrices() {
-  try {
-    // Добавляем параметр для обхода кэша!
-    const response = await fetch('https://nepes89-hue.github.io/cleaning-istanbul/prices.json?t=' + Date.now());
-    if (!response.ok) throw new Error('Файл не найден');
-    const data = await response.json();
-    SITE_PRICES = data;
-    console.log('✅ Цены загружены из prices.json', data);
-    updatePricesOnPage();
-  } catch (error) {
-    console.warn('⚠️ Не удалось загрузить prices.json');
-    // НИЧЕГО НЕ СОЗДАЁМ! Просто показываем ошибку
-    alert('Ошибка загрузки цен. Проверьте файл prices.json');
-  }
-}
-
-// =============================================
-// ОБНОВЛЕНИЕ ЦЕН НА СТРАНИЦЕ
-// =============================================
-function updatePricesOnPage() {
-    const lang = getCurrentLanguage().toLowerCase();
-    const langCode = lang.includes('en') ? 'en' : lang.includes('tr') ? 'tr' : 'ru';
-    const prices = SITE_PRICES[langCode] || SITE_PRICES.ru;
-
-    // Обновляем карточки услуг
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        const titleElem = card.querySelector('.service-name');
-        if (!titleElem) return;
-        const title = titleElem.textContent.trim();
-        let found = null;
-        for (let [name, data] of Object.entries(prices)) {
-            if (title.includes(name) || name.includes(title)) {
-                found = data;
-                break;
-            }
-        }
-        if (found) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) priceElem.textContent = `от ${found.price} TL`;
-        }
-    });
-
-    // Обновляем таблицу цен
-    const table = document.querySelector('.prices-table');
-    if (table) {
-        const rows = table.querySelectorAll('tbody tr');
-        rows.forEach(row => {
-            const serviceCell = row.cells[0];
-            if (!serviceCell) return;
-            const serviceName = serviceCell.textContent.trim();
-            let found = null;
-            for (let [name, data] of Object.entries(prices)) {
-                if (serviceName.includes(name) || name.includes(serviceName)) {
-                    found = data;
-                    break;
-                }
-            }
-            if (found) {
-                const priceCell = row.cells[2];
-                if (priceCell) priceCell.innerHTML = `${found.price} - ${found.priceMax || found.price + 300} TL`;
             }
         });
     }
@@ -421,16 +297,16 @@ function saveToLocalDatabase(data) {
     }
     
     localStorage.setItem('cleaningDatabase', JSON.stringify(db));
-    console.log('📊 База обновлена:', { регистраций: db.registrations.length, заявок: db.orders.length });
+    console.log('📊 База обновлена:', { registrations: db.registrations.length, orders: db.orders.length });
 }
 
 // =============================================
 // РЕГИСТРАЦИЯ
 // =============================================
 async function registerForPrices() {
-    const name = document.getElementById('regName')?.value.trim();
-    const phone = document.getElementById('regPhone')?.value.trim();
-    const email = document.getElementById('regEmail')?.value.trim();
+    const name = document.getElementById('regName')?.value?.trim();
+    const phone = document.getElementById('regPhone')?.value?.trim();
+    const email = document.getElementById('regEmail')?.value?.trim();
     
     if (!name || !phone) {
         alert('❌ Пожалуйста, заполните имя и телефон');
@@ -441,7 +317,6 @@ async function registerForPrices() {
     const discount = Math.floor(Math.random() * 11);
     const language = getCurrentLanguage();
     
-    // Показываем уведомление админу
     showAdminNotification('registration', {
         name: name,
         phone: turkishPhone,
@@ -450,7 +325,6 @@ async function registerForPrices() {
         language: language
     });
     
-    // Сохраняем данные клиента
     localStorage.setItem('cleaningUser', JSON.stringify({
         name: name,
         phone: turkishPhone,
@@ -463,7 +337,6 @@ async function registerForPrices() {
     localStorage.setItem('hasPriceAccess', 'true');
     localStorage.setItem('userDiscount', discount);
     
-    // Показываем уведомление клиенту
     const messages = {
         'ru': { title: 'Регистрация успешна!', message: `Спасибо, ${name}! Вы успешно зарегистрированы.` },
         'en': { title: 'Registration Successful!', message: `Thank you, ${name}! You have successfully registered.` },
@@ -475,7 +348,6 @@ async function registerForPrices() {
     
     showSuccessNotification(messages[lang].title, messages[lang].message, discount);
     
-    // Показываем цены
     setTimeout(() => {
         const priceReg = document.getElementById('priceRegistration');
         const actualPrices = document.getElementById('actualPrices');
@@ -483,7 +355,6 @@ async function registerForPrices() {
         if (actualPrices) actualPrices.style.display = 'block';
     }, 500);
     
-    // Сохраняем в базу
     saveToLocalDatabase({
         type: 'registration',
         name: name,
@@ -510,7 +381,6 @@ async function submitOrderForm(e) {
     const message = document.getElementById('message')?.value;
     const language = getCurrentLanguage();
     
-    // Показываем уведомление админу
     showAdminNotification('order', {
         name: name,
         phone: phone,
@@ -520,7 +390,6 @@ async function submitOrderForm(e) {
         language: language
     });
     
-    // Показываем уведомление клиенту
     const orderMessages = {
         'ru': { title: 'Заявка отправлена!', message: `Спасибо, ${name}! Мы свяжемся с вами в течение 30 минут.` },
         'en': { title: 'Request Sent!', message: `Thank you, ${name}! We'll contact you within 30 minutes.` },
@@ -532,7 +401,6 @@ async function submitOrderForm(e) {
     
     showSuccessNotification(orderMessages[lang].title, orderMessages[lang].message);
     
-    // Сохраняем заявку
     saveToLocalDatabase({
         type: 'order',
         name: name,
@@ -556,16 +424,10 @@ function showPrices() {
     const correctPassword = 'clean123';
     
     if (password === correctPassword) {
-        const priceProtection = document.getElementById('priceProtection');
-        const priceContent = document.getElementById('priceContent');
-        const priceRegistration = document.getElementById('priceRegistration');
+        const priceReg = document.getElementById('priceRegistration');
         const actualPrices = document.getElementById('actualPrices');
-        
-        if (priceProtection) priceProtection.style.display = 'none';
-        if (priceContent) priceContent.style.display = 'block';
-        if (priceRegistration) priceRegistration.style.display = 'none';
+        if (priceReg) priceReg.style.display = 'none';
         if (actualPrices) actualPrices.style.display = 'block';
-        
         localStorage.setItem('hasPriceAccess', 'true');
     } else {
         alert('❌ Неверный пароль! Зарегистрируйтесь для получения доступа.');
@@ -576,6 +438,9 @@ function showPrices() {
 // КАЛЬКУЛЯТОР
 // =============================================
 function calculatePrice() {
+    const service = document.getElementById('calcService')?.value;
+    const size = parseFloat(document.getElementById('calcSize')?.value) || 0;
+    
     if (!SITE_PRICES) {
         setTimeout(calculatePrice, 500);
         return;
@@ -584,15 +449,17 @@ function calculatePrice() {
     const lang = getCurrentLanguage().toLowerCase();
     const langCode = lang.includes('en') ? 'en' : lang.includes('tr') ? 'tr' : 'ru';
     const prices = SITE_PRICES[langCode] || SITE_PRICES.ru;
-
-    const service = document.getElementById('calcService')?.value;
-    const size = parseFloat(document.getElementById('calcSize')?.value) || 0;
-
+    
     const serviceMap = {
-        'sofa': 'Диван', 'armchair': 'Кресло', 'mattress': 'Матрас',
-        'carpet': 'Ковёр', 'car': 'Автомобиль', 'curtain': 'Шторы', 'chair': 'Стул'
+        'sofa': 'Диван',
+        'armchair': 'Кресло',
+        'mattress': 'Матрас',
+        'carpet': 'Ковёр',
+        'car': 'Автомобиль',
+        'curtain': 'Шторы',
+        'chair': 'Стул'
     };
-
+    
     const serviceNamePattern = serviceMap[service];
     let priceData = null;
     let serviceName = '';
@@ -604,33 +471,33 @@ function calculatePrice() {
             break;
         }
     }
-
+    
     let price = 0;
     if (priceData) {
         price = (service === 'carpet') ? priceData.price * size : priceData.price;
     }
-
+    
     const discount = parseInt(localStorage.getItem('userDiscount')) || 0;
     const discountAmount = price * discount / 100;
     const finalPrice = price - discountAmount;
-
+    
     const resultElement = document.getElementById('calcResult');
     if (resultElement && price > 0) {
         let html = `<h4>${serviceName}</h4>`;
         if (discount > 0) {
             html += `
                 <p>Обычная цена: <s>${price} TL</s></p>
-                <p>Ваша скидка: <strong style="color:#2ecc71;">${discount}% (${discountAmount.toFixed(0)} TL)</strong></p>
-                <p style="font-size:1.5rem; color:#e74c3c;">Итоговая цена: <strong>${finalPrice.toFixed(0)} TL</strong></p>
+                <p>Ваша скидка: <strong style="color: #2ecc71;">${discount}% (${discountAmount.toFixed(0)} TL)</strong></p>
+                <p style="font-size: 1.5rem; color: #e74c3c;">Итоговая цена: <strong>${finalPrice.toFixed(0)} TL</strong></p>
             `;
         } else {
-            html += `<p>Цена: <strong style="font-size:1.5rem; color:#e74c3c;">${price} TL</strong></p>`;
+            html += `<p>Цена: <strong style="font-size: 1.5rem; color: #e74c3c;">${price} TL</strong></p>`;
         }
         if (service === 'carpet') {
             html += `<small>Площадь: ${size} м² × ${priceData?.price || 180} TL/м²</small>`;
         }
         resultElement.innerHTML = html;
-
+        
         const orderBtn = document.getElementById('calcOrderBtn');
         if (orderBtn) {
             orderBtn.style.display = 'block';
@@ -647,8 +514,8 @@ function calculatePrice() {
 function exportDatabase() {
     const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
     const dataStr = JSON.stringify(db, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    const url = URL.createObjectURL(dataBlob);
+    const blob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
     
     const a = document.createElement('a');
     a.href = url;
@@ -662,10 +529,10 @@ function exportDatabase() {
 }
 
 // =============================================
-// ПЛАВНАЯ ПРОКРУТКА И ИНИЦИАЛИЗАЦИЯ
+// ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
 // =============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Загружаем цены
+    // Загружаем цены!
     loadPrices();
     
     // Плавная прокрутка
@@ -692,7 +559,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const calcSize = document.getElementById('calcSize');
-        if (calcSize) calcSize.addEventListener('input', calculatePrice);
+        if (calcSize) {
+            calcSize.addEventListener('input', calculatePrice);
+        }
     }
     
     // Проверка доступа к ценам
@@ -707,13 +576,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Стили для анимаций
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
 `;
 document.head.appendChild(style);
-
-
-
-
-
-
