@@ -1,4 +1,78 @@
 // =============================================
+// ЗАГРУЗКА ЦЕН ИЗ prices.json
+// =============================================
+let SITE_PRICES = null;
+
+async function loadPrices() {
+    try {
+        const response = await fetch('/cleaning-istanbul/prices.json?t=' + Date.now());
+        if (!response.ok) throw new Error('Файл не найден');
+        
+        const data = await response.json();
+        SITE_PRICES = data;
+        
+        console.log('✅ Цены загружены из prices.json:', data);
+        
+        // Обновляем цены на странице
+        updatePricesOnPage();
+        
+    } catch (error) {
+        console.error('❌ Ошибка загрузки цен:', error);
+        alert('Ошибка загрузки цен. Проверьте файл prices.json');
+    }
+}
+
+function updatePricesOnPage() {
+    if (!SITE_PRICES) return;
+    
+    // Определяем текущий язык
+    const lang = getCurrentLanguage().toLowerCase();
+    const langCode = lang.includes('en') ? 'en' : lang.includes('tr') ? 'tr' : 'ru';
+    const prices = SITE_PRICES[langCode] || SITE_PRICES.ru;
+    
+    if (!prices) return;
+    
+    // Обновляем карточки услуг
+    document.querySelectorAll('.service-card').forEach(card => {
+        const titleElem = card.querySelector('.service-name, h3');
+        if (!titleElem) return;
+        
+        const title = titleElem.textContent.trim();
+        
+        for (let [name, data] of Object.entries(prices)) {
+            if (title.includes(name) || name.includes(title)) {
+                const priceElem = card.querySelector('.service-price');
+                if (priceElem) {
+                    priceElem.textContent = `от ${data.price} TL`;
+                }
+                break;
+            }
+        }
+    });
+    
+    // Обновляем таблицу цен
+    const table = document.querySelector('.prices-table');
+    if (table) {
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const serviceCell = row.cells[0];
+            if (!serviceCell) return;
+            
+            const serviceName = serviceCell.textContent.trim();
+            
+            for (let [name, data] of Object.entries(prices)) {
+                if (serviceName.includes(name) || name.includes(serviceName)) {
+                    const priceCell = row.cells[2];
+                    if (priceCell) {
+                        priceCell.innerHTML = `${data.price} - ${data.priceMax || data.price + 300} TL`;
+                    }
+                    break;
+                }
+            }
+        });
+    }
+}
+// =============================================
 // ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ЦЕН (БЕЗ КЭША)
 // =============================================
 async function loadPrices() {
@@ -637,6 +711,7 @@ style.textContent = `
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 `;
 document.head.appendChild(style);
+
 
 
 
