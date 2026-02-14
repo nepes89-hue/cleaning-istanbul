@@ -9,73 +9,129 @@ async function loadPrices() {
         if (!response.ok) throw new Error('Файл не найден');
         const data = await response.json();
         SITE_PRICES = data;
-        console.log('✅ Цены загружены из prices.json', data);
+        console.log('✅ Цены загружены из prices.json');
+        console.log('💰 Диван стоит:', data['Диван (2-местный)']?.price);
         updatePricesOnPage();
     } catch (error) {
         console.error('❌ Ошибка загрузки цен:', error);
-        // Если не удалось загрузить, показываем старые цены
-        alert('⚠️ Не удалось загрузить цены. Проверьте файл prices.json');
+        alert('⚠️ Ошибка загрузки цен. Проверьте файл prices.json');
     }
 }
 
+// =============================================
+// ПРОСТОЕ И НАДЁЖНОЕ ОБНОВЛЕНИЕ ЦЕН
+// =============================================
 function updatePricesOnPage() {
-    if (!SITE_PRICES) return;
+    if (!SITE_PRICES) {
+        console.log('⚠️ Нет цен для обновления');
+        return;
+    }
 
-    // Получаем текущий язык
-    const lang = getCurrentLanguage().toLowerCase();
-    const langCode = lang.includes('en') ? 'en' : lang.includes('tr') ? 'tr' : 'ru';
-    const prices = SITE_PRICES[langCode] || SITE_PRICES.ru;
-    if (!prices) return;
-
-    console.log('🔄 Обновляем цены для языка:', langCode, prices);
-
-    // 1. ОБНОВЛЯЕМ КАРТОЧКИ УСЛУГ
-    document.querySelectorAll('.service-card').forEach(card => {
-        const titleElem = card.querySelector('.service-name, h3');
-        if (!titleElem) return;
+    console.log('🔄 Обновляем цены на странице...');
+    
+    // Получаем цены (используем русские цены для простоты)
+    const prices = SITE_PRICES;
+    
+    // ===== 1. ОБНОВЛЯЕМ КАРТОЧКИ УСЛУГ =====
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach(card => {
+        const title = card.textContent || '';
         
-        const title = titleElem.textContent.trim();
+        // Диван
+        if (title.includes('Диван')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Диван (2-местный)'].price + ' TL';
+                console.log('✅ Диван обновлён');
+            }
+        }
         
-        // Ищем совпадение названия услуги
-        for (let [name, data] of Object.entries(prices)) {
-            if (title.includes(name) || name.includes(title)) {
-                const priceElem = card.querySelector('.service-price');
-                if (priceElem) {
-                    priceElem.textContent = `от ${data.price} TL`;
-                }
-                break;
+        // Кресло
+        if (title.includes('Кресло')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Кресло'].price + ' TL';
+            }
+        }
+        
+        // Матрас
+        if (title.includes('Матрас')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Матрас'].price + ' TL';
+            }
+        }
+        
+        // Ковёр
+        if (title.includes('Ковёр')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Ковёр'].price + ' TL';
+            }
+        }
+        
+        // Автомобиль
+        if (title.includes('Автомобиль') || title.includes('Авто')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Автомобиль (легковой)'].price + ' TL';
+            }
+        }
+        
+        // Шторы
+        if (title.includes('Шторы')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Шторы'].price + ' TL';
+            }
+        }
+        
+        // Стул
+        if (title.includes('Стул') || title.includes('Стулья')) {
+            const priceElem = card.querySelector('.service-price');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Стул'].price + ' TL';
             }
         }
     });
-
-    // 2. ОБНОВЛЯЕМ ТАБЛИЦУ ЦЕН
+    
+    // ===== 2. ОБНОВЛЯЕМ ТАБЛИЦУ ЦЕН =====
     const table = document.querySelector('.prices-table');
     if (table) {
         const rows = table.querySelectorAll('tbody tr');
         rows.forEach(row => {
-            const serviceCell = row.cells[0];
-            if (!serviceCell) return;
+            const rowText = row.textContent || '';
             
-            const serviceName = serviceCell.textContent.trim();
-            
-            for (let [name, data] of Object.entries(prices)) {
-                if (serviceName.includes(name) || name.includes(serviceName)) {
-                    const priceCell = row.cells[2];
-                    if (priceCell) {
-                        priceCell.innerHTML = `${data.price} - ${data.priceMax || data.price + 300} TL`;
-                    }
-                    break;
-                }
+            if (rowText.includes('Диван')) {
+                row.cells[2].innerHTML = prices['Диван (2-местный)'].price + ' - ' + (prices['Диван (2-местный)'].priceMax || prices['Диван (2-местный)'].price + 300) + ' TL';
+            }
+            if (rowText.includes('Кресло')) {
+                row.cells[2].innerHTML = prices['Кресло'].price + ' - ' + (prices['Кресло'].priceMax || prices['Кресло'].price + 300) + ' TL';
+            }
+            if (rowText.includes('Матрас')) {
+                row.cells[2].innerHTML = prices['Матрас'].price + ' - ' + (prices['Матрас'].priceMax || prices['Матрас'].price + 300) + ' TL';
+            }
+            if (rowText.includes('Ковёр')) {
+                row.cells[2].innerHTML = prices['Ковёр'].price + ' - ' + (prices['Ковёр'].priceMax || prices['Ковёр'].price + 300) + ' TL';
+            }
+            if (rowText.includes('Автомобиль') || rowText.includes('Авто')) {
+                row.cells[2].innerHTML = prices['Автомобиль (легковой)'].price + ' - ' + (prices['Автомобиль (легковой)'].priceMax || prices['Автомобиль (легковой)'].price + 300) + ' TL';
+            }
+            if (rowText.includes('Шторы')) {
+                row.cells[2].innerHTML = prices['Шторы'].price + ' - ' + (prices['Шторы'].priceMax || prices['Шторы'].price + 300) + ' TL';
+            }
+            if (rowText.includes('Стул') || rowText.includes('Стулья')) {
+                row.cells[2].innerHTML = prices['Стул'].price + ' - ' + (prices['Стул'].priceMax || prices['Стул'].price + 300) + ' TL';
             }
         });
     }
-
-    // 3. ОБНОВЛЯЕМ КАЛЬКУЛЯТОР
+    
+    console.log('✅ Обновление цен завершено');
+    
+    // Обновляем калькулятор
     if (typeof calculatePrice === 'function') {
         calculatePrice();
     }
-    
-    console.log('✅ Цены на странице обновлены');
 }
 
 // =============================================
@@ -205,9 +261,7 @@ function calculatePrice() {
         return;
     }
     
-    const lang = getCurrentLanguage().toLowerCase();
-    const langCode = lang.includes('en') ? 'en' : lang.includes('tr') ? 'tr' : 'ru';
-    const prices = SITE_PRICES[langCode] || SITE_PRICES.ru;
+    const prices = SITE_PRICES;
     
     const serviceMap = {
         'sofa': 'Диван',
@@ -271,6 +325,7 @@ function calculatePrice() {
 // ЗАПУСК ПРИ ЗАГРУЗКЕ
 // =============================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Сайт загружен, запускаем обновление цен...');
     loadPrices();
     
     // Плавная прокрутка
@@ -312,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // =============================================
-// ЭКСПОРТ БАЗЫ ДАННЫХ (ДЛЯ АДМИНА)
+// ЭКСПОРТ БАЗЫ ДАННЫХ
 // =============================================
 function exportDatabase() {
     const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
