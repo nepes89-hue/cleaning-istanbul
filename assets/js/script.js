@@ -5,21 +5,33 @@ let SITE_PRICES = null;
 
 async function loadPrices() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/nepes89-hue/cleaning-istanbul/main/assets/prices.json?t=' + Date.now());
+        console.log('⏳ Загружаем цены...');
+        const response = await fetch('/cleaning-istanbul/assets/prices.json?t=' + Date.now());
         if (!response.ok) throw new Error('Файл не найден');
         const data = await response.json();
         SITE_PRICES = data;
         console.log('✅ Цены загружены из prices.json');
-        console.log('💰 Диван стоит:', data['Диван (2-местный)']?.price);
+        console.log('💰 Кресло стоит:', data['Кресло']?.price);
+        
+        // Запускаем обновление после загрузки
         updatePricesOnPage();
+        
+        // Убираем сообщение об ошибке, если оно есть
+        const errorElements = document.querySelectorAll('div:not(.success-notification)');
+        errorElements.forEach(el => {
+            if (el.textContent && el.textContent.includes('Ошибка загрузки цен')) {
+                el.style.display = 'none';
+            }
+        });
+        
     } catch (error) {
         console.error('❌ Ошибка загрузки цен:', error);
-        alert('⚠️ Ошибка загрузки цен. Проверьте файл prices.json');
+        // НЕ показываем alert
     }
 }
 
 // =============================================
-// ОБНОВЛЕНИЕ ЦЕН (СПЕЦИАЛЬНО ПОД ВАШУ СТРУКТУРУ)
+// ОБНОВЛЕНИЕ ЦЕН НА СТРАНИЦЕ
 // =============================================
 function updatePricesOnPage() {
     if (!SITE_PRICES) {
@@ -31,77 +43,61 @@ function updatePricesOnPage() {
     
     const prices = SITE_PRICES;
     
-    // ===== ОБНОВЛЯЕМ ТАБЛИЦУ ЦЕН =====
-    const table = document.querySelector('.prices-table, table');
-    if (table) {
-        const rows = table.querySelectorAll('tbody tr, tr');
-        rows.forEach(row => {
-            const text = row.textContent || '';
-            
-            if (text.includes('Диван')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Диван (2-местный)'].price + ' - ' + (prices['Диван (2-местный)'].priceMax || prices['Диван (2-местный)'].price + 300) + ' TL';
-                    console.log('✅ Диван обновлён');
-                }
-            }
-            if (text.includes('Ковёр')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Ковёр'].price + ' - ' + (prices['Ковёр'].priceMax || prices['Ковёр'].price + 300) + ' TL/м²';
-                }
-            }
-            if (text.includes('Авто') || text.includes('Автомобиль')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Автомобиль (легковой)'].price + ' - ' + (prices['Автомобиль (легковой)'].priceMax || prices['Автомобиль (легковой)'].price + 300) + ' TL';
-                }
-            }
-            if (text.includes('Матрас')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Матрас'].price + ' - ' + (prices['Матрас'].priceMax || prices['Матрас'].price + 300) + ' TL';
-                }
-            }
-            if (text.includes('Кресло')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Кресло'].price + ' - ' + (prices['Кресло'].priceMax || prices['Кресло'].price + 300) + ' TL';
-                }
-            }
-            if (text.includes('Шторы')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Шторы'].price + ' - ' + (prices['Шторы'].priceMax || prices['Шторы'].price + 300) + ' TL';
-                }
-            }
-            if (text.includes('Стул') || text.includes('Стулья')) {
-                const cells = row.querySelectorAll('td');
-                if (cells.length >= 3) {
-                    cells[2].innerHTML = prices['Стул'].price + ' - ' + (prices['Стул'].priceMax || prices['Стул'].price + 300) + ' TL';
-                }
-            }
-        });
-    }
+    // Ищем все строки с ценами
+    const rows = document.querySelectorAll('tr, .service-row, [class*="service"]');
     
-    // ===== ОБНОВЛЯЕМ КАРТОЧКИ =====
-    document.querySelectorAll('.service-card, .card, [class*="service"]').forEach(card => {
-        const text = card.textContent || '';
+    rows.forEach(row => {
+        const text = row.textContent || '';
         
+        // Кресло
+        if (text.includes('Кресло')) {
+            const cells = row.querySelectorAll('td');
+            if (cells.length >= 3) {
+                cells[2].innerHTML = prices['Кресло'].price + ' - ' + (prices['Кресло'].priceMax || prices['Кресло'].price + 300) + ' TL';
+                console.log('✅ Кресло обновлено');
+            }
+        }
+        
+        // Диван
         if (text.includes('Диван')) {
-            const priceElem = card.querySelector('.service-price, .price, [class*="price"]');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Диван (2-местный)'].price + ' TL';
+            const cells = row.querySelectorAll('td');
+            if (cells.length >= 3) {
+                cells[2].innerHTML = prices['Диван (2-местный)'].price + ' - ' + (prices['Диван (2-местный)'].priceMax || prices['Диван (2-местный)'].price + 300) + ' TL';
+                console.log('✅ Диван обновлён');
+            }
+        }
+        
+        // Матрас
+        if (text.includes('Матрас')) {
+            const cells = row.querySelectorAll('td');
+            if (cells.length >= 3) {
+                cells[2].innerHTML = prices['Матрас'].price + ' - ' + (prices['Матрас'].priceMax || prices['Матрас'].price + 300) + ' TL';
+            }
+        }
+        
+        // Ковёр
+        if (text.includes('Ковёр')) {
+            const cells = row.querySelectorAll('td');
+            if (cells.length >= 3) {
+                cells[2].innerHTML = prices['Ковёр'].price + ' - ' + (prices['Ковёр'].priceMax || prices['Ковёр'].price + 300) + ' TL/м²';
+            }
+        }
+        
+        // Автомобиль
+        if (text.includes('Авто') || text.includes('Автомобиль')) {
+            const cells = row.querySelectorAll('td');
+            if (cells.length >= 3) {
+                cells[2].innerHTML = prices['Автомобиль (легковой)'].price + ' - ' + (prices['Автомобиль (легковой)'].priceMax || prices['Автомобиль (легковой)'].price + 300) + ' TL';
             }
         }
     });
-    
-    console.log('✅ Обновление цен завершено');
     
     // Обновляем калькулятор
     if (typeof calculatePrice === 'function') {
         calculatePrice();
     }
+    
+    console.log('✅ Обновление цен завершено');
 }
 
 // =============================================
@@ -352,4 +348,3 @@ function exportDatabase() {
     
     alert(`✅ База клиентов экспортирована\nРегистраций: ${db.registrations.length}\nЗаявок: ${db.orders.length}`);
 }
-
