@@ -5,7 +5,7 @@ let SITE_PRICES = null;
 
 async function loadPrices() {
     try {
-        const response = await fetch('/cleaning-istanbul/assets/prices.json?t=' + Date.now());
+        const response = await fetch('https://raw.githubusercontent.com/nepes89-hue/cleaning-istanbul/main/assets/prices.json?t=' + Date.now());
         if (!response.ok) throw new Error('Файл не найден');
         const data = await response.json();
         SITE_PRICES = data;
@@ -352,3 +352,4 @@ function exportDatabase() {
     
     alert(`✅ База клиентов экспортирована\nРегистраций: ${db.registrations.length}\nЗаявок: ${db.orders.length}`);
 }
+
