@@ -6,8 +6,8 @@
     "icon": "couch"
   },
   "Кресло": {
-    "price": 350,
-    "priceMax": 600,
+    "price": 12500,
+    "priceMax": 30000,
     "category": "furniture",
     "icon": "chair"
   },
