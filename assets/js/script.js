@@ -13,6 +13,8 @@ async function loadPrices() {
         updatePricesOnPage();
     } catch (error) {
         console.error('❌ Ошибка загрузки цен:', error);
+        // Если не удалось загрузить, показываем старые цены
+        alert('⚠️ Не удалось загрузить цены. Проверьте файл prices.json');
     }
 }
 
@@ -72,6 +74,8 @@ function updatePricesOnPage() {
     if (typeof calculatePrice === 'function') {
         calculatePrice();
     }
+    
+    console.log('✅ Цены на странице обновлены');
 }
 
 // =============================================
@@ -306,3 +310,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (actualPrices) actualPrices.style.display = 'block';
     }
 });
+
+// =============================================
+// ЭКСПОРТ БАЗЫ ДАННЫХ (ДЛЯ АДМИНА)
+// =============================================
+function exportDatabase() {
+    const db = JSON.parse(localStorage.getItem('cleaningDatabase') || '{"registrations":[], "orders":[]}');
+    const dataStr = JSON.stringify(db, null, 2);
+    const blob = new Blob([dataStr], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cleanpro-clients-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    alert(`✅ База клиентов экспортирована\nРегистраций: ${db.registrations.length}\nЗаявок: ${db.orders.length}`);
+}
