@@ -19,7 +19,7 @@ async function loadPrices() {
 }
 
 // =============================================
-// ПРОСТОЕ И НАДЁЖНОЕ ОБНОВЛЕНИЕ ЦЕН
+// ОБНОВЛЕНИЕ ЦЕН (СПЕЦИАЛЬНО ПОД ВАШУ СТРУКТУРУ)
 // =============================================
 function updatePricesOnPage() {
     if (!SITE_PRICES) {
@@ -29,102 +29,72 @@ function updatePricesOnPage() {
 
     console.log('🔄 Обновляем цены на странице...');
     
-    // Получаем цены (используем русские цены для простоты)
     const prices = SITE_PRICES;
     
-    // ===== 1. ОБНОВЛЯЕМ КАРТОЧКИ УСЛУГ =====
-    const cards = document.querySelectorAll('.service-card');
-    cards.forEach(card => {
-        const title = card.textContent || '';
-        
-        // Диван
-        if (title.includes('Диван')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Диван (2-местный)'].price + ' TL';
-                console.log('✅ Диван обновлён');
-            }
-        }
-        
-        // Кресло
-        if (title.includes('Кресло')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Кресло'].price + ' TL';
-            }
-        }
-        
-        // Матрас
-        if (title.includes('Матрас')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Матрас'].price + ' TL';
-            }
-        }
-        
-        // Ковёр
-        if (title.includes('Ковёр')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Ковёр'].price + ' TL';
-            }
-        }
-        
-        // Автомобиль
-        if (title.includes('Автомобиль') || title.includes('Авто')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Автомобиль (легковой)'].price + ' TL';
-            }
-        }
-        
-        // Шторы
-        if (title.includes('Шторы')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Шторы'].price + ' TL';
-            }
-        }
-        
-        // Стул
-        if (title.includes('Стул') || title.includes('Стулья')) {
-            const priceElem = card.querySelector('.service-price');
-            if (priceElem) {
-                priceElem.textContent = 'от ' + prices['Стул'].price + ' TL';
-            }
-        }
-    });
-    
-    // ===== 2. ОБНОВЛЯЕМ ТАБЛИЦУ ЦЕН =====
-    const table = document.querySelector('.prices-table');
+    // ===== ОБНОВЛЯЕМ ТАБЛИЦУ ЦЕН =====
+    const table = document.querySelector('.prices-table, table');
     if (table) {
-        const rows = table.querySelectorAll('tbody tr');
+        const rows = table.querySelectorAll('tbody tr, tr');
         rows.forEach(row => {
-            const rowText = row.textContent || '';
+            const text = row.textContent || '';
             
-            if (rowText.includes('Диван')) {
-                row.cells[2].innerHTML = prices['Диван (2-местный)'].price + ' - ' + (prices['Диван (2-местный)'].priceMax || prices['Диван (2-местный)'].price + 300) + ' TL';
+            if (text.includes('Диван')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Диван (2-местный)'].price + ' - ' + (prices['Диван (2-местный)'].priceMax || prices['Диван (2-местный)'].price + 300) + ' TL';
+                    console.log('✅ Диван обновлён');
+                }
             }
-            if (rowText.includes('Кресло')) {
-                row.cells[2].innerHTML = prices['Кресло'].price + ' - ' + (prices['Кресло'].priceMax || prices['Кресло'].price + 300) + ' TL';
+            if (text.includes('Ковёр')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Ковёр'].price + ' - ' + (prices['Ковёр'].priceMax || prices['Ковёр'].price + 300) + ' TL/м²';
+                }
             }
-            if (rowText.includes('Матрас')) {
-                row.cells[2].innerHTML = prices['Матрас'].price + ' - ' + (prices['Матрас'].priceMax || prices['Матрас'].price + 300) + ' TL';
+            if (text.includes('Авто') || text.includes('Автомобиль')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Автомобиль (легковой)'].price + ' - ' + (prices['Автомобиль (легковой)'].priceMax || prices['Автомобиль (легковой)'].price + 300) + ' TL';
+                }
             }
-            if (rowText.includes('Ковёр')) {
-                row.cells[2].innerHTML = prices['Ковёр'].price + ' - ' + (prices['Ковёр'].priceMax || prices['Ковёр'].price + 300) + ' TL';
+            if (text.includes('Матрас')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Матрас'].price + ' - ' + (prices['Матрас'].priceMax || prices['Матрас'].price + 300) + ' TL';
+                }
             }
-            if (rowText.includes('Автомобиль') || rowText.includes('Авто')) {
-                row.cells[2].innerHTML = prices['Автомобиль (легковой)'].price + ' - ' + (prices['Автомобиль (легковой)'].priceMax || prices['Автомобиль (легковой)'].price + 300) + ' TL';
+            if (text.includes('Кресло')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Кресло'].price + ' - ' + (prices['Кресло'].priceMax || prices['Кресло'].price + 300) + ' TL';
+                }
             }
-            if (rowText.includes('Шторы')) {
-                row.cells[2].innerHTML = prices['Шторы'].price + ' - ' + (prices['Шторы'].priceMax || prices['Шторы'].price + 300) + ' TL';
+            if (text.includes('Шторы')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Шторы'].price + ' - ' + (prices['Шторы'].priceMax || prices['Шторы'].price + 300) + ' TL';
+                }
             }
-            if (rowText.includes('Стул') || rowText.includes('Стулья')) {
-                row.cells[2].innerHTML = prices['Стул'].price + ' - ' + (prices['Стул'].priceMax || prices['Стул'].price + 300) + ' TL';
+            if (text.includes('Стул') || text.includes('Стулья')) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    cells[2].innerHTML = prices['Стул'].price + ' - ' + (prices['Стул'].priceMax || prices['Стул'].price + 300) + ' TL';
+                }
             }
         });
     }
+    
+    // ===== ОБНОВЛЯЕМ КАРТОЧКИ =====
+    document.querySelectorAll('.service-card, .card, [class*="service"]').forEach(card => {
+        const text = card.textContent || '';
+        
+        if (text.includes('Диван')) {
+            const priceElem = card.querySelector('.service-price, .price, [class*="price"]');
+            if (priceElem) {
+                priceElem.textContent = 'от ' + prices['Диван (2-местный)'].price + ' TL';
+            }
+        }
+    });
     
     console.log('✅ Обновление цен завершено');
     
@@ -167,7 +137,6 @@ async function registerForPrices() {
     const discount = Math.floor(Math.random() * 11);
     const language = getCurrentLanguage();
     
-    // Сохраняем данные клиента
     localStorage.setItem('cleaningUser', JSON.stringify({
         name: name,
         phone: turkishPhone,
@@ -180,7 +149,6 @@ async function registerForPrices() {
     localStorage.setItem('hasPriceAccess', 'true');
     localStorage.setItem('userDiscount', discount);
     
-    // Показываем уведомление клиенту
     const messages = {
         'ru': { title: 'Регистрация успешна!', message: `Спасибо, ${name}! Вы успешно зарегистрированы.` },
         'en': { title: 'Registration Successful!', message: `Thank you, ${name}! You have successfully registered.` },
@@ -192,7 +160,6 @@ async function registerForPrices() {
     
     alert(messages[lang].title + ' ' + messages[lang].message + ' Ваша скидка: ' + discount + '%');
     
-    // Показываем цены
     setTimeout(() => {
         const priceReg = document.getElementById('priceRegistration');
         const actualPrices = document.getElementById('actualPrices');
