@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanPro Istanbul | Profesyonel Temizlik Hizmetleri</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body { background: #f5f5f5; }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            color: #1abc9c;
+        }
+        
+        .logo p {
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+        
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .lang-btn.active {
+            background: #1abc9c;
+        }
+        
+        .header-phone {
+            background: #e74c3c;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero h1 { font-size: 42px; margin-bottom: 20px; }
+        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 30px; }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        .btn-primary { background: #e74c3c; color: white; }
+        .btn-whatsapp { background: #25D366; color: white; }
+        
+        .advantages {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .advantage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .prices {
+            background: white;
+            padding: 50px 20px;
+        }
+        
+        .prices h2 {
+            text-align: center;
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        
+        .prices-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .price-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #eee;
+        }
+        
+        .price-card h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e74c3c;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .price-row strong { color: #e74c3c; font-size: 18px; }
+        
+        .btn-order {
+            display: block;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 30px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .how-work {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 50px 20px;
+        }
+        
+        .how-work h2 { text-align: center; font-size: 36px; margin-bottom: 40px; }
+        
+        .steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .step { text-align: center; }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 20px;
+        }
+        
+        .contacts {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .contacts h2 { font-size: 36px; margin-bottom: 30px; }
+        .contact-info a { color: #1abc9c; text-decoration: none; font-size: 24px; }
+        
+        .footer {
+            background: #1a2632;
+            color: #bdc3c7;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>✨ CleanPro Istanbul</h1>
+                <p>Profesyonel temizlik hizmetleri</p>
+            </div>
+            
+            <div class="lang-switcher">
+                <a href="../tr/" class="lang-btn active">🇹🇷 TR</a>
+                <a href="../ru/" class="lang-btn">🇷🇺 RU</a>
+                <a href="../en/" class="lang-btn">🇺🇸 EN</a>
+            </div>
+            
+            <a href="tel:+905550644089" class="header-phone">📞 +90 555 064 40 89</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Profesyonel Koltuk Yıkama Hizmeti</h1>
+        <p>İstanbul'un her yerinde profesyonel temizlik hizmeti. Kanepeler, koltuklar, halılar ve araç içi temizlik.</p>
+        <div>
+            <a href="#prices" class="btn btn-primary">Fiyatları Gör</a>
+            <a href="https://wa.me/905550644089" class="btn btn-whatsapp">💬 WhatsApp</a>
+        </div>
+    </section>
+
+    <section class="advantages">
+        <div class="advantage-card">
+            <div style="font-size:40px;">⏱️</div>
+            <h3>Aynı Gün Hizmet</h3>
+            <p>Size uygun zamanda geliyoruz, 7/24 hizmet</p>
+        </div>
+        <div class="advantage-card">
+            <div style="font-size:40px;">💰</div>
+            <h3>Sabit Fiyat</h3>
+            <p>Fiyat teklifi değişmez, ek ücret yok</p>
+        </div>
+        <div class="advantage-card">
+            <div style="font-size:40px;">✅</div>
+            <h3>Kalite Garantisi</h3>
+            <p>%100 memnuniyet garantisi</p>
+        </div>
+        <div class="advantage-card">
+            <div style="font-size:40px;">🌍</div>
+            <h3>Tüm İstanbul</h3>
+            <p>Tüm ilçelerde hizmet veriyoruz</p>
+        </div>
+    </section>
+
+    <section id="prices" class="prices">
+        <h2>Temizlik Fiyatları</h2>
+        <div class="prices-grid">
+            <!-- Kanepeler -->
+            <div class="price-card">
+                <h3>🛋️ Kanepeler</h3>
+                <div class="price-row"><span>2 kişilik kanepe</span> <strong>800 TL</strong></div>
+                <div class="price-row"><span>3 kişilik kanepe</span> <strong>1000 TL</strong></div>
+                <div class="price-row"><span>Köşe kanepe</span> <strong>1500 TL</strong></div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20kanepe%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Koltuklar -->
+            <div class="price-card">
+                <h3>🪑 Koltuklar</h3>
+                <div class="price-row"><span>Koltuk</span> <strong>500 TL</strong></div>
+                <div class="price-row"><span>Yumuşak sandalye</span> <strong>300 TL</strong></div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20koltuk%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Yataklar -->
+            <div class="price-card">
+                <h3>🛏️ Yataklar</h3>
+                <div class="price-row"><span>Çocuk yatağı</span> <strong>400 TL</strong></div>
+                <div class="price-row"><span>Tek kişilik yatak</span> <strong>600 TL</strong></div>
+                <div class="price-row"><span>Çift kişilik yatak</span> <strong>900 TL</strong></div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20yatak%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Halılar -->
+            <div class="price-card">
+                <h3>🧶 Halılar</h3>
+                <div class="price-row"><span>Küçük halı (2m²)</span> <strong>300 TL</strong></div>
+                <div class="price-row"><span>Orta halı (4m²)</span> <strong>500 TL</strong></div>
+                <div class="price-row"><span>Büyük halı (m²)</span> <strong>150 TL/m²</strong></div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20halı%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Araç Temizliği -->
+            <div class="price-card">
+                <h3>🚗 Araç Temizliği</h3>
+                <div class="price-row"><span>Sedan araç</span> <strong>1200 TL</strong></div>
+                <div class="price-row"><span>Jeep/Minivan</span> <strong>1800 TL</strong></div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20araç%20iç%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-work">
+        <h2>Nasıl Çalışıyoruz</h2>
+        <div class="steps">
+            <div class="step"><div class="step-number">1</div><h3>Talep</h3><p>WhatsApp'tan mesaj gönderin</p></div>
+            <div class="step"><div class="step-number">2</div><h3>Geliyoruz</h3><p>Uygun zamanda geliyoruz</p></div>
+            <div class="step"><div class="step-number">3</div><h3>Temizlik</h3><p>Profesyonel temizlik yapıyoruz</p></div>
+            <div class="step"><div class="step-number">4</div><h3>Ödeme</h3><p>Sonucu kontrol edip ödüyorsunuz</p></div>
+        </div>
+    </section>
+
+    <section class="contacts">
+        <h2>İletişim</h2>
+        <div class="contact-info">
+            <p>📍 Tüm İstanbul'da hizmet</p>
+            <p>📞 <a href="tel:+905550644089">+90 555 064 40 89</a></p>
+            <p>💬 <a href="https://wa.me/905550644089">WhatsApp</a></p>
+            <p>⏰ 7/24 Hizmet</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 CleanPro Istanbul. Profesyonel temizlik hizmetleri.</p>
+        <p>Tel: +90 555 064 40 89 | WhatsApp: +90 555 064 40 89</p>
+    </footer>
+
+    <a href="https://wa.me/905550644089" class="whatsapp-float">💬 WhatsApp</a>
+</body>
+</html>
