@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanPro Istanbul | Химчистка в Стамбуле</title>
+    <title>CleanPro Istanbul | Profesyonel Temizlik Hizmetleri</title>
     <style>
         * {
             margin: 0;
@@ -11,96 +11,713 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: #f5f5f5;
         }
-
-        .language-container {
-            max-width: 1000px;
-            width: 100%;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
+        
+        /* Шапка */
+        .header {
+            background: #2c3e50;
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        .city {
-            font-size: 24px;
-            color: #ffeb3b;
-            margin-bottom: 30px;
-        }
-
-        .languages {
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 50px 0;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
         }
-
-        .lang-card {
-            background: rgba(255,255,255,0.15);
-            border-radius: 15px;
-            padding: 30px;
-            width: 250px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .lang-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255,255,255,0.25);
-        }
-
-        .flag {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .lang-name {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .phone {
+        
+        .logo h1 {
             font-size: 24px;
-            margin: 30px 0;
+            color: #1abc9c;
         }
-
-        .whatsapp-btn {
-            display: inline-block;
+        
+        .logo p {
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+        
+        /* Переключатель языков */
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .lang-btn.active {
+            background: #1abc9c;
+        }
+        
+        .header-phone {
+            background: #e74c3c;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        .btn-primary {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+        
+        .btn-whatsapp {
             background: #25D366;
             color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-whatsapp:hover {
+            background: #1da851;
+            transform: scale(1.05);
+        }
+        
+        /* Преимущества */
+        .advantages {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .advantage-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .advantage-card h3 {
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        
+        .advantage-card p {
+            color: #666;
+        }
+        
+        /* Цены */
+        .prices {
+            background: white;
+            padding: 50px 20px;
+        }
+        
+        .prices h2 {
+            text-align: center;
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        
+        .prices-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .price-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .price-card h3 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e74c3c;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .price-row span {
+            color: #666;
+        }
+        
+        .price-row strong {
+            color: #e74c3c;
             font-size: 18px;
+        }
+        
+        .btn-order {
+            display: block;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 30px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .btn-order:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+        }
+        
+        /* Как работаем */
+        .how-work {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 50px 20px;
+        }
+        
+        .how-work h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+        
+        .steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .step {
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        /* Контакты */
+        .contacts {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .contacts h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact-info p {
+            font-size: 20px;
+            margin: 15px 0;
+        }
+        
+        .contact-info a {
+            color: #1abc9c;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .footer {
+            background: #1a2632;
+            color: #bdc3c7;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 9999;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="language-container">
-        <h1>✨ CleanPro Istanbul</h1>
-        <div class="city">📍 Профессиональная химчистка в Стамбуле</div>
-        
-        <p style="font-size: 18px; margin-bottom: 40px;">
-            Выездная химчи
+    <!-- Шапка с переключателем языков -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>✨ CleanPro Istanbul</h1>
+                <p>Profesyonel temizlik hizmetleri</p>
+            </div>
+            
+            <!-- Переключатель языков -->
+            <div class="lang-switcher">
+                <a href="#" onclick="setLanguage('tr')" class="lang-btn active" id="lang-tr">🇹🇷 TR</a>
+                <a href="#" onclick="setLanguage('ru')" class="lang-btn" id="lang-ru">🇷🇺 RU</a>
+                <a href="#" onclick="setLanguage('en')" class="lang-btn" id="lang-en">🇺🇸 EN</a>
+            </div>
+            
+            <a href="tel:+905550644089" class="header-phone">
+                📞 +90 555 064 40 89
+            </a>
+        </div>
+    </header>
+
+    <!-- Герой-секция с динамическим контентом -->
+    <section class="hero">
+        <h1 id="hero-title">Profesyonel Koltuk Yıkama Hizmeti</h1>
+        <p id="hero-text">İstanbul'un her yerinde profesyonel temizlik hizmeti. Kanepeler, koltuklar, halılar ve araç içi temizlik.</p>
+        <div class="hero-buttons">
+            <a href="#prices" class="btn btn-primary" id="prices-btn">Fiyatları Gör</a>
+            <a href="https://wa.me/905550644089" class="btn btn-whatsapp" target="_blank">
+                💬 WhatsApp'tan Yaz
+            </a>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="advantages">
+        <div class="advantage-card">
+            <div style="font-size: 40px;">⏱️</div>
+            <h3 id="adv1-title">Aynı Gün Hizmet</h3>
+            <p id="adv1-text">Size uygun zamanda geliyoruz, 7/24 hizmet</p>
+        </div>
+        <div class="advantage-card">
+            <div style="font-size: 40px;">💰</div>
+            <h3 id="adv2-title">Sabit Fiyat</h3>
+            <p id="adv2-text">Fiyat teklifi değişmez, ek ücret yok</p>
+        </div>
+        <div class="advantage-card">
+            <div style="font-size: 40px;">✅</div>
+            <h3 id="adv3-title">Kalite Garantisi</h3>
+            <p id="adv3-text">%100 memnuniyet garantisi</p>
+        </div>
+        <div class="advantage-card">
+            <div style="font-size: 40px;">🌍</div>
+            <h3 id="adv4-title">Tüm İstanbul</h3>
+            <p id="adv4-text">Tüm ilçelerde hizmet veriyoruz</p>
+        </div>
+    </section>
+
+    <!-- Цены -->
+    <section id="prices" class="prices">
+        <h2 id="prices-title">Temizlik Fiyatları</h2>
+        <div class="prices-grid">
+            <!-- Диваны -->
+            <div class="price-card">
+                <h3 id="sofa-title">🛋️ Kanepeler</h3>
+                <div class="price-row">
+                    <span id="sofa-2seat">2 kişilik kanepe</span>
+                    <strong id="sofa-2price">800 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="sofa-3seat">3 kişilik kanepe</span>
+                    <strong id="sofa-3price">1000 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="sofa-corner">Köşe kanepe</span>
+                    <strong id="sofa-cornerprice">1500 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20kanepe%20temizliği%20için%20bilgi%20almak%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Кресла -->
+            <div class="price-card">
+                <h3 id="chair-title">🪑 Koltuklar</h3>
+                <div class="price-row">
+                    <span id="chair-arm">Koltuk</span>
+                    <strong id="chair-price">500 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="chair-soft">Yumuşak sandalye</span>
+                    <strong id="chair-softprice">300 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20koltuk%20temizliği%20için%20bilgi%20almak%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Матрасы -->
+            <div class="price-card">
+                <h3 id="mattress-title">🛏️ Yataklar</h3>
+                <div class="price-row">
+                    <span id="mattress-child">Çocuk yatağı</span>
+                    <strong id="mattress-childprice">400 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="mattress-single">Tek kişilik</span>
+                    <strong id="mattress-singleprice">600 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="mattress-double">Çift kişilik</span>
+                    <strong id="mattress-doubleprice">900 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20yatak%20temizliği%20için%20bilgi%20almak%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Ковры -->
+            <div class="price-card">
+                <h3 id="carpet-title">🧶 Halılar</h3>
+                <div class="price-row">
+                    <span id="carpet-small">Küçük halı (2m²)</span>
+                    <strong id="carpet-smallprice">300 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="carpet-medium">Orta halı (4m²)</span>
+                    <strong id="carpet-mediumprice">500 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="carpet-large">Büyük halı (m²)</span>
+                    <strong id="carpet-largeprice">150 TL/m²</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20halı%20temizliği%20için%20bilgi%20almak%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+            </div>
+
+            <!-- Авто -->
+            <div class="price-card">
+                <h3 id="car-title">🚗 Araç Temizliği</h3>
+                <div class="price-row">
+                    <span id="car-sedan">Sedan araç</span>
+                    <strong id="car-sedanprice">1200 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span id="car-suv">Jeep/Minivan</span>
+                    <strong id="car-suvprice">1800 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20araç%20iç%20temizliği%20için%20bilgi%20almak%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как работаем -->
+    <section class="how-work">
+        <h2 id="how-title">Nasıl Çalışıyoruz</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 id="step1-title">Talep</h3>
+                <p id="step1-text">WhatsApp'tan mesaj gönderin</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 id="step2-title">Geliyoruz</h3>
+                <p id="step2-text">Uygun zamanda geliyoruz</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 id="step3-title">Temizlik</h3>
+                <p id="step3-text">Profesyonel temizlik yapıyoruz</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3 id="step4-title">Ödeme</h3>
+                <p id="step4-text">Sonucu kontrol edip ödüyorsunuz</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contacts">
+        <h2 id="contact-title">İletişim</h2>
+        <div class="contact-info">
+            <p id="contact-address">📍 Tüm İstanbul'da hizmet</p>
+            <p>📞 <a href="tel:+905550644089">+90 555 064 40 89</a></p>
+            <p>💬 <a href="https://wa.me/905550644089" target="_blank">WhatsApp</a></p>
+            <p id="contact-hours">⏰ 7/24 Hizmet</p>
+        </div>
+        <div class="contact-buttons">
+            <a href="tel:+905550644089" class="btn btn-primary">📞 Ara</a>
+            <a href="https://wa.me/905550644089" class="btn btn-whatsapp" target="_blank">💬 WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <p id="footer-text">© 2026 CleanPro Istanbul. Profesyonel temizlik hizmetleri.</p>
+        <p style="margin-top: 10px;">Tel: +90 555 064 40 89 | WhatsApp: +90 555 064 40 89</p>
+    </footer>
+
+    <!-- Плавающая кнопка WhatsApp -->
+    <a href="https://wa.me/905550644089" class="whatsapp-float" target="_blank">
+        💬 WhatsApp'tan Yaz
+    </a>
+
+    <!-- Скрипт для переключения языков -->
+    <script>
+        function setLanguage(lang) {
+            // Обновляем активную кнопку
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`lang-${lang}`).classList.add('active');
+
+            // Тексты на разных языках
+            const texts = {
+                tr: {
+                    'hero-title': 'Profesyonel Koltuk Yıkama Hizmeti',
+                    'hero-text': 'İstanbul\'un her yerinde profesyonel temizlik hizmeti. Kanepeler, koltuklar, halılar ve araç içi temizlik.',
+                    'prices-btn': 'Fiyatları Gör',
+                    'adv1-title': 'Aynı Gün Hizmet',
+                    'adv1-text': 'Size uygun zamanda geliyoruz, 7/24 hizmet',
+                    'adv2-title': 'Sabit Fiyat',
+                    'adv2-text': 'Fiyat teklifi değişmez, ek ücret yok',
+                    'adv3-title': 'Kalite Garantisi',
+                    'adv3-text': '%100 memnuniyet garantisi',
+                    'adv4-title': 'Tüm İstanbul',
+                    'adv4-text': 'Tüm ilçelerde hizmet veriyoruz',
+                    'prices-title': 'Temizlik Fiyatları',
+                    'sofa-title': '🛋️ Kanepeler',
+                    'sofa-2seat': '2 kişilik kanepe',
+                    'sofa-3seat': '3 kişilik kanepe',
+                    'sofa-corner': 'Köşe kanepe',
+                    'chair-title': '🪑 Koltuklar',
+                    'chair-arm': 'Koltuk',
+                    'chair-soft': 'Yumuşak sandalye',
+                    'mattress-title': '🛏️ Yataklar',
+                    'mattress-child': 'Çocuk yatağı',
+                    'mattress-single': 'Tek kişilik',
+                    'mattress-double': 'Çift kişilik',
+                    'carpet-title': '🧶 Halılar',
+                    'carpet-small': 'Küçük halı (2m²)',
+                    'carpet-medium': 'Orta halı (4m²)',
+                    'carpet-large': 'Büyük halı (m²)',
+                    'car-title': '🚗 Araç Temizliği',
+                    'car-sedan': 'Sedan araç',
+                    'car-suv': 'Jeep/Minivan',
+                    'how-title': 'Nasıl Çalışıyoruz',
+                    'step1-title': 'Talep',
+                    'step1-text': 'WhatsApp\'tan mesaj gönderin',
+                    'step2-title': 'Geliyoruz',
+                    'step2-text': 'Uygun zamanda geliyoruz',
+                    'step3-title': 'Temizlik',
+                    'step3-text': 'Profesyonel temizlik yapıyoruz',
+                    'step4-title': 'Ödeme',
+                    'step4-text': 'Sonucu kontrol edip ödüyorsunuz',
+                    'contact-title': 'İletişim',
+                    'contact-address': '📍 Tüm İstanbul\'da hizmet',
+                    'contact-hours': '⏰ 7/24 Hizmet',
+                    'footer-text': '© 2026 CleanPro Istanbul. Profesyonel temizlik hizmetleri.'
+                },
+                ru: {
+                    'hero-title': 'Профессиональная химчистка мебели',
+                    'hero-text': 'Выездная химчистка по всему Стамбулу. Диваны, кресла, ковры, автомобили.',
+                    'prices-btn': 'Посмотреть цены',
+                    'adv1-title': 'В день обращения',
+                    'adv1-text': 'Приедем в удобное время, работаем 24/7',
+                    'adv2-title': 'Честные цены',
+                    'adv2-text': 'Цена фиксируется и не меняется',
+                    'adv3-title': 'Гарантия качества',
+                    'adv3-text': '100% гарантия результата',
+                    'adv4-title': 'Весь Стамбул',
+                    'adv4-text': 'Работаем во всех районах',
+                    'prices-title': 'Цены на услуги',
+                    'sofa-title': '🛋️ Диваны',
+                    'sofa-2seat': '2-местный диван',
+                    'sofa-3seat': '3-местный диван',
+                    'sofa-corner': 'Угловой диван',
+                    'chair-title': '🪑 Кресла',
+                    'chair-arm': 'Кресло',
+                    'chair-soft': 'Мягкий стул',
+                    'mattress-title': '🛏️ Матрасы',
+                    'mattress-child': 'Детский матрас',
+                    'mattress-single': 'Односпальный',
+                    'mattress-double': 'Двуспальный',
+                    'carpet-title': '🧶 Ковры',
+                    'carpet-small': 'Малый ковёр (2м²)',
+                    'carpet-medium': 'Средний ковёр (4м²)',
+                    'carpet-large': 'Большой ковёр (м²)',
+                    'car-title': '🚗 Автомобили',
+                    'car-sedan': 'Легковой авто',
+                    'car-suv': 'Внедорожник',
+                    'how-title': 'Как мы работаем',
+                    'step1-title': 'Заявка',
+                    'step1-text': 'Отправьте сообщение в WhatsApp',
+                    'step2-title': 'Приезд',
+                    'step2-text': 'Приезжаем в удобное время',
+                    'step3-title': 'Чистка',
+                    'step3-text': 'Проводим профессиональную чистку',
+                    'step4-title': 'Оплата',
+                    'step4-text': 'Проверяете и оплачиваете',
+                    'contact-title': 'Контакты',
+                    'contact-address': '📍 Работаем по всему Стамбулу',
+                    'contact-hours': '⏰ Круглосуточно',
+                    'footer-text': '© 2026 CleanPro Istanbul. Профессиональная химчистка.'
+                },
+                en: {
+                    'hero-title': 'Professional Furniture Cleaning',
+                    'hero-text': 'Mobile cleaning service in all Istanbul. Sofas, armchairs, carpets, cars.',
+                    'prices-btn': 'View Prices',
+                    'adv1-title': 'Same Day Service',
+                    'adv1-text': 'We come at your convenience, 24/7',
+                    'adv2-title': 'Fixed Prices',
+                    'adv2-text': 'Price quote never changes',
+                    'adv3-title': 'Quality Guarantee',
+                    'adv3-text': '100% satisfaction guaranteed',
+                    'adv4-title': 'All Istanbul',
+                    'adv4-text': 'We work in all districts',
+                    'prices-title': 'Service Prices',
+                    'sofa-title': '🛋️ Sofas',
+                    'sofa-2seat': '2-seat sofa',
+                    'sofa-3seat': '3-seat sofa',
+                    'sofa-corner': 'Corner sofa',
+                    'chair-title': '🪑 Chairs',
+                    'chair-arm': 'Armchair',
+                    'chair-soft': 'Soft chair',
+                    'mattress-title': '🛏️ Mattresses',
+                    'mattress-child': 'Child mattress',
+                    'mattress-single': 'Single bed',
+                    'mattress-double': 'Double bed',
+                    'carpet-title': '🧶 Carpets',
+                    'carpet-small': 'Small carpet (2m²)',
+                    'carpet-medium': 'Medium carpet (4m²)',
+                    'carpet-large': 'Large carpet (m²)',
+                    'car-title': '🚗 Car Cleaning',
+                    'car-sedan': 'Sedan car',
+                    'car-suv': 'SUV/Minivan',
+                    'how-title': 'How We Work',
+                    'step1-title': 'Request',
+                    'step1-text': 'Send a message on WhatsApp',
+                    'step2-title': 'Arrival',
+                    'step2-text': 'We come at your time',
+                    'step3-title': 'Cleaning',
+                    'step3-text': 'Professional cleaning',
+                    'step4-title': 'Payment',
+                    'step4-text': 'Check and pay',
+                    'contact-title': 'Contacts',
+                    'contact-address': '📍 Service in all Istanbul',
+                    'contact-hours': '⏰ 24/7 Service',
+                    'footer-text': '© 2026 CleanPro Istanbul. Professional cleaning services.'
+                }
+            };
+
+            // Обновляем все тексты на странице
+            for (let [id, value] of Object.entries(texts[lang])) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = value;
+                }
+            }
+        }
+
+        // При загрузке страницы устанавливаем турецкий язык
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage('tr');
+        });
+    </script>
+</body>
+</html>
