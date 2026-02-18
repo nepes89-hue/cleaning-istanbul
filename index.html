@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanPro Istanbul | Химчистка мебели в Стамбуле</title>
+    <title>CleanPro Istanbul | Химчистка в Стамбуле</title>
     <style>
         * {
             margin: 0;
@@ -11,803 +11,96 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Arial, sans-serif;
         }
-        
+
         body {
-            background: #f5f5f5;
-        }
-        
-        /* Шапка */
-        .header {
-            background: #2c3e50;
-            color: white;
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo h1 {
-            font-size: 24px;
-            color: #1abc9c;
-        }
-        
-        .logo p {
-            font-size: 14px;
-            color: #ecf0f1;
-        }
-        
-        .nav-menu {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .nav-menu a:hover {
-            color: #1abc9c;
-        }
-        
-        .header-phone {
-            background: #e74c3c;
-            padding: 10px 20px;
-            border-radius: 30px;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        /* Герой-секция */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-        }
-        
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
             justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        
-        .btn-primary {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #c0392b;
-            transform: scale(1.05);
-        }
-        
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-            display: inline-flex;
             align-items: center;
-            gap: 10px;
-        }
-        
-        .btn-whatsapp:hover {
-            background: #1da851;
-            transform: scale(1.05);
-        }
-        
-        /* Преимущества */
-        .advantages {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .advantage-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-        
-        .advantage-card h3 {
-            color: #2c3e50;
-            margin: 15px 0;
-        }
-        
-        .advantage-card p {
-            color: #666;
-        }
-        
-        /* Цены */
-        .prices {
-            background: white;
-            padding: 50px 20px;
-        }
-        
-        .prices h2 {
-            text-align: center;
-            font-size: 36px;
-            color: #2c3e50;
-            margin-bottom: 40px;
-        }
-        
-        .prices-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .price-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-        
-        .price-card h3 {
-            font-size: 22px;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e74c3c;
-        }
-        
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px dashed #ddd;
-        }
-        
-        .price-row span {
-            color: #666;
-        }
-        
-        .price-row strong {
-            color: #e74c3c;
-            font-size: 18px;
-        }
-        
-        .price-total {
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .price-total .price {
-            font-size: 28px;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-        
-        .price-total .unit {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .btn-order {
-            display: block;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            padding: 15px;
-            border-radius: 30px;
-            margin-top: 20px;
-            text-align: center;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        
-        .btn-order:hover {
-            background: #2980b9;
-            transform: translateY(-3px);
-        }
-        
-        /* Популярные услуги */
-        .popular-services {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-        
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .service-item {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .service-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        
-        .service-item-content {
             padding: 20px;
-            text-align: center;
         }
-        
-        .service-item-content h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .service-item-content .service-price {
-            color: #e74c3c;
-            font-size: 20px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        
-        .service-item-content .btn-small {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        
-        /* Как работаем */
-        .how-work {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 50px 20px;
-        }
-        
-        .how-work h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 40px;
-        }
-        
-        .steps {
+
+        .language-container {
             max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-        
-        .step {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
-        }
-        
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: #e74c3c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            margin: 0 auto 20px;
-        }
-        
-        /* Отзывы */
-        .reviews {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-        
-        .reviews h2 {
-            text-align: center;
-            font-size: 36px;
-            color: #2c3e50;
-            margin-bottom: 40px;
-        }
-        
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-        
-        .review-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .review-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .review-avatar {
-            width: 50px;
-            height: 50px;
-            background: #e74c3c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: white;
-            font-size: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        
-        .review-name h4 {
-            color: #2c3e50;
-        }
-        
-        .review-name p {
-            color: #666;
-            font-size: 12px;
-        }
-        
-        .review-stars {
-            color: #f1c40f;
+
+        h1 {
+            font-size: 48px;
             margin-bottom: 10px;
         }
-        
-        /* Контакты */
-        .contacts {
-            background: #2c3e50;
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
-        
-        .contacts h2 {
-            font-size: 36px;
+
+        .city {
+            font-size: 24px;
+            color: #ffeb3b;
             margin-bottom: 30px;
         }
-        
-        .contact-info {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .contact-info p {
-            font-size: 20px;
-            margin: 15px 0;
-        }
-        
-        .contact-info a {
-            color: #1abc9c;
-            text-decoration: none;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .contact-buttons {
+
+        .languages {
             display: flex;
-            gap: 20px;
             justify-content: center;
-            margin-top: 30px;
+            gap: 30px;
+            margin: 50px 0;
+            flex-wrap: wrap;
         }
-        
-        /* Подвал */
-        .footer {
-            background: #1a2632;
-            color: #bdc3c7;
-            padding: 30px 20px;
-            text-align: center;
+
+        .lang-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 30px;
+            width: 250px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        
-        /* Форма заказа */
-        .order-form-popup {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
+
+        .lang-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .flag {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .lang-name {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .phone {
+            font-size: 24px;
+            margin: 30px 0;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
             background: #25D366;
             color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 9999;
             text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
             font-weight: bold;
-        }
-        
-        .order-form-popup:hover {
-            transform: scale(1.05);
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .order-form-popup {
-                bottom: 20px;
-                right: 20px;
-                padding: 12px 20px;
-                font-size: 14px;
-            }
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <!-- Шапка -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <h1>✨ CleanPro Istanbul</h1>
-                <p>Выездная химчистка мебели</p>
-            </div>
-            
-            <nav class="nav-menu">
-                <a href="#prices">Цены</a>
-                <a href="#services">Услуги</a>
-                <a href="#how">Как работаем</a>
-                <a href="#reviews">Отзывы</a>
-                <a href="#contacts">Контакты</a>
-            </nav>
-            
-            <a href="tel:+905550644089" class="header-phone">
-                📞 +90 555 064 40 89
-            </a>
-        </div>
-    </header>
-
-    <!-- Герой-секция -->
-    <section class="hero">
-        <h1>Профессиональная химчистка мебели<br>в Стамбуле с выездом на дом</h1>
-        <p>Диваны, кресла, матрасы, ковры, автомобили. Используем профессиональное оборудование и безопасную химию. Гарантия качества!</p>
-        <div class="hero-buttons">
-            <a href="#prices" class="btn btn-primary">📋 Посмотреть цены</a>
-            <a href="https://wa.me/905550644089" class="btn btn-whatsapp" target="_blank">
-                <i>💬</i> Написать в WhatsApp
-            </a>
-        </div>
-    </section>
-
-    <!-- Преимущества -->
-    <section class="advantages">
-        <div class="advantage-card">
-            <div style="font-size: 40px;">⏱️</div>
-            <h3>В день обращения</h3>
-            <p>Приедем в удобное для вас время, работаем 24/7</p>
-        </div>
-        <div class="advantage-card">
-            <div style="font-size: 40px;">💰</div>
-            <h3>Честные цены</h3>
-            <p>Цена фиксируется в заявке и не меняется после работы</p>
-        </div>
-        <div class="advantage-card">
-            <div style="font-size: 40px;">✅</div>
-            <h3>Гарантия качества</h3>
-            <p>100% гарантия результата или вернём деньги</p>
-        </div>
-        <div class="advantage-card">
-            <div style="font-size: 40px;">🌍</div>
-            <h3>Весь Стамбул</h3>
-            <p>Работаем во всех районах и пригородах</p>
-        </div>
-    </section>
-
-    <!-- Цены -->
-    <section id="prices" class="prices">
-        <h2>Цены на услуги химчистки в Стамбуле</h2>
-        <div class="prices-grid">
-            <!-- Диваны -->
-            <div class="price-card">
-                <h3>🛋️ Диваны</h3>
-                <div class="price-row">
-                    <span>2-местный диван</span>
-                    <strong>700 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>3-местный диван</span>
-                    <strong>750 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Угловой диван</span>
-                    <strong>900 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Большой угловой</span>
-                    <strong>1100 TL</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Здравствуйте!%20Хочу%20заказать%20химчистку%20дивана" class="btn-order" target="_blank">📱 Заказать</a>
-            </div>
-
-            <!-- Кресла и стулья -->
-            <div class="price-card">
-                <h3>🪑 Кресла и стулья</h3>
-                <div class="price-row">
-                    <span>Кресло</span>
-                    <strong>350 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Мягкий стул</span>
-                    <strong>250 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Пуф/Банкетка</span>
-                    <strong>200 TL</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Здравствуйте!%20Хочу%20заказать%20химчистку%20кресла" class="btn-order" target="_blank">📱 Заказать</a>
-            </div>
-
-            <!-- Матрасы -->
-            <div class="price-card">
-                <h3>🛏️ Матрасы</h3>
-                <div class="price-row">
-                    <span>Детский матрас</span>
-                    <strong>400 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Односпальный</span>
-                    <strong>500 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Полуторный</span>
-                    <strong>650 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Двуспальный</span>
-                    <strong>800 TL</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Здравствуйте!%20Хочу%20заказать%20химчистку%20матраса" class="btn-order" target="_blank">📱 Заказать</a>
-            </div>
-
-            <!-- Ковры -->
-            <div class="price-card">
-                <h3>🧶 Ковры</h3>
-                <div class="price-row">
-                    <span>Ковёр (до 2м²)</span>
-                    <strong>300 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Ковёр (до 4м²)</span>
-                    <strong>500 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Ковёр (до 6м²)</span>
-                    <strong>700 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Ковёр (большой)</span>
-                    <strong>от 100 TL/м²</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Здравствуйте!%20Хочу%20заказать%20химчистку%20ковра" class="btn-order" target="_blank">📱 Заказать</a>
-            </div>
-
-            <!-- Автомобили -->
-            <div class="price-card">
-                <h3>🚗 Автомобили</h3>
-                <div class="price-row">
-                    <span>Легковой авто</span>
-                    <strong>1000 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Минивэн/Джип</span>
-                    <strong>1500 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Комплексная</span>
-                    <strong>2000 TL</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Здравствуйте!%20Хочу%20заказать%20химчистку%20авто" class="btn-order" target="_blank">📱 Заказать</a>
-            </div>
-
-            <!-- Шторы -->
-            <div class="price-card">
-                <h3>🪟 Шторы</h3>
-                <div class="price-row">
-                    <span>Тюль (до 3м)</span>
-                    <strong>300 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Плотные шторы</span>
-                    <strong>500 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Римские шторы</span>
-                    <strong>400 TL</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Здравствуйте!%20Хочу%20заказать%20химчистку%20штор" class="btn-order" target="_blank">📱 Заказать</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Популярные услуги -->
-    <section id="services" class="popular-services">
-        <h2 style="text-align: center; font-size: 36px; color: #2c3e50; margin-bottom: 40px;">Популярные услуги</h2>
-        <div class="service-grid">
-            <div class="service-item">
-                <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400" alt="Химчистка дивана">
-                <div class="service-item-content">
-                    <h4>Химчистка дивана</h4>
-                    <p>Удаление любых пятен и запахов</p>
-                    <div class="service-price">от 600 TL</div>
-                    <a href="https://wa.me/905550644089" class="btn-small" target="_blank">Заказать</a>
-                </div>
-            </div>
-            <div class="service-item">
-                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400" alt="Химчистка кресла">
-                <div class="service-item-content">
-                    <h4>Химчистка кресла</h4>
-                    <p>Восстановление цвета обивки</p>
-                    <div class="service-price">от 350 TL</div>
-                    <a href="https://wa.me/905550644089" class="btn-small" target="_blank">Заказать</a>
-                </div>
-            </div>
-            <div class="service-item">
-                <img src="https://images.unsplash.com/photo-1632226881325-5d6a3d306a71?w=400" alt="Химчистка матраса">
-                <div class="service-item-content">
-                    <h4>Химчистка матраса</h4>
-                    <p>Удаление пылевых клещей</p>
-                    <div class="service-price">от 400 TL</div>
-                    <a href="https://wa.me/905550644089" class="btn-small" target="_blank">Заказать</a>
-                </div>
-            </div>
-            <div class="service-item">
-                <img src="https://images.unsplash.com/photo-1584103936592-b7bffcdd1f8d?w=400" alt="Химчистка ковра">
-                <div class="service-item-content">
-                    <h4>Химчистка ковра</h4>
-                    <p>Глубокая очистка ворса</p>
-                    <div class="service-price">от 300 TL</div>
-                    <a href="https://wa.me/905550644089" class="btn-small" target="_blank">Заказать</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Как работаем -->
-    <section id="how" class="how-work">
-        <h2>Как работает наша химчистка</h2>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Заявка</h3>
-                <p>Вы оставляете заявку на сайте или в WhatsApp</p>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Приезд мастера</h3>
-                <p>Специалист приезжает в удобное время</p>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Чистка</h3>
-                <p>Проводим профессиональную химчистку</p>
-            </div>
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Оплата</h3>
-                <p>Вы принимаете работу и оплачиваете</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Отзывы -->
-    <section id="reviews" class="reviews">
-        <h2>Отзывы наших клиентов</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar">А</div>
-                    <div class="review-name">
-                        <h4>Айше К.</h4>
-                        <p>Кадыкёй</p>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p>Отличный сервис! Приехали вовремя, почистили диван. Пятна от кофе исчезли полностью. Диван как новый!</p>
-            </div>
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar">М</div>
-                    <div class="review-name">
-                        <h4>Мехмет К.</h4>
-                        <p>Бешикташ</p>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p>Заказывал химчистку авто. Салон просто сияет! Запах табака ушёл. Рекомендую!</p>
-            </div>
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar">Е</div>
-                    <div class="review-name">
-                        <h4>Елена С.</h4>
-                        <p>Шишли</p>
-                    </div>
-                </div>
-                <div class="review-stars">★★★★★</div>
-                <p>Чистили большой ковёр. Результат превзошёл ожидания. Вежливый мастер, всё объяснил. Спасибо!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Контакты -->
-    <section id="contacts" class="contacts">
-        <h2>Контакты</h2>
-        <div class="contact-info">
-            <p>📍 Работаем по всему Стамбулу</p>
-            <p>📞 <a href="tel:+905550644089">+90 555 064 40 89</a></p>
-            <p>💬 <a href="https://wa.me/905550644089" target="_blank">WhatsApp</a></p>
-            <p>⏰ Круглосуточно, без выходных</p>
-        </div>
-        <div class="contact-buttons">
-            <a href="tel:+905550644089" class="btn btn-primary">📞 Позвонить</a>
-            <a href="https://wa.me/905550644089" class="btn btn-whatsapp" target="_blank">💬 WhatsApp</a>
-        </div>
-    </section>
-
-    <!-- Подвал -->
-    <footer class="footer">
-        <p>© 2026 CleanPro Istanbul. Профессиональная химчистка мебели.</p>
-        <p style="margin-top: 10px;">Телефон: +90 555 064 40 89 | WhatsApp: +90 555 064 40 89</p>
-    </footer>
-
-    <!-- Плавающая кнопка WhatsApp -->
-    <a href="https://wa.me/905550644089" class="order-form-popup" target="_blank">
-        💬 Заказать химчистку
-    </a>
-</body>
-</html>
+    <div class="language-container">
+        <h1>✨ CleanPro Istanbul</h1>
+        <div class="city">📍 Профессиональная химчистка в Стамбуле</div>
+        
+        <p style="font-size: 18px; margin-bottom: 40px;">
+            Выездная химчи
