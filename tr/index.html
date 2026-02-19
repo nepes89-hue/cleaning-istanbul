@@ -78,6 +78,27 @@
             gap: 10px;
         }
 
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .glass-container {
             max-width: 500px;
             margin: 0 auto 30px;
@@ -184,30 +205,8 @@
             box-shadow: 0 10px 20px rgba(26, 188, 156, 0.3);
         }
 
-        .btn-whatsapp {
-            width: 100%;
-            padding: 15px;
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-whatsapp:hover {
-            background: #1da851;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
-        }
-
         .prices-section {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 50px auto;
             display: none;
         }
@@ -226,8 +225,9 @@
 
         .prices-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
+            margin-bottom: 40px;
         }
 
         .price-card {
@@ -260,27 +260,130 @@
             border-bottom: 1px dashed rgba(255,255,255,0.2);
         }
 
+        .price-row span {
+            flex: 1;
+        }
+
         .price-row strong {
             color: #e74c3c;
             font-size: 18px;
+            min-width: 80px;
+            text-align: right;
         }
 
-        .btn-order {
-            display: block;
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: #1abc9c;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 5px;
+            color: white;
+            padding: 5px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
             background: #3498db;
             color: white;
-            text-decoration: none;
-            padding: 12px;
-            border-radius: 30px;
-            margin-top: 20px;
-            text-align: center;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
         }
 
-        .btn-order:hover {
+        .add-to-cart-btn:hover {
             background: #2980b9;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+        }
+
+        .cart-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            color: white;
+        }
+
+        .cart-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-info {
+            flex: 2;
+        }
+
+        .cart-item-price {
+            flex: 1;
+            text-align: right;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .cart-item-remove {
+            color: #e74c3c;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+
+        .cart-total {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .cart-total span {
+            color: #e74c3c;
         }
 
         .features {
@@ -322,6 +425,7 @@
             margin-top: 20px;
             text-align: center;
             display: none;
+            color: white;
         }
 
         .success-message.visible {
@@ -336,6 +440,7 @@
             margin-top: 20px;
             text-align: center;
             display: none;
+            color: white;
         }
 
         .error-message.visible {
@@ -362,6 +467,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            color: white;
         }
     </style>
 </head>
@@ -379,7 +485,13 @@
             <a href="../en/" class="lang-btn">🇺🇸 EN</a>
         </div>
         
-        <a href="tel:+905550644089" class="header-phone">📞 +90 555 064 40 89</a>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <a href="tel:+905550644089" class="header-phone">📞 +90 555 064 40 89</a>
+        </div>
     </header>
 
     <!-- Форма регистрации/входа -->
@@ -437,27 +549,16 @@
                 <input type="password" class="form-control" id="regPasswordConfirm" placeholder="Şifrenizi tekrar girin">
             </div>
             
-            <div class="form-group">
-                <label>Mesajınız (isteğe bağlı)</label>
-                <textarea class="form-control" id="regMessage" rows="2" placeholder="Ne tür bir temizlik hizmetine ihtiyacınız var?"></textarea>
-            </div>
-            
             <button class="btn-primary" onclick="register()">
                 📝 Kayıt Ol
             </button>
         </div>
         
-        <p style="text-align: center; margin: 15px 0; color: rgba(255,255,255,0.7);">veya</p>
-        
-        <a href="https://wa.me/905550644089" class="btn-whatsapp" target="_blank">
-            💬 WhatsApp'tan Yaz
-        </a>
-        
         <div class="success-message" id="successMessage"></div>
         <div class="error-message" id="errorMessage"></div>
     </div>
 
-    <!-- Цены (скрыты до авторизации) -->
+    <!-- Цены и корзина (скрыты до авторизации) -->
     <section class="prices-section" id="pricesSection">
         <div class="welcome-header">
             <h2 id="welcomeMessage">🏷️ Temizlik Fiyatları</h2>
@@ -482,88 +583,146 @@
             </div>
         </div>
 
-        <div class="prices-grid">
+        <div class="prices-grid" id="pricesGrid">
             <!-- Kanepeler -->
-            <div class="price-card">
+            <div class="price-card" data-category="sofa">
                 <h3>🛋️ Kanepeler</h3>
                 <div class="price-row">
                     <span>2 kişilik kanepe</span>
                     <strong>800 TL</strong>
                 </div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('sofa2', -1)">-</button>
+                    <input type="number" class="quantity-input" id="sofa2-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('sofa2', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('2 kişilik kanepe', 800, 'sofa2')">
+                    🛒 Sepete Ekle
+                </button>
+            </div>
+
+            <div class="price-card" data-category="sofa">
                 <div class="price-row">
                     <span>3 kişilik kanepe</span>
                     <strong>1000 TL</strong>
                 </div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('sofa3', -1)">-</button>
+                    <input type="number" class="quantity-input" id="sofa3-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('sofa3', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('3 kişilik kanepe', 1000, 'sofa3')">
+                    🛒 Sepete Ekle
+                </button>
+            </div>
+
+            <div class="price-card" data-category="sofa">
                 <div class="price-row">
                     <span>Köşe kanepe</span>
                     <strong>1500 TL</strong>
                 </div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20kanepe%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('sofaCorner', -1)">-</button>
+                    <input type="number" class="quantity-input" id="sofaCorner-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('sofaCorner', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Köşe kanepe', 1500, 'sofaCorner')">
+                    🛒 Sepete Ekle
+                </button>
             </div>
 
             <!-- Koltuklar -->
-            <div class="price-card">
+            <div class="price-card" data-category="chair">
                 <h3>🪑 Koltuklar</h3>
                 <div class="price-row">
                     <span>Koltuk</span>
                     <strong>500 TL</strong>
                 </div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('chair1', -1)">-</button>
+                    <input type="number" class="quantity-input" id="chair1-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('chair1', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Koltuk', 500, 'chair1')">
+                    🛒 Sepete Ekle
+                </button>
+            </div>
+
+            <div class="price-card" data-category="chair">
                 <div class="price-row">
                     <span>Yumuşak sandalye</span>
                     <strong>300 TL</strong>
                 </div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20koltuk%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('chair2', -1)">-</button>
+                    <input type="number" class="quantity-input" id="chair2-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('chair2', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Yumuşak sandalye', 300, 'chair2')">
+                    🛒 Sepete Ekle
+                </button>
             </div>
 
             <!-- Yataklar -->
-            <div class="price-card">
+            <div class="price-card" data-category="mattress">
                 <h3>🛏️ Yataklar</h3>
                 <div class="price-row">
                     <span>Çocuk yatağı</span>
                     <strong>400 TL</strong>
                 </div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('mattress1', -1)">-</button>
+                    <input type="number" class="quantity-input" id="mattress1-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('mattress1', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Çocuk yatağı', 400, 'mattress1')">
+                    🛒 Sepete Ekle
+                </button>
+            </div>
+
+            <div class="price-card" data-category="mattress">
                 <div class="price-row">
                     <span>Tek kişilik yatak</span>
                     <strong>600 TL</strong>
                 </div>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('mattress2', -1)">-</button>
+                    <input type="number" class="quantity-input" id="mattress2-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('mattress2', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Tek kişilik yatak', 600, 'mattress2')">
+                    🛒 Sepete Ekle
+                </button>
+            </div>
+
+            <div class="price-card" data-category="mattress">
                 <div class="price-row">
                     <span>Çift kişilik yatak</span>
                     <strong>900 TL</strong>
                 </div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20yatak%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="updateQuantity('mattress3', -1)">-</button>
+                    <input type="number" class="quantity-input" id="mattress3-qty" value="0" min="0" max="10" readonly>
+                    <button class="quantity-btn" onclick="updateQuantity('mattress3', 1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" onclick="addToCart('Çift kişilik yatak', 900, 'mattress3')">
+                    🛒 Sepete Ekle
+                </button>
             </div>
+        </div>
 
-            <!-- Halılar -->
-            <div class="price-card">
-                <h3>🧶 Halılar</h3>
-                <div class="price-row">
-                    <span>Küçük halı (2m²)</span>
-                    <strong>300 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Orta halı (4m²)</span>
-                    <strong>500 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Büyük halı (m²)</span>
-                    <strong>150 TL/m²</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20halı%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+        <!-- Корзина -->
+        <div class="cart-section" id="cartSection" style="display: none;">
+            <h3>🛒 Sepetiniz</h3>
+            <div class="cart-items" id="cartItems">
+                <!-- Сюда будут добавляться товары -->
             </div>
-
-            <!-- Araç Temizliği -->
-            <div class="price-card">
-                <h3>🚗 Araç Temizliği</h3>
-                <div class="price-row">
-                    <span>Sedan araç</span>
-                    <strong>1200 TL</strong>
-                </div>
-                <div class="price-row">
-                    <span>Jeep/Minivan</span>
-                    <strong>1800 TL</strong>
-                </div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20araç%20iç%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
+            <div class="cart-total">
+                Toplam: <span id="cartTotal">0 TL</span>
             </div>
+            <button class="btn-primary" onclick="sendOrder()">
+                📱 Siparişi Tamamla
+            </button>
         </div>
     </section>
 
@@ -574,6 +733,9 @@
     </footer>
 
     <script>
+        // Корзина
+        let cart = [];
+
         // Переключение между вкладками
         function switchTab(tab) {
             if (tab === 'login') {
@@ -596,15 +758,12 @@
             const email = document.getElementById('regEmail').value.trim();
             const password = document.getElementById('regPassword').value;
             const passwordConfirm = document.getElementById('regPasswordConfirm').value;
-            const message = document.getElementById('regMessage').value.trim();
 
-            // Проверка обязательных полей
             if (!name || !phone || !password) {
                 showError('Lütfen ad, telefon ve şifre girin!');
                 return;
             }
 
-            // Проверка пароля
             if (password.length < 6) {
                 showError('Şifre en az 6 karakter olmalıdır!');
                 return;
@@ -615,7 +774,6 @@
                 return;
             }
 
-            // Проверка, существует ли уже пользователь
             const users = JSON.parse(localStorage.getItem('cleanpro_users') || '[]');
             const existingUser = users.find(u => u.phone === phone || u.email === email);
             
@@ -624,30 +782,21 @@
                 return;
             }
 
-            // Создаём нового пользователя
             const newUser = {
                 id: Date.now(),
                 name: name,
                 phone: phone,
                 email: email,
-                password: password, // В реальном проекте пароль должен хешироваться
-                registeredAt: new Date().toISOString(),
-                message: message
+                password: password,
+                registeredAt: new Date().toISOString()
             };
 
             users.push(newUser);
             localStorage.setItem('cleanpro_users', JSON.stringify(users));
-            
-            // Автоматически входим
             localStorage.setItem('cleanpro_current_user', JSON.stringify(newUser));
             
-            // Показываем цены
             showPrices(name);
-            
             showSuccess('Kayıt başarılı! Hoş geldiniz, ' + name);
-            
-            // Отправляем уведомление вам (опционально)
-            sendNotification(newUser);
         }
 
         // Вход
@@ -661,8 +810,6 @@
             }
 
             const users = JSON.parse(localStorage.getItem('cleanpro_users') || '[]');
-            
-            // Ищем пользователя по телефону или email
             const user = users.find(u => 
                 (u.phone === username || u.email === username) && u.password === password
             );
@@ -681,8 +828,8 @@
             localStorage.removeItem('cleanpro_current_user');
             document.getElementById('authForm').style.display = 'block';
             document.getElementById('pricesSection').classList.remove('visible');
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
+            cart = [];
+            updateCartDisplay();
         }
 
         // Показать цены
@@ -690,6 +837,134 @@
             document.getElementById('authForm').style.display = 'none';
             document.getElementById('pricesSection').classList.add('visible');
             document.getElementById('welcomeMessage').innerHTML = `👋 Hoş geldiniz, ${userName}!<br>🏷️ Temizlik Fiyatları`;
+        }
+
+        // Обновление количества
+        function updateQuantity(itemId, delta) {
+            const input = document.getElementById(itemId + '-qty');
+            if (input) {
+                let newVal = parseInt(input.value) + delta;
+                if (newVal < 0) newVal = 0;
+                if (newVal > 10) newVal = 10;
+                input.value = newVal;
+            }
+        }
+
+        // Добавление в корзину
+        function addToCart(name, price, itemId) {
+            const qtyInput = document.getElementById(itemId + '-qty');
+            const qty = parseInt(qtyInput.value);
+            
+            if (qty === 0) {
+                showError('Lütfen miktar seçin!');
+                return;
+            }
+
+            // Проверяем, есть ли уже такой товар в корзине
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.qty += qty;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    qty: qty
+                });
+            }
+
+            // Сбрасываем количество
+            qtyInput.value = 0;
+            
+            updateCartDisplay();
+            showSuccess(name + ' sepete eklendi!');
+        }
+
+        // Удаление из корзины
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        // Обновление отображения корзины
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartSection = document.getElementById('cartSection');
+            
+            let total = 0;
+            let itemsHtml = '';
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                itemsHtml += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <strong>${item.name}</strong><br>
+                            ${item.qty} adet x ${item.price} TL
+                        </div>
+                        <div class="cart-item-price">
+                            ${itemTotal} TL
+                        </div>
+                        <div class="cart-item-remove" onclick="removeFromCart(${index})">
+                            ✖
+                        </div>
+                    </div>
+                `;
+            });
+
+            if (cart.length === 0) {
+                itemsHtml = '<p style="text-align: center; opacity: 0.7;">Sepetiniz boş</p>';
+                cartSection.style.display = 'none';
+            } else {
+                cartSection.style.display = 'block';
+            }
+
+            cartItems.innerHTML = itemsHtml;
+            cartTotal.innerHTML = total + ' TL';
+            cartCount.innerHTML = cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        // Показать/скрыть корзину
+        function toggleCart() {
+            const cartSection = document.getElementById('cartSection');
+            if (cart.length > 0) {
+                cartSection.style.display = cartSection.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Отправка заказа
+        function sendOrder() {
+            if (cart.length === 0) {
+                showError('Sepetiniz boş!');
+                return;
+            }
+
+            const user = JSON.parse(localStorage.getItem('cleanpro_current_user'));
+            
+            let orderMessage = `📦 YENİ SİPARİŞ\n\n`;
+            orderMessage += `👤 Müşteri: ${user.name}\n`;
+            orderMessage += `📱 Telefon: ${user.phone}\n`;
+            orderMessage += `📧 Email: ${user.email || 'yok'}\n\n`;
+            orderMessage += `🛒 SİPARİŞ DETAYI:\n`;
+
+            let total = 0;
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                orderMessage += `${item.name}: ${item.qty} adet x ${item.price} TL = ${itemTotal} TL\n`;
+            });
+
+            orderMessage += `\n💰 TOPLAM: ${total} TL`;
+
+            const encodedMessage = encodeURIComponent(orderMessage);
+            window.open(`https://wa.me/905550644089?text=${encodedMessage}`, '_blank');
+            
+            // Очищаем корзину после отправки
+            cart = [];
+            updateCartDisplay();
         }
 
         // Показать успешное сообщение
@@ -712,17 +987,6 @@
             setTimeout(() => {
                 errorMsg.classList.remove('visible');
             }, 3000);
-        }
-
-        // Отправка уведомления вам (опционально)
-        function sendNotification(user) {
-            const message = `📝 YENİ KAYIT\n\n👤 İsim: ${user.name}\n📱 Telefon: ${user.phone}\n📧 Email: ${user.email || 'yok'}\n💬 Mesaj: ${user.message || 'yok'}`;
-            const encodedMessage = encodeURIComponent(message);
-            
-            // Раскомментируйте, чтобы получать уведомления
-            // window.open(`https://wa.me/905550644089?text=${encodedMessage}`, '_blank');
-            
-            console.log('📝 Yeni kayıt:', user);
         }
 
         // Проверка авторизации при загрузке
