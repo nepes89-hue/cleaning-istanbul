@@ -4,50 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CleanPro Istanbul | Profesyonel Temizlik Hizmetleri</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        body { background: #f5f5f5; }
-        
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
         .header {
-            background: #2c3e50;
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
             color: white;
-            padding: 15px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            padding: 15px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
+
         .logo h1 {
-            font-size: 24px;
             color: #1abc9c;
+            font-size: 28px;
         }
-        
+
         .logo p {
             font-size: 14px;
             color: #ecf0f1;
         }
-        
+
         .lang-switcher {
             display: flex;
             gap: 10px;
         }
-        
+
         .lang-btn {
             background: rgba(255,255,255,0.1);
             color: white;
@@ -55,107 +59,212 @@
             padding: 8px 15px;
             border-radius: 20px;
             font-weight: bold;
+            transition: 0.3s;
         }
-        
+
         .lang-btn.active {
             background: #1abc9c;
         }
-        
+
         .header-phone {
             background: #e74c3c;
             padding: 10px 20px;
             border-radius: 30px;
             color: white;
             text-decoration: none;
+            font-weight: bold;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200');
-            background-size: cover;
+
+        .glass-container {
+            max-width: 500px;
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
+        }
+
+        .glass-container h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
             text-align: center;
-            padding: 80px 20px;
         }
-        
-        .hero h1 { font-size: 42px; margin-bottom: 20px; }
-        .hero p { font-size: 18px; max-width: 800px; margin: 0 auto 30px; }
-        
-        .btn {
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
+
+        .glass-container p {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
             font-weight: bold;
-            display: inline-block;
-            margin: 0 10px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        
-        .btn-primary { background: #e74c3c; color: white; }
-        .btn-whatsapp { background: #25D366; color: white; }
-        
-        .advantages {
+
+        .tab-btn.active {
+            background: #1abc9c;
+            border-color: #1abc9c;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            font-size: 16px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1abc9c;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(26, 188, 156, 0.3);
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            padding: 15px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-whatsapp:hover {
+            background: #1da851;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .prices-section {
             max-width: 1200px;
             margin: 50px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            display: none;
         }
-        
-        .advantage-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+        .prices-section.visible {
+            display: block;
         }
-        
-        .prices {
-            background: white;
-            padding: 50px 20px;
-        }
-        
-        .prices h2 {
-            text-align: center;
+
+        .prices-section h2 {
+            color: white;
             font-size: 36px;
-            color: #2c3e50;
+            text-align: center;
             margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        
+
         .prices-grid {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
-        
+
         .price-card {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 25px;
-            border: 1px solid #eee;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            transition: 0.3s;
         }
-        
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
         .price-card h3 {
             font-size: 22px;
-            color: #2c3e50;
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px solid #e74c3c;
         }
-        
+
         .price-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 10px 0;
-            border-bottom: 1px dashed #ddd;
+            border-bottom: 1px dashed rgba(255,255,255,0.2);
         }
-        
-        .price-row strong { color: #e74c3c; font-size: 18px; }
-        
+
+        .price-row strong {
+            color: #e74c3c;
+            font-size: 18px;
+        }
+
         .btn-order {
             display: block;
             background: #3498db;
@@ -166,191 +275,464 @@
             margin-top: 20px;
             text-align: center;
             font-weight: bold;
+            transition: 0.3s;
         }
-        
-        .how-work {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 50px 20px;
+
+        .btn-order:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
         }
-        
-        .how-work h2 { text-align: center; font-size: 36px; margin-bottom: 40px; }
-        
-        .steps {
-            max-width: 1000px;
-            margin: 0 auto;
+
+        .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+            gap: 20px;
+            margin: 40px 0;
         }
-        
-        .step { text-align: center; }
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: #e74c3c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 20px;
-        }
-        
-        .contacts {
-            background: #2c3e50;
-            color: white;
-            padding: 50px 20px;
+
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 20px;
             text-align: center;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        
-        .contacts h2 { font-size: 36px; margin-bottom: 30px; }
-        .contact-info a { color: #1abc9c; text-decoration: none; font-size: 24px; }
-        
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
         .footer {
-            background: #1a2632;
-            color: #bdc3c7;
-            padding: 30px 20px;
             text-align: center;
-        }
-        
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
             color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            text-decoration: none;
+            padding: 30px;
+            background: rgba(44, 62, 80, 0.95);
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+
+        .success-message {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
+        .error-message {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .logout-btn {
+            background: rgba(231, 76, 60, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
             font-weight: bold;
-            z-index: 9999;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #e74c3c;
+        }
+
+        .welcome-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
+    <!-- Шапка -->
     <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <h1>✨ CleanPro Istanbul</h1>
-                <p>Profesyonel temizlik hizmetleri</p>
-            </div>
-            
-            <div class="lang-switcher">
-                <a href="../tr/" class="lang-btn active">🇹🇷 TR</a>
-                <a href="../ru/" class="lang-btn">🇷🇺 RU</a>
-                <a href="../en/" class="lang-btn">🇺🇸 EN</a>
-            </div>
-            
-            <a href="tel:+905550644089" class="header-phone">📞 +90 555 064 40 89</a>
+        <div class="logo">
+            <h1>✨ CleanPro Istanbul</h1>
+            <p>Profesyonel temizlik hizmetleri</p>
         </div>
+        
+        <div class="lang-switcher">
+            <a href="../tr/" class="lang-btn active">🇹🇷 TR</a>
+            <a href="../ru/" class="lang-btn">🇷🇺 RU</a>
+            <a href="../en/" class="lang-btn">🇺🇸 EN</a>
+        </div>
+        
+        <a href="tel:+905550644089" class="header-phone">📞 +90 555 064 40 89</a>
     </header>
 
-    <section class="hero">
-        <h1>Profesyonel Koltuk Yıkama Hizmeti</h1>
-        <p>İstanbul'un her yerinde profesyonel temizlik hizmeti. Kanepeler, koltuklar, halılar ve araç içi temizlik.</p>
-        <div>
-            <a href="#prices" class="btn btn-primary">Fiyatları Gör</a>
-            <a href="https://wa.me/905550644089" class="btn btn-whatsapp">💬 WhatsApp</a>
+    <!-- Форма регистрации/входа -->
+    <div class="glass-container" id="authForm">
+        <h2>Hoş Geldiniz! 👋</h2>
+        <p>Fiyatları görmek için giriş yapın veya kayıt olun</p>
+        
+        <!-- Вкладки -->
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('login')" id="loginTab">Giriş</button>
+            <button class="tab-btn" onclick="switchTab('register')" id="registerTab">Kayıt</button>
         </div>
-    </section>
 
-    <section class="advantages">
-        <div class="advantage-card">
-            <div style="font-size:40px;">⏱️</div>
-            <h3>Aynı Gün Hizmet</h3>
-            <p>Size uygun zamanda geliyoruz, 7/24 hizmet</p>
+        <!-- Форма входа -->
+        <div class="tab-content active" id="loginContent">
+            <div class="form-group">
+                <label>Telefon veya E-posta</label>
+                <input type="text" class="form-control" id="loginUsername" placeholder="05XX XXX XX XX veya email">
+            </div>
+            
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Şifreniz">
+            </div>
+            
+            <button class="btn-primary" onclick="login()">
+                🔑 Giriş Yap
+            </button>
         </div>
-        <div class="advantage-card">
-            <div style="font-size:40px;">💰</div>
-            <h3>Sabit Fiyat</h3>
-            <p>Fiyat teklifi değişmez, ek ücret yok</p>
-        </div>
-        <div class="advantage-card">
-            <div style="font-size:40px;">✅</div>
-            <h3>Kalite Garantisi</h3>
-            <p>%100 memnuniyet garantisi</p>
-        </div>
-        <div class="advantage-card">
-            <div style="font-size:40px;">🌍</div>
-            <h3>Tüm İstanbul</h3>
-            <p>Tüm ilçelerde hizmet veriyoruz</p>
-        </div>
-    </section>
 
-    <section id="prices" class="prices">
-        <h2>Temizlik Fiyatları</h2>
+        <!-- Форма регистрации -->
+        <div class="tab-content" id="registerContent">
+            <div class="form-group">
+                <label>Adınız Soyadınız</label>
+                <input type="text" class="form-control" id="regName" placeholder="Adınızı girin">
+            </div>
+            
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" class="form-control" id="regPhone" placeholder="05XX XXX XX XX">
+            </div>
+            
+            <div class="form-group">
+                <label>E-posta (isteğe bağlı)</label>
+                <input type="email" class="form-control" id="regEmail" placeholder="ornek@email.com">
+            </div>
+            
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" class="form-control" id="regPassword" placeholder="En az 6 karakter">
+            </div>
+            
+            <div class="form-group">
+                <label>Şifre Tekrar</label>
+                <input type="password" class="form-control" id="regPasswordConfirm" placeholder="Şifrenizi tekrar girin">
+            </div>
+            
+            <div class="form-group">
+                <label>Mesajınız (isteğe bağlı)</label>
+                <textarea class="form-control" id="regMessage" rows="2" placeholder="Ne tür bir temizlik hizmetine ihtiyacınız var?"></textarea>
+            </div>
+            
+            <button class="btn-primary" onclick="register()">
+                📝 Kayıt Ol
+            </button>
+        </div>
+        
+        <p style="text-align: center; margin: 15px 0; color: rgba(255,255,255,0.7);">veya</p>
+        
+        <a href="https://wa.me/905550644089" class="btn-whatsapp" target="_blank">
+            💬 WhatsApp'tan Yaz
+        </a>
+        
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="errorMessage"></div>
+    </div>
+
+    <!-- Цены (скрыты до авторизации) -->
+    <section class="prices-section" id="pricesSection">
+        <div class="welcome-header">
+            <h2 id="welcomeMessage">🏷️ Temizlik Fiyatları</h2>
+            <button class="logout-btn" onclick="logout()">🚪 Çıkış Yap</button>
+        </div>
+        
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">⏱️</div>
+                <h4>Aynı Gün Hizmet</h4>
+                <p>Size uygun zamanda geliyoruz</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💰</div>
+                <h4>Sabit Fiyat</h4>
+                <p>Fiyat teklifi değişmez</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✨</div>
+                <h4>Kalite Garantisi</h4>
+                <p>%100 memnuniyet garantisi</p>
+            </div>
+        </div>
+
         <div class="prices-grid">
             <!-- Kanepeler -->
             <div class="price-card">
                 <h3>🛋️ Kanepeler</h3>
-                <div class="price-row"><span>2 kişilik kanepe</span> <strong>800 TL</strong></div>
-                <div class="price-row"><span>3 kişilik kanepe</span> <strong>1000 TL</strong></div>
-                <div class="price-row"><span>Köşe kanepe</span> <strong>1500 TL</strong></div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20kanepe%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+                <div class="price-row">
+                    <span>2 kişilik kanepe</span>
+                    <strong>800 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>3 kişilik kanepe</span>
+                    <strong>1000 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Köşe kanepe</span>
+                    <strong>1500 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20kanepe%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
             </div>
 
             <!-- Koltuklar -->
             <div class="price-card">
                 <h3>🪑 Koltuklar</h3>
-                <div class="price-row"><span>Koltuk</span> <strong>500 TL</strong></div>
-                <div class="price-row"><span>Yumuşak sandalye</span> <strong>300 TL</strong></div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20koltuk%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+                <div class="price-row">
+                    <span>Koltuk</span>
+                    <strong>500 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Yumuşak sandalye</span>
+                    <strong>300 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20koltuk%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
             </div>
 
             <!-- Yataklar -->
             <div class="price-card">
                 <h3>🛏️ Yataklar</h3>
-                <div class="price-row"><span>Çocuk yatağı</span> <strong>400 TL</strong></div>
-                <div class="price-row"><span>Tek kişilik yatak</span> <strong>600 TL</strong></div>
-                <div class="price-row"><span>Çift kişilik yatak</span> <strong>900 TL</strong></div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20yatak%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+                <div class="price-row">
+                    <span>Çocuk yatağı</span>
+                    <strong>400 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Tek kişilik yatak</span>
+                    <strong>600 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Çift kişilik yatak</span>
+                    <strong>900 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20yatak%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
             </div>
 
             <!-- Halılar -->
             <div class="price-card">
                 <h3>🧶 Halılar</h3>
-                <div class="price-row"><span>Küçük halı (2m²)</span> <strong>300 TL</strong></div>
-                <div class="price-row"><span>Orta halı (4m²)</span> <strong>500 TL</strong></div>
-                <div class="price-row"><span>Büyük halı (m²)</span> <strong>150 TL/m²</strong></div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20halı%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+                <div class="price-row">
+                    <span>Küçük halı (2m²)</span>
+                    <strong>300 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Orta halı (4m²)</span>
+                    <strong>500 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Büyük halı (m²)</span>
+                    <strong>150 TL/m²</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20halı%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
             </div>
 
             <!-- Araç Temizliği -->
             <div class="price-card">
                 <h3>🚗 Araç Temizliği</h3>
-                <div class="price-row"><span>Sedan araç</span> <strong>1200 TL</strong></div>
-                <div class="price-row"><span>Jeep/Minivan</span> <strong>1800 TL</strong></div>
-                <a href="https://wa.me/905550644089?text=Merhaba,%20araç%20iç%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order">📱 Sipariş Ver</a>
+                <div class="price-row">
+                    <span>Sedan araç</span>
+                    <strong>1200 TL</strong>
+                </div>
+                <div class="price-row">
+                    <span>Jeep/Minivan</span>
+                    <strong>1800 TL</strong>
+                </div>
+                <a href="https://wa.me/905550644089?text=Merhaba,%20araç%20iç%20temizliği%20için%20sipariş%20vermek%20istiyorum" class="btn-order" target="_blank">📱 Sipariş Ver</a>
             </div>
         </div>
     </section>
 
-    <section class="how-work">
-        <h2>Nasıl Çalışıyoruz</h2>
-        <div class="steps">
-            <div class="step"><div class="step-number">1</div><h3>Talep</h3><p>WhatsApp'tan mesaj gönderin</p></div>
-            <div class="step"><div class="step-number">2</div><h3>Geliyoruz</h3><p>Uygun zamanda geliyoruz</p></div>
-            <div class="step"><div class="step-number">3</div><h3>Temizlik</h3><p>Profesyonel temizlik yapıyoruz</p></div>
-            <div class="step"><div class="step-number">4</div><h3>Ödeme</h3><p>Sonucu kontrol edip ödüyorsunuz</p></div>
-        </div>
-    </section>
-
-    <section class="contacts">
-        <h2>İletişim</h2>
-        <div class="contact-info">
-            <p>📍 Tüm İstanbul'da hizmet</p>
-            <p>📞 <a href="tel:+905550644089">+90 555 064 40 89</a></p>
-            <p>💬 <a href="https://wa.me/905550644089">WhatsApp</a></p>
-            <p>⏰ 7/24 Hizmet</p>
-        </div>
-    </section>
-
+    <!-- Подвал -->
     <footer class="footer">
         <p>© 2026 CleanPro Istanbul. Profesyonel temizlik hizmetleri.</p>
-        <p>Tel: +90 555 064 40 89 | WhatsApp: +90 555 064 40 89</p>
+        <p style="margin-top: 10px;">Tel: +90 555 064 40 89 | WhatsApp: +90 555 064 40 89</p>
     </footer>
 
-    <a href="https://wa.me/905550644089" class="whatsapp-float">💬 WhatsApp</a>
+    <script>
+        // Переключение между вкладками
+        function switchTab(tab) {
+            if (tab === 'login') {
+                document.getElementById('loginTab').classList.add('active');
+                document.getElementById('registerTab').classList.remove('active');
+                document.getElementById('loginContent').classList.add('active');
+                document.getElementById('registerContent').classList.remove('active');
+            } else {
+                document.getElementById('registerTab').classList.add('active');
+                document.getElementById('loginTab').classList.remove('active');
+                document.getElementById('registerContent').classList.add('active');
+                document.getElementById('loginContent').classList.remove('active');
+            }
+        }
+
+        // Регистрация
+        function register() {
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+            const message = document.getElementById('regMessage').value.trim();
+
+            // Проверка обязательных полей
+            if (!name || !phone || !password) {
+                showError('Lütfen ad, telefon ve şifre girin!');
+                return;
+            }
+
+            // Проверка пароля
+            if (password.length < 6) {
+                showError('Şifre en az 6 karakter olmalıdır!');
+                return;
+            }
+
+            if (password !== passwordConfirm) {
+                showError('Şifreler eşleşmiyor!');
+                return;
+            }
+
+            // Проверка, существует ли уже пользователь
+            const users = JSON.parse(localStorage.getItem('cleanpro_users') || '[]');
+            const existingUser = users.find(u => u.phone === phone || u.email === email);
+            
+            if (existingUser) {
+                showError('Bu telefon veya email zaten kayıtlı!');
+                return;
+            }
+
+            // Создаём нового пользователя
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                phone: phone,
+                email: email,
+                password: password, // В реальном проекте пароль должен хешироваться
+                registeredAt: new Date().toISOString(),
+                message: message
+            };
+
+            users.push(newUser);
+            localStorage.setItem('cleanpro_users', JSON.stringify(users));
+            
+            // Автоматически входим
+            localStorage.setItem('cleanpro_current_user', JSON.stringify(newUser));
+            
+            // Показываем цены
+            showPrices(name);
+            
+            showSuccess('Kayıt başarılı! Hoş geldiniz, ' + name);
+            
+            // Отправляем уведомление вам (опционально)
+            sendNotification(newUser);
+        }
+
+        // Вход
+        function login() {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showError('Lütfen kullanıcı adı ve şifre girin!');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('cleanpro_users') || '[]');
+            
+            // Ищем пользователя по телефону или email
+            const user = users.find(u => 
+                (u.phone === username || u.email === username) && u.password === password
+            );
+
+            if (user) {
+                localStorage.setItem('cleanpro_current_user', JSON.stringify(user));
+                showPrices(user.name);
+                showSuccess('Hoş geldiniz, ' + user.name);
+            } else {
+                showError('Geçersiz kullanıcı adı veya şifre!');
+            }
+        }
+
+        // Выход
+        function logout() {
+            localStorage.removeItem('cleanpro_current_user');
+            document.getElementById('authForm').style.display = 'block';
+            document.getElementById('pricesSection').classList.remove('visible');
+            document.getElementById('loginUsername').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
+
+        // Показать цены
+        function showPrices(userName) {
+            document.getElementById('authForm').style.display = 'none';
+            document.getElementById('pricesSection').classList.add('visible');
+            document.getElementById('welcomeMessage').innerHTML = `👋 Hoş geldiniz, ${userName}!<br>🏷️ Temizlik Fiyatları`;
+        }
+
+        // Показать успешное сообщение
+        function showSuccess(message) {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = '✅ ' + message;
+            successMsg.classList.add('visible');
+            
+            setTimeout(() => {
+                successMsg.classList.remove('visible');
+            }, 3000);
+        }
+
+        // Показать ошибку
+        function showError(message) {
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.textContent = '❌ ' + message;
+            errorMsg.classList.add('visible');
+            
+            setTimeout(() => {
+                errorMsg.classList.remove('visible');
+            }, 3000);
+        }
+
+        // Отправка уведомления вам (опционально)
+        function sendNotification(user) {
+            const message = `📝 YENİ KAYIT\n\n👤 İsim: ${user.name}\n📱 Telefon: ${user.phone}\n📧 Email: ${user.email || 'yok'}\n💬 Mesaj: ${user.message || 'yok'}`;
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Раскомментируйте, чтобы получать уведомления
+            // window.open(`https://wa.me/905550644089?text=${encodedMessage}`, '_blank');
+            
+            console.log('📝 Yeni kayıt:', user);
+        }
+
+        // Проверка авторизации при загрузке
+        window.onload = function() {
+            const currentUser = localStorage.getItem('cleanpro_current_user');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                showPrices(user.name);
+            }
+        };
+    </script>
 </body>
 </html>
