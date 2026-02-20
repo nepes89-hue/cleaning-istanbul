@@ -25,7 +25,6 @@
             padding: 20px;
         }
 
-        /* Контейнер с эффектом стекла */
         .glass-container {
             max-width: 1200px;
             width: 100%;
@@ -39,7 +38,6 @@
             color: white;
         }
 
-        /* Шапка с логотипом */
         .header {
             display: flex;
             justify-content: space-between;
@@ -69,7 +67,6 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* Основной контент */
         .main-content {
             text-align: center;
             margin-bottom: 60px;
@@ -88,7 +85,83 @@
             color: rgba(255,255,255,0.9);
         }
 
-        /* Сетка языков */
+        /* Форма регистрации */
+        .registration-form {
+            max-width: 500px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .registration-form h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 16px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .success-message {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
         .language-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -132,7 +205,6 @@
             opacity: 0.8;
         }
 
-        /* Преимущества */
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -163,7 +235,6 @@
             opacity: 0.8;
         }
 
-        /* Контакты */
         .contact-section {
             text-align: center;
             margin-top: 40px;
@@ -206,7 +277,6 @@
             opacity: 0.8;
         }
 
-        /* Адаптивность */
         @media (max-width: 768px) {
             .glass-container {
                 padding: 30px;
@@ -232,18 +302,10 @@
                 font-size: 24px;
             }
         }
-
-        /* Анимация для фона */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
     </style>
 </head>
 <body>
     <div class="glass-container">
-        <!-- Шапка -->
         <div class="header">
             <div class="logo">
                 <h1>✨ CleanPro Istanbul</h1>
@@ -254,31 +316,59 @@
             </div>
         </div>
 
-        <!-- Основной контент -->
         <div class="main-content">
             <h2>Ваша мебель заслуживает<br>профессионального ухода</h2>
             <p>
                 Выездная химчистка диванов, кресел, матрасов, ковров и автомобилей в Стамбуле. 
                 Используем профессиональное оборудование и безопасную химию.
             </p>
+
+            <!-- Форма регистрации (клиент её видит) -->
+            <div class="registration-form" id="registrationForm">
+                <h3>📝 Быстрая регистрация</h3>
+                
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" class="form-control" id="regName" placeholder="Введите имя">
+                </div>
+                
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" class="form-control" id="regPhone" placeholder="+90 555 XXX XX XX">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email (необязательно)</label>
+                    <input type="email" class="form-control" id="regEmail" placeholder="example@mail.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Какая услуга интересует?</label>
+                    <input type="text" class="form-control" id="regService" placeholder="Например: химчистка дивана">
+                </div>
+                
+                <button class="btn-register" onclick="registerUser()">
+                    🔐 Зарегистрироваться
+                </button>
+                
+                <div class="success-message" id="successMessage">
+                    ✅ Регистрация успешна! Теперь вам доступны цены.
+                </div>
+            </div>
             
-            <!-- Сетка языков -->
             <div class="language-grid">
-                <!-- Турецкий -->
                 <a href="tr/" class="language-card">
                     <div class="flag">🇹🇷</div>
                     <div class="language-name">Türkçe</div>
                     <div class="language-desc">Türkçe hizmet</div>
                 </a>
                 
-                <!-- Русский -->
                 <a href="ru/" class="language-card">
                     <div class="flag">🇷🇺</div>
                     <div class="language-name">Русский</div>
                     <div class="language-desc">Обслуживание на русском</div>
                 </a>
                 
-                <!-- Английский -->
                 <a href="en/" class="language-card">
                     <div class="flag">🇺🇸</div>
                     <div class="language-name">English</div>
@@ -286,7 +376,6 @@
                 </a>
             </div>
 
-            <!-- Преимущества -->
             <div class="features">
                 <div class="feature-item">
                     <div class="feature-icon">⏱️</div>
@@ -311,7 +400,6 @@
             </div>
         </div>
 
-        <!-- Контакты -->
         <div class="contact-section">
             <div class="phone-large">📞 +90 555 064 40 89</div>
             <a href="https://wa.me/905550644089" class="whatsapp-button" target="_blank">
@@ -323,22 +411,72 @@
         </div>
     </div>
 
-    <!-- Добавляем микроданные для SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "CleanPro Istanbul",
-        "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952",
-        "telephone": "+905550644089",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Istanbul",
-            "addressCountry": "TR"
-        },
-        "openingHours": "Mo-Su 00:00-24:00",
-        "priceRange": "$$"
-    }
+    <!-- Скрытый iframe для отправки WhatsApp без открытия у клиента -->
+    <iframe id="hiddenWhatsApp" style="display: none;"></iframe>
+
+    <script>
+        function registerUser() {
+            // Получаем данные из формы
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const service = document.getElementById('regService').value.trim();
+
+            // Проверяем обязательные поля
+            if (!name || !phone) {
+                alert('Пожалуйста, заполните имя и телефон!');
+                return;
+            }
+
+            // Формируем сообщение для вас (администратора)
+            const message = `📝 НОВАЯ РЕГИСТРАЦИЯ\n\n` +
+                           `👤 Имя: ${name}\n` +
+                           `📱 Телефон: ${phone}\n` +
+                           `📧 Email: ${email || 'не указан'}\n` +
+                           `🛠 Услуга: ${service || 'не указана'}\n` +
+                           `⏰ Время: ${new Date().toLocaleString('ru-RU')}\n` +
+                           `🌐 Язык: Русский`;
+
+            // Кодируем сообщение для URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Отправляем в WhatsApp через скрытый iframe (клиент НЕ видит)
+            const iframe = document.getElementById('hiddenWhatsApp');
+            iframe.src = `https://wa.me/905550644089?text=${encodedMessage}`;
+
+            // Сохраняем данные в localStorage (чтобы запомнить регистрацию)
+            localStorage.setItem('userRegistered', 'true');
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userPhone', phone);
+
+            // Показываем клиенту сообщение об успехе (НО без информации о WhatsApp)
+            document.getElementById('registrationForm').style.display = 'none';
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            // Через 3 секунды скрываем сообщение и показываем форму снова
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+                document.getElementById('registrationForm').style.display = 'block';
+                // Очищаем форму
+                document.getElementById('regName').value = '';
+                document.getElementById('regPhone').value = '';
+                document.getElementById('regEmail').value = '';
+                document.getElementById('regService').value = '';
+            }, 3000);
+
+            // Для отладки в консоли (вы это видите, клиент нет)
+            console.log('✅ Новая регистрация:', { name, phone, email, service });
+        }
+
+        // Проверяем, регистрировался ли пользователь ранее
+        window.onload = function() {
+            if (localStorage.getItem('userRegistered') === 'true') {
+                const name = localStorage.getItem('userName');
+                // Можно показать приветственное сообщение
+                console.log(`👋 С возвращением, ${name}!`);
+            }
+        }
     </script>
 </body>
 </html>
