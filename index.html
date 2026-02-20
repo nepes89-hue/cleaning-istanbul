@@ -17,7 +17,7 @@
             color: #333;
         }
 
-        /* Шапка как у Домовёнка */
+        /* Шапка */
         .header {
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -46,20 +46,110 @@
             font-size: 12px;
         }
 
+        /* Навигационное меню */
         .nav-menu {
             display: flex;
             gap: 25px;
+            align-items: center;
         }
 
-        .nav-menu a {
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
             color: #2c3e50;
             text-decoration: none;
             font-weight: 500;
             font-size: 14px;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
         }
 
-        .nav-menu a:hover {
+        .nav-link:hover {
             color: #1abc9c;
+        }
+
+        .nav-link.active {
+            color: #1abc9c;
+        }
+
+        /* Выпадающее меню */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 15px 0;
+            min-width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9fa;
+        }
+
+        .dropdown-item .icon {
+            width: 24px;
+            height: 24px;
+            background: #1abc9c;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .dropdown-item .content {
+            flex: 1;
+        }
+
+        .dropdown-item .title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .dropdown-item .desc {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .dropdown-item .price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #ecf0f1;
+            margin: 10px 0;
         }
 
         .header-phone {
@@ -147,7 +237,7 @@
             font-weight: bold;
         }
 
-        /* Правая колонка - форма как у Домовёнка */
+        /* Форма заказа */
         .order-form {
             background: white;
             padding: 30px;
@@ -328,6 +418,20 @@
                 justify-content: center;
             }
             
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                padding: 10px 0;
+                display: none;
+            }
+            
+            .nav-item:hover .dropdown {
+                display: block;
+            }
+            
             .content-wrapper {
                 grid-template-columns: 1fr;
             }
@@ -344,7 +448,7 @@
     </style>
 </head>
 <body>
-    <!-- Шапка как у Домовёнка -->
+    <!-- Шапка -->
     <header class="header">
         <div class="header-container">
             <div class="logo">
@@ -353,13 +457,70 @@
             </div>
             
             <nav class="nav-menu">
-                <a href="#">Temizlik</a>
-                <a href="#">Pencereler</a>
-                <a href="#">Koltuk Yıkama</a>
-                <a href="#">Şirketler</a>
-                <a href="#">Klima</a>
-                <a href="#">Fırsatlar</a>
-                <a href="#">Daha fazla</a>
+                <!-- Temizlik с выпадающим меню -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link">Temizlik ▼</a>
+                    <div class="dropdown">
+                        <!-- Destekleyici -->
+                        <div class="dropdown-item" onclick="selectService('Destekleyici Temizlik')">
+                            <div class="icon">🧹</div>
+                            <div class="content">
+                                <div class="title">Destekleyici Temizlik</div>
+                                <div class="desc">Günlük rutin temizlik</div>
+                            </div>
+                            <div class="price">650 TL</div>
+                        </div>
+                        
+                        <!-- Destekleyici Plus -->
+                        <div class="dropdown-item" onclick="selectService('Destekleyici Plus Temizlik')">
+                            <div class="icon">✨</div>
+                            <div class="content">
+                                <div class="title">Destekleyici Plus</div>
+                                <div class="desc">Detaylı temizlik + hijyen</div>
+                            </div>
+                            <div class="price">950 TL</div>
+                        </div>
+                        
+                        <!-- Genel Temizlik -->
+                        <div class="dropdown-item" onclick="selectService('Genel Temizlik')">
+                            <div class="icon">🏠</div>
+                            <div class="content">
+                                <div class="title">Genel Temizlik</div>
+                                <div class="desc">Tüm evin kapsamlı temizliği</div>
+                            </div>
+                            <div class="price">1200 TL</div>
+                        </div>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <!-- Tadilattan Sonra -->
+                        <div class="dropdown-item" onclick="selectService('Tadilattan Sonra Temizlik')">
+                            <div class="icon">🔨</div>
+                            <div class="content">
+                                <div class="title">Tadilattan Sonra</div>
+                                <div class="desc">İnşaat sonrası temizlik</div>
+                            </div>
+                            <div class="price">1500 TL</div>
+                        </div>
+                        
+                        <!-- Ütüleme -->
+                        <div class="dropdown-item" onclick="selectService('Ütüleme Hizmeti')">
+                            <div class="icon">👕</div>
+                            <div class="content">
+                                <div class="title">Ütüleme</div>
+                                <div class="desc">Çamaşır katlama ve ütü</div>
+                            </div>
+                            <div class="price">350 TL</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#" class="nav-link">Pencereler</a>
+                <a href="#" class="nav-link">Koltuk Yıkama</a>
+                <a href="#" class="nav-link">Şirketler</a>
+                <a href="#" class="nav-link">Klima</a>
+                <a href="#" class="nav-link">Fırsatlar</a>
+                <a href="#" class="nav-link">Daha fazla</a>
             </nav>
             
             <a href="tel:+905550644089" class="header-phone">📞 +90 555 064 40 89</a>
@@ -368,23 +529,23 @@
 
     <!-- Хлебные крошки -->
     <div class="breadcrumb">
-        <a href="#">Ana Sayfa</a> → <span>Koltuk Yıkama</span>
+        <a href="#">Ana Sayfa</a> → <span id="selectedService">Koltuk Yıkama</span>
     </div>
 
     <!-- Герой-секция -->
     <section class="hero">
-        <h1>Evde koltuk yıkama hizmeti, size uygun zamanda</h1>
-        <p>CleanPro Istanbul, sadece profesyonel ekipman kullanarak evde koltuk yıkama hizmeti sunar.</p>
+        <h1 id="heroTitle">Evde koltuk yıkama hizmeti, size uygun zamanda</h1>
+        <p id="heroText">CleanPro Istanbul, sadece profesyonel ekipman kullanarak evde temizlik hizmeti sunar.</p>
     </section>
 
     <!-- Основной контент с формой -->
     <div class="content-wrapper">
         <!-- Левая колонка - информация -->
         <div class="info-section">
-            <h2>Neden profesyonel temizlik?</h2>
-            <p>Evde koltuk yıkama işlemi, özel ekipman ve profesyonel temizlik maddeleri gerektirir. CleanPro Istanbul olarak, en kaliteli hizmeti sunuyoruz.</p>
+            <h2 id="infoTitle">Neden profesyonel temizlik?</h2>
+            <p id="infoText">Evde temizlik işlemi, özel ekipman ve profesyonel temizlik maddeleri gerektirir. CleanPro Istanbul olarak, en kaliteli hizmeti sunuyoruz.</p>
             
-            <ul class="features-list">
+            <ul class="features-list" id="featuresList">
                 <li>7/24 hizmet</li>
                 <li>Profesyonel ekipman</li>
                 <li>Garantili sonuç</li>
@@ -393,11 +554,16 @@
             </ul>
         </div>
 
-        <!-- Правая колонка - форма как у Домовёнка -->
+        <!-- Правая колонка - форма -->
         <div class="order-form">
-            <h3>Koltuk yıkama siparişi</h3>
+            <h3 id="formTitle">Temizlik siparişi</h3>
             
             <form id="orderForm">
+                <div class="form-group">
+                    <label>Seçilen Hizmet</label>
+                    <input type="text" class="form-control" id="selectedServiceInput" value="Koltuk Yıkama" readonly>
+                </div>
+            
                 <div class="form-group">
                     <label>Adınız</label>
                     <input type="text" class="form-control" id="name" placeholder="Adınızı girin" required>
@@ -435,7 +601,6 @@
             </div>
         </div>
         <div class="app-qr">
-            <!-- Здесь будет QR-код -->
             <div style="width:150px; height:150px; background:white; margin:0 auto; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#2c3e50;">
                 QR
             </div>
@@ -472,9 +637,72 @@
     </footer>
 
     <script>
+        function selectService(service) {
+            // Обновляем отображаемую услугу
+            document.getElementById('selectedService').textContent = service;
+            document.getElementById('selectedServiceInput').value = service;
+            
+            // Обновляем заголовки в зависимости от выбранной услуги
+            const heroTitle = document.getElementById('heroTitle');
+            const heroText = document.getElementById('heroText');
+            const infoTitle = document.getElementById('infoTitle');
+            const infoText = document.getElementById('infoText');
+            const formTitle = document.getElementById('formTitle');
+            
+            switch(service) {
+                case 'Destekleyici Temizlik':
+                    heroTitle.textContent = 'Destekleyici temizlik hizmeti';
+                    heroText.textContent = 'Günlük rutin temizlik, evinizin düzenli kalmasını sağlar.';
+                    infoTitle.textContent = 'Destekleyici temizlik nedir?';
+                    infoText.textContent = 'Haftalık veya aylık düzenli temizlik hizmeti. Eviniz her zaman temiz ve düzenli kalır.';
+                    formTitle.textContent = 'Destekleyici temizlik siparişi';
+                    break;
+                    
+                case 'Destekleyici Plus':
+                    heroTitle.textContent = 'Destekleyici Plus temizlik hizmeti';
+                    heroText.textContent = 'Detaylı temizlik ve hijyen uygulamaları.';
+                    infoTitle.textContent = 'Destekleyici Plus nedir?';
+                    infoText.textContent = 'Derinlemesine temizlik, dezenfeksiyon ve hijyen uygulamaları içerir.';
+                    formTitle.textContent = 'Destekleyici Plus siparişi';
+                    break;
+                    
+                case 'Genel Temizlik':
+                    heroTitle.textContent = 'Genel temizlik hizmeti';
+                    heroText.textContent = 'Tüm evin kapsamlı temizliği.';
+                    infoTitle.textContent = 'Genel temizlik nedir?';
+                    infoText.textContent = 'Tüm odaların, mutfak ve banyoların detaylı temizliği.';
+                    formTitle.textContent = 'Genel temizlik siparişi';
+                    break;
+                    
+                case 'Tadilattan Sonra Temizlik':
+                    heroTitle.textContent = 'Tadilat sonrası temizlik hizmeti';
+                    heroText.textContent = 'İnşaat ve tadilat sonrası profesyonel temizlik.';
+                    infoTitle.textContent = 'Tadilat sonrası temizlik nedir?';
+                    infoText.textContent = 'Toz, inşaat kalıntıları ve kirlerin profesyonelce temizlenmesi.';
+                    formTitle.textContent = 'Tadilat sonrası temizlik siparişi';
+                    break;
+                    
+                case 'Ütüleme Hizmeti':
+                    heroTitle.textContent = 'Ütüleme hizmeti';
+                    heroText.textContent = 'Çamaşır katlama ve profesyonel ütü hizmeti.';
+                    infoTitle.textContent = 'Ütüleme hizmeti nedir?';
+                    infoText.textContent = 'Çamaşırlarınızın yıkanması, kurutulması, katlanması ve ütülenmesi.';
+                    formTitle.textContent = 'Ütüleme hizmeti siparişi';
+                    break;
+                    
+                default:
+                    heroTitle.textContent = 'Evde koltuk yıkama hizmeti, size uygun zamanda';
+                    heroText.textContent = 'CleanPro Istanbul, sadece profesyonel ekipman kullanarak evde temizlik hizmeti sunar.';
+                    infoTitle.textContent = 'Neden profesyonel temizlik?';
+                    infoText.textContent = 'Evde temizlik işlemi, özel ekipman ve profesyonel temizlik maddeleri gerektirir.';
+                    formTitle.textContent = 'Temizlik siparişi';
+            }
+        }
+
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const service = document.getElementById('selectedServiceInput').value;
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const agreement = document.getElementById('agreement').checked;
@@ -490,13 +718,14 @@
                 return;
             }
 
-            const message = `📦 YENİ SİPARİŞ\n\n👤 İsim: ${name}\n📱 Telefon: ${phone}`;
+            const message = `📦 YENİ SİPARİŞ\n\n🛠 Hizmet: ${service}\n👤 İsim: ${name}\n📱 Telefon: ${phone}`;
             const encodedMessage = encodeURIComponent(message);
             
             window.open(`https://wa.me/905550644089?text=${encodedMessage}`, '_blank');
             
             alert('Siparişiniz alındı! WhatsApp açılacak.');
             this.reset();
+            document.getElementById('selectedServiceInput').value = service; // Seçili hizmeti koru
         });
     </script>
 </body>
