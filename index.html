@@ -85,7 +85,6 @@
             color: rgba(255,255,255,0.9);
         }
 
-        /* Форма регистрации */
         .registration-form {
             max-width: 500px;
             margin: 40px auto;
@@ -323,7 +322,6 @@
                 Используем профессиональное оборудование и безопасную химию.
             </p>
 
-            <!-- Форма регистрации -->
             <div class="registration-form" id="registrationForm">
                 <h3>📝 Быстрая регистрация</h3>
                 
@@ -412,30 +410,23 @@
     </div>
 
     <script>
-        // НОВЫЙ ПРАВИЛЬНЫЙ ТОКЕН (последний от BotFather)
+        // ВАШ ТОКЕН TELEGRAM БОТА
         const BOT_TOKEN = '8318611984:AAHKHj4rnPhOo0StUg6906S9YM1MQbwBugQ';
         
-        // ВАШ CHAT ID (из userinfobot)
+        // ВАШ CHAT ID
         const CHAT_ID = '994920587';
 
         async function registerUser() {
-            // Получаем данные из формы
             const name = document.getElementById('regName').value.trim();
             const phone = document.getElementById('regPhone').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const service = document.getElementById('regService').value.trim();
 
-            // Проверяем обязательные поля
             if (!name || !phone) {
                 alert('Пожалуйста, заполните имя и телефон!');
                 return;
             }
 
-            // Сохраняем в localStorage
-            localStorage.setItem('userRegistered', 'true');
-            localStorage.setItem('userName', name);
-
-            // Формируем сообщение для Telegram
             const message = `📝 НОВАЯ РЕГИСТРАЦИЯ\n\n` +
                            `👤 Имя: ${name}\n` +
                            `📱 Телефон: ${phone}\n` +
@@ -444,7 +435,6 @@
                            `⏰ Время: ${new Date().toLocaleString('ru-RU')}`;
 
             try {
-                // Отправляем в Telegram
                 const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: {
@@ -452,46 +442,33 @@
                     },
                     body: JSON.stringify({
                         chat_id: CHAT_ID,
-                        text: message,
-                        parse_mode: 'HTML'
+                        text: message
                     })
                 });
 
                 const data = await response.json();
                 
                 if (data.ok) {
-                    console.log('✅ Уведомление отправлено в Telegram');
-                    // Небольшое уведомление для админа (только в консоль)
+                    console.log('✅ Уведомление отправлено');
                 } else {
-                    console.error('❌ Ошибка Telegram:', data);
+                    console.error('❌ Ошибка:', data);
                 }
             } catch (error) {
-                console.error('❌ Ошибка отправки:', error);
+                console.error('❌ Ошибка:', error);
             }
 
-            // Показываем клиенту сообщение об успехе (без информации о Telegram)
             document.getElementById('registrationForm').style.display = 'none';
             const successMsg = document.getElementById('successMessage');
             successMsg.style.display = 'block';
             
-            // Через 2 секунды возвращаем форму
             setTimeout(() => {
                 successMsg.style.display = 'none';
                 document.getElementById('registrationForm').style.display = 'block';
-                // Очищаем форму
                 document.getElementById('regName').value = '';
                 document.getElementById('regPhone').value = '';
                 document.getElementById('regEmail').value = '';
                 document.getElementById('regService').value = '';
             }, 2000);
-        }
-
-        // При загрузке страницы
-        window.onload = function() {
-            if (localStorage.getItem('userRegistered') === 'true') {
-                const name = localStorage.getItem('userName');
-                console.log(`👋 С возвращением, ${name}!`);
-            }
         }
     </script>
 </body>
