@@ -412,8 +412,8 @@
     </div>
 
     <script>
-        // ВАШ ПРАВИЛЬНЫЙ ТОКЕН TELEGRAM БОТА (из BotFather)
-        const BOT_TOKEN = '8474224967:AAFK60wNOhDot49J106WSzG7ujp2zAZe6y8';
+        // НОВЫЙ ПРАВИЛЬНЫЙ ТОКЕН (последний от BotFather)
+        const BOT_TOKEN = '8318611984:AAHKHj4rnPhOo0StUg6906S9YM1MQbwBugQ';
         
         // ВАШ CHAT ID (из userinfobot)
         const CHAT_ID = '994920587';
@@ -461,6 +461,7 @@
                 
                 if (data.ok) {
                     console.log('✅ Уведомление отправлено в Telegram');
+                    // Небольшое уведомление для админа (только в консоль)
                 } else {
                     console.error('❌ Ошибка Telegram:', data);
                 }
@@ -468,7 +469,7 @@
                 console.error('❌ Ошибка отправки:', error);
             }
 
-            // Показываем клиенту сообщение об успехе
+            // Показываем клиенту сообщение об успехе (без информации о Telegram)
             document.getElementById('registrationForm').style.display = 'none';
             const successMsg = document.getElementById('successMessage');
             successMsg.style.display = 'block';
